@@ -43,7 +43,8 @@ __screenshots__/
 Thumbs.db
 
 # Environments
-# src/app/environments
+src/app/environments
+
 # Firebase
 .firebase
 *-debug.log
