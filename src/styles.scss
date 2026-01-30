@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Bricolage_Grotesque';
+  src: url(../public/assets/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont.ttf);
+  font-style: normal;
+}
+
+// Typische Breakpoints für Responsive Design:
+// $breakpoint-xs:  0px;      // Extra Small (Mobile)
+// $breakpoint-sm:  576px;    // Small (Portrait Tablets)
+// $breakpoint-md:  768px;    // Medium (Landscape Tablets)
+// $breakpoint-lg:  992px;    // Large (Desktops)
+// $breakpoint-xl: 1200px;    // Extra Large (Large Desktops)
+// $breakpoint-xxl: 1400px;   // Extra Extra Large
+
+// Beispiel für Media Queries:
+// @media (max-width: 576px) { ... }   // xs
+// @media (max-width: 768px) { ... }   // sm
+// @media (max-width: 992px) { ... }   // md
+// @media (max-width: 1200px) { ... }  // lg
+// @media (max-width: 1400px) { ... }  // xl
+
+:root {
+  --bg-color: #fff;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Bricolage_Grotesque';
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1 {
+}
+
+h2 {
+}
+
+h3 {
+}
+
+p {
+}
+
+a {
+}
