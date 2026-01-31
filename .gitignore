@@ -42,9 +42,10 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
-# Environments
-# src/app/environments
 # Firebase
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# Environments
+src/app/environments

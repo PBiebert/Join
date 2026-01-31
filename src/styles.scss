@@ -1,32 +1,68 @@
 @font-face {
-  font-family: 'Bricolage_Grotesque';
-  src: url(../public/assets/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont.ttf);
+  font-family: 'Inter';
+  src: url(../public/assets/fonts/inter/Inter-VariableFont_opsz\,wght.ttf);
   font-style: normal;
 }
 
-// Typische Breakpoints für Responsive Design:
-// $breakpoint-xs:  0px;      // Extra Small (Mobile)
-// $breakpoint-sm:  576px;    // Small (Portrait Tablets)
-// $breakpoint-md:  768px;    // Medium (Landscape Tablets)
-// $breakpoint-lg:  992px;    // Large (Desktops)
-// $breakpoint-xl: 1200px;    // Extra Large (Large Desktops)
-// $breakpoint-xxl: 1400px;   // Extra Extra Large
+@font-face {
+  font-family: 'Inter-Italic';
+  src: url(../public/assets/fonts/inter/Inter-Italic-VariableFont_opsz\,wght.ttf);
+  font-style: italic;
+}
 
 // Beispiel für Media Queries:
-// @media (max-width: 576px) { ... }   // xs
-// @media (max-width: 768px) { ... }   // sm
-// @media (max-width: 992px) { ... }   // md
-// @media (max-width: 1200px) { ... }  // lg
-// @media (max-width: 1400px) { ... }  // xl
+// @media (max-width: var(--breakpoint-xs)) { ... }
+// @media (max-width: var(--breakpoint-sm)) { ... }
+// @media (max-width: var(--breakpoint-md)) { ... }
+// @media (max-width: var(--breakpoint-lg)) { ... }
+// @media (max-width: var(--breakpoint-xl)) { ... }
+// @media (max-width: var(--breakpoint-xll)) { ... }
 
 :root {
-  --bg-color: #fff;
+  /* Fonts */
+  --color-font-bright: #fff;
+  --color-font-dark: #000;
+
+  /* Basis Color */
+  --color-dark-blue: #091931;
+  --color-medium-blue: #2a3647;
+  --color-light-blue: #29abe2;
+  --color-light-grey: #d1d1d1;
+  --color-error: #e60026;
+
+  --bg-icon-01: #ff7a00;
+  --bg-icon-02: #ff5eb3;
+  --bg-icon-03: #6e52ff;
+  --bg-icon-04: #9327ff;
+  --bg-icon-05: #00bee8;
+  --bg-icon-06: #1fd7c1;
+  --bg-icon-07: #ff745e;
+  --bg-icon-08: #ffa35e;
+  --bg-icon-09: #fc71ff;
+  --bg-icon-10: #ffc701;
+  --bg-icon-11: #0038ff;
+  --bg-icon-12: #c3ff2b;
+  --bg-icon-13: #ffe62b;
+  --bg-icon-14: #ff4646;
+  --bg-icon-15: #ffbb2b;
+
+  /* Breakpoint */
+  --breakpoint-xs: 0px; // Extra Small (Mobile)
+  --breakpoint-sm: 576px; // Small (Portrait Tablets)
+  --breakpoint-md: 768px; // Medium (Landscape Tablets)
+  --breakpoint-lg: 992px; // Large (Desktops)
+  --breakpoint-xl: 1200px; // Extra Large (Large Desktops)
+  --breakpoint-xxl: 1400px; // Extra Extra Large
+
+  /* Breakpoint */
+  --transition-fast: all 125ms ease-in-out;
+  --transition-slow: all 250ms ease-in-out;
 }
 
 * {
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Bricolage_Grotesque';
+  font-family: 'Inter';
 }
 
 html {
@@ -34,16 +70,85 @@ html {
 }
 
 h1 {
+  font-size: 4rem; //64px
 }
 
 h2 {
+  font-size: 3.5rem; //56px
 }
 
 h3 {
+  font-size: 3rem; //48px
 }
 
 p {
+  font-size: 1.25rem; //20px
 }
 
 a {
+  display: inline-block;
+  font-size: 1rem; //16px
+  text-decoration: none;
+  color: var(--color-font-dark);
+  transition: var(--transition-fast);
+
+  &:hover {
+    color: var(--color-light-blue);
+  }
+}
+
+ul {
+  padding: 0;
+  li {
+    list-style: none;
+  }
+}
+
+.btn-primary {
+  background: var(--color-medium-blue);
+  color: var(--color-font-bright);
+  border: 1px solid var(--color-medium-blue);
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  transition: var(--transition-fast);
+
+  &:hover {
+    color: var(--color-font-bright);
+    background: var(--color-light-blue);
+    border-color: var(--color-light-blue);
+  }
+
+  &:active {
+    background: var(--color-dark-blue);
+    border-color: var(--color-dark-blue);
+  }
+}
+
+.btn-outline {
+  background-color: #fff;
+  color: var(--color-medium-blue);
+  border: 1px solid var(--color-medium-blue);
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  transition: var(--transition-fast);
+
+  &:hover {
+    border: 2px solid var(--color-light-blue);
+    color: var(--color-light-blue);
+  }
+
+  &:active {
+    border-color: var(--color-dark-blue);
+    color: var(--color-dark-blue);
+  }
+}
+
+.test {
+  margin: 2rem;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
