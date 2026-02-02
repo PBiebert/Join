@@ -55,7 +55,7 @@ export class Nav {
     { icon: 'summary', label: 'Summary', route: '/summary' },
     { icon: 'add-task', label: 'Add Task', route: '/add-task' },
     { icon: 'board', label: 'Board', route: '/board' },
-    { icon: 'contacts', label: 'Contacts', route: '/' }
+    { icon: 'contacts', label: 'Contacts', route: '/contacts' }
   ];
 
   /**
