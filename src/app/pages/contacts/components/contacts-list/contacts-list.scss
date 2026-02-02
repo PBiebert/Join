@@ -1,6 +1,190 @@
 :host {
-  display: flex;
   height: 100%;
   width: 100%;
-  background-color: lightcoral;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 2rem;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.5rem;
+  width: 100%;
+  font-weight: bold;
+  margin-bottom: 1rem;
+
+  span {
+    margin-left: 0.25rem;
+
+    svg {
+      height: 20px;
+      aspect-ratio: 1/1;
+    }
+  }
+}
+
+.contact-list {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.contact-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .head-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 1rem;
+  }
+
+  .underline {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-light-grey);
+    margin: 0.25rem 0;
+  }
+}
+
+.single-contact {
+  display: flex;
+  padding: 1rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+
+  &:hover {
+    background: #f9f9f9;
+    background: linear-gradient(180deg, rgba(249, 249, 249, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  }
+
+  &:active {
+    color: var(--color-font-bright);
+    background: var(--color-medium-blue);
+
+    .icon {
+      border: 2px solid var(--color-font-bright);
+    }
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-font-bright);
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 1rem;
+  }
+
+  .data {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 0;
+    overflow: hidden;
+
+    a {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.email {
+  color: var(--color-light-blue);
+}
+
+.icon-1 {
+  background-color: var(--bg-icon-1);
+  border: 2px solid var(--bg-icon-1);
+}
+
+.icon-2 {
+  background-color: var(--bg-icon-2);
+  border: 2px solid var(--bg-icon-2);
+}
+
+.icon-3 {
+  background-color: var(--bg-icon-3);
+  border: 2px solid var(--bg-icon-3);
+}
+
+.icon-4 {
+  background-color: var(--bg-icon-4);
+  border: 2px solid var(--bg-icon-4);
+}
+
+.icon-5 {
+  background-color: var(--bg-icon-5);
+  border: 2px solid var(--bg-icon-5);
+}
+
+.icon-6 {
+  background-color: var(--bg-icon-6);
+  border: 2px solid var(--bg-icon-6);
+}
+
+.icon-7 {
+  background-color: var(--bg-icon-7);
+  border: 2px solid var(--bg-icon-7);
+}
+
+.icon-8 {
+  background-color: var(--bg-icon-8);
+  border: 2px solid var(--bg-icon-8);
+}
+
+.icon-9 {
+  background-color: var(--bg-icon-9);
+  border: 2px solid var(--bg-icon-9);
+}
+
+.icon-10 {
+  background-color: var(--bg-icon-10);
+  border: 2px solid var(--bg-icon-10);
+}
+
+.icon-11 {
+  background-color: var(--bg-icon-11);
+  border: 2px solid var(--bg-icon-11);
+}
+
+.icon-12 {
+  background-color: var(--bg-icon-12);
+  border: 2px solid var(--bg-icon-12);
+}
+
+.icon-13 {
+  background-color: var(--bg-icon-13);
+  border: 2px solid var(--bg-icon-13);
+}
+
+.icon-14 {
+  background-color: var(--bg-icon-14);
+  border: 2px solid var(--bg-icon-14);
+}
+
+.icon-15 {
+  background-color: var(--bg-icon-15);
+  border: 2px solid var(--bg-icon-15);
 }
