@@ -83,20 +83,25 @@
     font-size: 1rem;
     text-decoration: none;
     transition: var(--transition-fast);
+    transform-origin: left center;
 
     &:hover {
       color: var(--color-light-blue);
-      letter-spacing: 0.02em;
       font-weight: 500;
+      transform: scaleX(1.03);
     }
 
     &.active {
       color: var(--color-font-bright);
       font-weight: 500;
+
+    &:hover {
+      transform: none;
+      color: var(--color-font-bright);
+      }
     }
   }
 }
-
 /* Mobile: Bottom Navigation */
 @media (max-width: 767px) {
   .nav {
