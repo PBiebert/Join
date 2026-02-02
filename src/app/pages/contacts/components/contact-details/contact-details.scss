@@ -1,6 +1,167 @@
+/* ================================================================
+ * contact-details.scss
+ *
+ * Nutzt die CSS Custom Properties aus styles.scss
+ * Hintergrundfarbe und Radius wie im Figma-Design
+ * ================================================================ */
+
+/* --- Host-Element: Hintergrund des gesamten Panels --- */
 :host {
   display: flex;
-  height: 100%;
-  flex-grow: 1;
-  background-color: lightgreen;
+  flex-direction: column;
+  padding: 4rem 3.5rem;
+  background-color: #f0f4f3;
+  border-top-left-radius: 2rem;
+  overflow-y: auto;
+}
+
+/* --- Header: "Contacts | Better with a team" --- */
+.contact-details__header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.contact-details__title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-font-dark);
+  margin: 0;
+}
+
+/* Vertikale blaue Trennlinie */
+.contact-details__separator {
+  width: 3px;
+  height: 3.5rem;
+  background-color: var(--color-light-blue);
+  border-radius: 2px;
+}
+
+.contact-details__subtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-font-dark);
+  margin: 0;
+}
+
+/* --- Content-Wrapper --- */
+.contact-details__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --- Profil: Avatar links, Name+Buttons rechts --- */
+.contact-details__profile {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Runder Avatar mit Initialen */
+.contact-details__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: var(--color-font-bright);
+  font-size: 2rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* Name + Aktions-Buttons als Spalte */
+.contact-details__name-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-details__name {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: var(--color-font-dark);
+  margin: 0;
+}
+
+/* --- Edit & Delete Buttons --- */
+.contact-details__actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.contact-details__btn-edit,
+.contact-details__btn-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  color: var(--color-font-dark);
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0.2rem 0.35rem;
+  border-radius: 0.25rem;
+  transition: var(--transition-fast);
+
+  img {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    color: var(--color-light-blue);
+
+    img {
+      filter: brightness(0) saturate(100%)
+              invert(56%) sepia(91%) saturate(499%)
+              hue-rotate(156deg) brightness(96%) contrast(89%);
+    }
+  }
+}
+
+/* --- Kontaktinformationen (Email, Phone) --- */
+.contact-details__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-details__info-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-font-dark);
+  margin: 0;
+}
+
+.contact-details__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.contact-details__label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-font-dark);
+}
+
+.contact-details__value {
+  font-size: 1rem;
+  color: var(--color-font-dark);
+  text-decoration: none;
+
+  &--link {
+    color: var(--color-light-blue);
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
