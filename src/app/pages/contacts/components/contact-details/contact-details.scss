@@ -1,15 +1,16 @@
 /* ================================================================
  * contact-details.scss
  *
- * Nutzt die CSS Custom Properties aus styles.scss
- * Hintergrundfarbe und Radius wie im Figma-Design
+ * Responsive bis 320px. Nutzt clamp() für fließende Typografie.
+ * Mindest-Fontgröße: 16px (1rem).
+ * Breakpoints aus styles.scss.
  * ================================================================ */
 
 /* --- Host-Element: Hintergrund des gesamten Panels --- */
 :host {
   display: flex;
   flex-direction: column;
-  padding: 4rem 3.5rem;
+  padding: clamp(1.5rem, 4vw, 4rem) clamp(1rem, 3.5vw, 3.5rem);
   background-color: #f0f4f3;
   border-top-left-radius: 2rem;
   overflow-y: auto;
@@ -19,12 +20,12 @@
 .contact-details__header {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  margin-bottom: clamp(1.25rem, 3vw, 2.5rem);
 }
 
 .contact-details__title {
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   color: var(--color-font-dark);
   margin: 0;
@@ -33,13 +34,14 @@
 /* Vertikale blaue Trennlinie */
 .contact-details__separator {
   width: 3px;
-  height: 3.5rem;
+  height: clamp(2rem, 4vw, 3.5rem);
   background-color: var(--color-light-blue);
   border-radius: 2px;
+  flex-shrink: 0;
 }
 
 .contact-details__subtitle {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 400;
   color: var(--color-font-dark);
   margin: 0;
@@ -49,14 +51,14 @@
 .contact-details__content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: clamp(1rem, 2.5vw, 2rem);
 }
 
-/* --- Profil: Avatar links, Name+Buttons rechts --- */
+/* --- Profil: Avatar + Name + Buttons --- */
 .contact-details__profile {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
 
 /* Runder Avatar mit Initialen */
@@ -64,13 +66,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
+  width: clamp(56px, 8vw, 80px);
+  height: clamp(56px, 8vw, 80px);
   border-radius: 50%;
   border: 3px solid #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   color: var(--color-font-bright);
-  font-size: 2rem;
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
   font-weight: 500;
   flex-shrink: 0;
 }
@@ -80,13 +82,16 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .contact-details__name {
-  font-size: 2.5rem;
+  font-size: clamp(1.25rem, 3.5vw, 2.5rem);
   font-weight: 500;
   color: var(--color-font-dark);
   margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* --- Edit & Delete Buttons --- */
@@ -103,9 +108,9 @@
   background: none;
   border: none;
   color: var(--color-font-dark);
-  font-size: 0.95rem;
+  font-size: 1rem;
   cursor: pointer;
-  padding: 0.2rem 0.35rem;
+  padding: 0.25rem 0.35rem;
   border-radius: 0.25rem;
   transition: var(--transition-fast);
 
@@ -134,7 +139,7 @@
 }
 
 .contact-details__info-title {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 600;
   color: var(--color-font-dark);
   margin: 0;
@@ -156,6 +161,8 @@
   font-size: 1rem;
   color: var(--color-font-dark);
   text-decoration: none;
+  overflow-wrap: break-word;
+  word-break: break-word;
 
   &--link {
     color: var(--color-light-blue);
@@ -163,5 +170,24 @@
     &:hover {
       text-decoration: none;
     }
+  }
+}
+
+/* ================================================================
+ * Responsive Anpassungen
+ * ================================================================ */
+
+/* Tablets im Hochformat und kleiner */
+@media (max-width: 768px) {
+  :host {
+    border-top-left-radius: 0;
+  }
+}
+
+/* Kleine Geräte */
+@media (max-width: 576px) {
+  .contact-details__profile {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
