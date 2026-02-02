@@ -1,7 +1,237 @@
-div {
+.dialog-container {
+  width: 1212px;
+  height: 592px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 30px;
+
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  background-color: var(--color-font-bright);
+}
+
+.contact-text {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  height: 100%;
-  width: 100%;
+
+  padding-top: 66px;
+  padding-bottom: 66px;
+  padding-right: 48px;
+  padding-left: 48px;
+
+  background-color: var(--color-medium-blue);
+  width: 467px;
+  height: 594px;
+}
+
+.dialog-logo {
+  width: 55.6px;
+  height: 66.48px;
+  margin: 0;
+  margin-bottom: 16px;
+}
+
+h1 {
+
+  color: var(--color-font-bright);
+  font-family: Inter;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 61px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  margin: 0;
+  margin-bottom: 16px;
+
+}
+
+p {
+  color: var(--color-font-bright);
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 27px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  margin: 0;
+  padding: 0;
+}
+
+.line {
+  border-radius: 3px;
+  background-color: #29ABE2;
+  height: 90px;
+  width: 3px;
+  margin-right: 48px;
+  margin-left: 48px;
+  transform-origin: center center;
+  transform: rotate(90deg) translateX(-32px);
+  ;
+}
+
+
+.account-img {
+  width: 128px;
+  height: 128px;
+  background-image: url("/assets/Contacts/contact-dialog/account_profile_standart.png");
+  background-size: cover;
+  background-position: center center;
+  background-position: fixed;
+  background-repeat: no-repeat;
+
+  position: relative;
+  top: -34px;
+}
+
+.add-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+
+  position: relative;
+  top: -40px;
+}
+
+.close {
+  width: 32px;
+  height: 32px;
+  background-image: url("/assets/Contacts/contact-dialog/Close.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  align-self: flex-end;
+  margin-left: 32px;
+  margin-right: 32px;
+  transition: var(--transition-fast);
+
+  position: relative;
+  top: -34px;
+
+
+  &:hover {
+    background-color: rgba(209, 209, 209, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+input {
+  outline: none;
+  border: none;
+  background: none;
+}
+
+.inputs-container {
+  width: 422px;
+  height: 215px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin-left: 32px;
+  margin-right: 32px;
+  gap: 32px;
+}
+
+.inputs {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-left: 21px;
+  padding-right: 21px;
+
+  width: 422px;
+  height: 50px;
+  border: solid;
+  border-color: var(--color-light-grey);
+  border-width: 1px;
+  border-radius: 10px;
+  gap: 32px;
+
+  &:focus-within {
+    border-color: var(--color-light-blue);
+  }
+
+  &:active {
+    border-color: var(--color-light-blue);
+  }
+
+  &::placeholder {
+    font-family: Inter;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 20px;
+
+    line-height: 120%;
+    letter-spacing: 0%;
+
+    color: var(--color-light-grey);
+  }
+}
+
+.icons {
+  width: 24px;
+  height: 24px;
+}
+
+.btns-container {
+  margin-left: 32px;
+  margin-right: 32px;
+
+  display: flex;
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+.btn-outline {
+  border: 1px solid var(--color-medium-blue);
+
+  &:hover {
+    border: 1px solid var(--color-light-blue)
+  }
+}
+
+.btn-outline,
+.btn-primary {
+  transition: var(--transition-fast);
+  box-sizing: border-box;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.15);
+
+  }
+}
+
+.btn-txt {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+
+}
+
+.btn-icons {
+  font-size: 20px;
+}
+
+.close-x {
+  font-weight: 700;
+}
+
+.create-account {
+  font-family: Inter;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 21px;
+  line-height: 120%;
+  letter-spacing: 0%;
+
 }
