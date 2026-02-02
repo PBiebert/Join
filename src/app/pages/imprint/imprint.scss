@@ -37,6 +37,12 @@ app-nav {
   width: 100%;
   max-width: 1440px;
 
+    &::after {
+    content: '';
+    display: block;
+    height: 80px;
+  }
+
   // Header with title and back button
   &__header {
     display: flex;
