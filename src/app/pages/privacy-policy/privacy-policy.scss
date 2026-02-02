@@ -140,19 +140,26 @@ app-nav {
     font-size: 0.875rem;
     color: #888;
     font-style: italic;
+    
   }
 }
 
 /* Mobile Styles */
 @media (max-width: 767px) {
 
+    main {
+    height: auto;
+    min-height: 100vh;
+  }
+
     app-nav {
         width: 0;
     }
 
   .privacy-policy {
-    padding: 24px 20px;
-    padding-bottom: 100px;
+    padding: 24px 20px 120px 20px;
+
+   
 
     &__header {
       margin-bottom: 32px;
