@@ -1,0 +1,48 @@
+main {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100svh;
+  height: 100vh;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contacts-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+app-header {
+  height: 96px;
+  width: 100%;
+}
+
+app-nav {
+  width: 232px;
+  height: 100%;
+}
+
+app-contacts-list {
+  width: 456px;
+  height: 100%;
+}
+
+app-contact-details {
+  height: 100%;
+  width: 100%;
+}
+
+// app-contact-dialog {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+// }
