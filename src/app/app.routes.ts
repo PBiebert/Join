@@ -6,7 +6,7 @@ import { Help } from './pages/help/help';
 
 export const routes: Routes = [
   { path: '', component: Contacts }, // Startseite
-  { path: '/imprint', component: Imprint },
-  { path: '/privacy-policy', component: PrivacyPolicy },
-  { path: '/help', component: Help },
+  { path: 'imprint', component: Imprint },
+  { path: 'privacy-policy', component: PrivacyPolicy },
+  { path: 'help', component: Help },
 ];
