@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, inject } from '@angular/core';
 import { SingleContact } from '../../../../interfaces/single-contact';
-import { TestContactService } from '../../../../services/test-contact-service';
 import { CommonModule } from '@angular/common';
+import { ContactsService } from '../../../../services/contacts-service'; // Service importieren
 
 /**
  * Komponente zur Anzeige einer Liste von Kontakten, gruppiert nach Anfangsbuchstaben.
@@ -15,9 +15,13 @@ import { CommonModule } from '@angular/common';
 })
 export class ContactsList implements AfterContentInit {
   /**
-   * Die Liste aller Kontakte, bereitgestellt vom TestContactService.
+   * Die Liste aller Kontakte, bereitgestellt vom ContactsService.
    */
-  contactList: SingleContact[] = inject(TestContactService).contacts;
+  get contactList(): SingleContact[] {
+    return this.contactsService.contacts;
+  }
+
+  contactsService = inject(ContactsService); // Service injizieren
 
   /**
    * Enthält die Anfangsbuchstaben, nach denen die Kontakte gruppiert werden.
@@ -36,12 +40,11 @@ export class ContactsList implements AfterContentInit {
    * Gruppiert die Kontakte nach ihrem Anfangsbuchstaben.
    */
   setContactGroups() {
+    this.contactGroup = [];
     for (let position = 0; position < this.contactList.length; position++) {
       const InitialLetter = this.contactList[position].name.charAt(0);
       if (!this.contactGroup.includes(InitialLetter)) {
         this.contactGroup.push(InitialLetter);
-      } else {
-        continue;
       }
     }
   }
