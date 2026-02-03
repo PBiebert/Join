@@ -3,4 +3,5 @@ export interface SingleContact {
   name: string;
   email: string;
   phone: string;
+  color?: string;
 }

@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SingleContact } from '../../../../interfaces/single-contact';
 import { CommonModule } from '@angular/common';
 import { ContactsService } from '../../../../services/contacts-service'; // Service importieren
@@ -13,7 +13,10 @@ import { ContactsService } from '../../../../services/contacts-service'; // Serv
   templateUrl: './contacts-list.html',
   styleUrl: './contacts-list.scss',
 })
-export class ContactsList implements AfterContentInit {
+export class ContactsList {
+
+  contactsService = inject(ContactsService); // Service injizieren
+
   /**
    * Die Liste aller Kontakte, bereitgestellt vom ContactsService.
    */
@@ -21,12 +24,10 @@ export class ContactsList implements AfterContentInit {
     return this.contactsService.contacts;
   }
 
-  contactsService = inject(ContactsService); // Service injizieren
+  
 
-  /**
-   * Enthält die Anfangsbuchstaben, nach denen die Kontakte gruppiert werden.
-   */
-  contactGroup: string[] = [];
+
+
 
   /**
    * Gruppiert die Kontakte nach ihrem Anfangsbuchstaben.
@@ -40,11 +41,11 @@ export class ContactsList implements AfterContentInit {
    * Gruppiert die Kontakte nach ihrem Anfangsbuchstaben.
    */
   setContactGroups() {
-    this.contactGroup = [];
-    for (let position = 0; position < this.contactList.length; position++) {
-      const InitialLetter = this.contactList[position].name.charAt(0);
-      if (!this.contactGroup.includes(InitialLetter)) {
-        this.contactGroup.push(InitialLetter);
+    const groups: string[] = [];
+    for (const contact of this.contactList) {
+      const initial = contact.name.charAt(0).toUpperCase();
+      if (!groups.includes(initial)) {
+        groups.push(initial);
       }
     }
   }
@@ -52,11 +53,14 @@ export class ContactsList implements AfterContentInit {
   getInitials(name: string): string {
     return name
       .split(' ')
-      .map((part) => part.charAt(0))
+      .map((part) => part.charAt(0).toUpperCase())
       .join('');
   }
 
   getIconColorClass(contact: SingleContact): string {
+    if (contact.color) {
+      return contact.color;
+    }
     const lettersArray = 'ABCDEFGHJKLMNOPQRSTUVW'.split('');
     const nameParts = contact.name.split(' ');
     const letter = (nameParts[1]?.charAt(0) || nameParts[0].charAt(0)).toUpperCase();
