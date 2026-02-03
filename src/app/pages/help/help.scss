@@ -1,0 +1,116 @@
+/* ================================================================
+ * help.scss
+ *
+ * Responsive bis 320px. Nutzt clamp() für fließende Typografie.
+ * Mindest-Fontgröße: 16px (1rem).
+ * ================================================================ */
+
+/* --- Host-Element --- */
+:host {
+  display: block;
+  padding: clamp(1.5rem, 4vw, 4rem) clamp(1rem, 3.5vw, 3.5rem);
+  background-color: #f0f4f3;
+  border-top-left-radius: 2rem;
+  overflow-y: auto;
+  height: 100%;
+}
+
+/* --- Hauptcontainer: Lesbare Textbreite --- */
+.help {
+  max-width: 800px;
+}
+
+/* --- Header: Titel + Zurück-Pfeil --- */
+.help__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+.help__title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--color-font-dark);
+  margin: 0;
+}
+
+/* Zurück-Button (Pfeil) */
+.help__back-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* --- Überschriften (h2) --- */
+.help__heading {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  color: var(--color-font-dark);
+  margin: clamp(1.25rem, 2.5vw, 2rem) 0 clamp(0.5rem, 1.5vw, 1rem);
+}
+
+/* --- Fließtext --- */
+.help__text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-font-dark);
+  margin: 0 0 1rem;
+}
+
+/* "Join" in Hellblau hervorgehoben */
+.help__highlight {
+  color: var(--color-light-blue);
+}
+
+/* --- Nummerierte Schrittliste --- */
+.help__steps {
+  padding-left: clamp(1rem, 2vw, 1.5rem);
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+/* Einzelner Schritt */
+.help__step {
+  list-style: decimal;
+  padding-left: 0.5rem;
+}
+
+.help__step-title {
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  font-weight: 700;
+  color: var(--color-font-dark);
+  margin: 0 0 0.35rem;
+}
+
+.help__step-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-font-dark);
+  margin: 0;
+}
+
+/* ================================================================
+ * Responsive Anpassungen
+ * ================================================================ */
+
+@media (max-width: 768px) {
+  :host {
+    border-top-left-radius: 0;
+  }
+}
