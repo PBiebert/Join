@@ -1,49 +1,46 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ContactsService } from '../../../../services/contacts-service';
 
+/**
+ * ContactDetails – Zeigt die Detailansicht des ausgewählten Kontakts.
+ *
+ * Bezieht alle Daten aus contactsService.activContact.
+ * Edit und Delete nutzen die Service-Methoden für Firebase.
+ */
 @Component({
   selector: 'app-contact-details',
+  imports: [CommonModule],
   templateUrl: './contact-details.html',
   styleUrl: './contact-details.scss',
 })
 export class ContactDetails {
-  /* ============================================================
-   *  PLATZHALTER – Wird ersetzt durch:
-   *    - Contact-Interface (src/app/interfaces/)
-   *    - ContactService (src/app/services/contacts-service.ts)
-   *    - Echte Daten aus Firebase
-   * ============================================================ */
+  /**
+   * Zugriff auf den zentralen ContactsService.
+   * Public, damit das Template darauf zugreifen kann.
+   */
+  contactsService = inject(ContactsService);
 
-  /** Simulierter Kontakt – später kommt der echte aus dem Service */
-  protected contact = signal<any | null>({
-    name: 'Anton Mayer',
-    email: 'antom@gmail.com',
-    phone: '+49 1111 111 11 1',
-    color: '#FF7A00',
-  });
-
-  protected getInitials(name: string): string {
-    return name
-      .split(' ')
-      .map((part) => part.charAt(0).toUpperCase())
-      .join('');
-  }
-
-  /* ============================================================
-   *  Momentan nutze ich PLATZHALTER-METHODEN
-   * ============================================================ */
-
-  /** Öffnet das Bearbeiten-Overlay (noch nicht implementiert) */
+  /**
+   * Öffnet den Bearbeiten-Dialog.
+   * 🔲 PLATZHALTER: Dialog-Komponente kommt von Teammitglied.
+   */
   protected onEdit(): void {
-    console.log('PLATZHALTER: Edit-Overlay öffnen');
+    const contact = this.contactsService.activContact;
+    if (contact) {
+      console.log('Edit-Dialog öffnen für:', contact.name);
+      // TODO: Dialog öffnen, wenn Komponente fertig ist
+    }
   }
 
-  /** Löscht den Kontakt (noch nicht implementiert) */
-  protected onDelete(): void {
-    console.log('PLATZHALTER: Kontakt löschen');
-  }
-
-  /** Navigiert zurück zur Kontaktliste – nur für Mobile */
-  protected onBack(): void {
-    console.log('PLATZHALTER: Zurück zur Kontaktliste');
+  /**
+   * Löscht den aktuellen Kontakt aus Firebase.
+   * Nutzt deleteContact() aus dem ContactsService.
+   */
+  protected async onDelete(): Promise<void> {
+    const contact = this.contactsService.activContact;
+    if (contact && contact.id) {
+      await this.contactsService.deleteContact(contact.id);
+    }
   }
 }

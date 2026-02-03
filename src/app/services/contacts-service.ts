@@ -1,5 +1,12 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { collection, Firestore, onSnapshot } from '@angular/fire/firestore';
+import {
+  collection,
+  Firestore,
+  onSnapshot,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from '@angular/fire/firestore';
 import { SingleContact } from '../interfaces/single-contact';
 
 @Injectable({
@@ -91,5 +98,41 @@ export class ContactsService implements OnDestroy {
     const index = lettersArray.indexOf(letter);
     const colorId = index !== -1 ? (index % 15) + 1 : 1;
     return `icon-${colorId}`;
+  }
+
+  /* ============================================================
+   * CRUD-OPERATIONEN (Edit & Delete)
+   * Hinzugefügt von: Akin
+   * ============================================================ */
+
+  /**
+   * Gibt die Referenz zu einem einzelnen Kontakt-Dokument zurück.
+   * @param contactId - Die ID des Kontakts in Firebase
+   */
+  private getSingleContactRef(contactId: string) {
+    return doc(this.contactsDB, 'contacts', contactId);
+  }
+
+  /**
+   * Löscht einen Kontakt aus Firebase.
+   * @param contactId - Die ID des zu löschenden Kontakts
+   */
+  async deleteContact(contactId: string): Promise<void> {
+    const contactRef = this.getSingleContactRef(contactId);
+    await deleteDoc(contactRef);
+    this.activContact = null;
+  }
+
+  /**
+   * Aktualisiert einen bestehenden Kontakt in Firebase.
+   * @param contactId - Die ID des Kontakts
+   * @param updatedData - Die neuen Daten (name, email, phone)
+   */
+  async updateContact(
+    contactId: string,
+    updatedData: Partial<SingleContact>
+  ): Promise<void> {
+    const contactRef = this.getSingleContactRef(contactId);
+    await updateDoc(contactRef, updatedData);
   }
 }
