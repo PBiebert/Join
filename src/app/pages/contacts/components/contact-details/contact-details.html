@@ -9,68 +9,70 @@
 </div>
 
 <!--
-  Kontakt-Detail: Nur wenn ein Kontakt ausgewählt ist,
-  wird das angezeigt.
-  @if prüft, ob contact() einen Wert hat (nicht null).
-  @let erstellt eine lokale Variable "c" als Abkürzung für contact()!
+Kontakt-Detail: Nur anzeigen, wenn ein Kontakt ausgewählt ist.
+Wir prüfen, ob activContact im Service einen Wert hat.
 -->
-@if (contact()) {
-  @let c = contact()!;
-
+@if(contactsService.activContact){
   <div class="contact-details__content">
 
-    <!-- Profil-Bereich: Avatar + Name + Aktions-Buttons -->
-    <div class="contact-details__profile">
-      <span
-        class="contact-details__avatar"
-        [style.background-color]="c.color"
-      >
-        {{ getInitials(c.name) }}
-      </span>
+<!-- Profil-Bereich: Avatar + Name + Aktions-Buttons -->
+<div class="contact-details__profile">
+  <!--
+    Avatar mit Initialen und dynamischer Hintergrundfarbe.
+    Die Farbe kommt aus der Icon-Klasse des Services.
+  -->
+    <span
+      class="contact-details__avatar"
+      [ngClass]="contactsService.getIconColorClass(contactsService.activContact)"
+    >
+      {{ contactsService.getInitials(contactsService.activContact.name) }}
+    </span>
 
-      <div class="contact-details__name-actions">
-        <h2 class="contact-details__name">{{ c.name }}</h2>
+    <div class="contact-details__name-actions">
+      <h2 class="contact-details__name">
+        {{ contactsService.activContact.name }}
+      </h2>
 
-        <div class="contact-details__actions">
-          <button class="contact-details__btn-edit" (click)="onEdit()">
-            <img src="assets/icons/edit.svg" alt="Edit icon" />
-            <span>Edit</span>
-          </button>
-          <button class="contact-details__btn-delete" (click)="onDelete()">
+    <div class="contact-details__actions">
+      <button class="contact-details__btn-edit" (click)="onEdit()">
+          <img src="assets/icons/edit.svg" alt="Edit icon" />
+          <span>Edit</span>
+        </button>
+        <button class="contact-details__btn-delete" (click)="onDelete()">
             <img src="assets/icons/delete.svg" alt="Delete icon" />
             <span>Delete</span>
-          </button>
-        </div>
-      </div>
+        </button>
     </div>
+  </div>
+</div>
 
-    <!-- Kontaktinformationen: E-Mail und Telefon -->
+<!-- Kontaktinformationen: E-Mail und Telefon -->
     <div class="contact-details__info">
       <h3 class="contact-details__info-title">Contact Information</h3>
 
       <div class="contact-details__field">
         <span class="contact-details__label">Email</span>
         <a
-          [href]="'mailto:' + c.email"
+          [href]="'mailto:' + contactsService.activContact.email"
           class="contact-details__value contact-details__value--link"
         >
-          {{ c.email }}
+          {{ contactsService.activContact.email }}
         </a>
       </div>
 
-      <div class="contact-details__field">
+<div class="contact-details__field">
         <span class="contact-details__label">Phone</span>
-        <a [href]="'tel:' + c.phone" class="contact-details__value">
-          {{ c.phone }}
+        <a
+          [href]="'tel:' + contactsService.activContact.phone"
+          class="contact-details__value"
+        >
+          {{ contactsService.activContact.phone }}
         </a>
       </div>
     </div>
 
   </div>
 
-  <!-- PLATZHALTER: Hier kommt später das Edit-Overlay -->
-  <!-- <app-contact-dialog [mode]="overlayMode()" ... /> -->
-
-  <!-- PLATZHALTER: Hier kommt später die Snackbar -->
-  <!-- <app-snackbar /> -->
+  <!-- 🔲 PLATZHALTER: Hier kommt später der Edit-Dialog -->
+  <!-- <app-contact-dialog /> -->
 }
