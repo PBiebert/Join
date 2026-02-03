@@ -28,13 +28,13 @@
     </span>
   </button>
   <div class="contact-list">
-    @for (group of contactGroup; track $index) {
+    @for (group of contactGroup(); track $index) {
       <div class="contact-group">
         <div class="head-line">
           <h4>{{ group }}</h4>
         </div>
         <span class="underline"></span>
-        @for (contact of contactList; track $index) {
+        @for (contact of contactList(); track $index) {
           @if (group == contact.name.charAt(0)) {
             <div class="single-contact">
               <div class="icon" [ngClass]="getIconColorClass(contact)">

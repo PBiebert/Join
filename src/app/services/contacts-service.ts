@@ -1,4 +1,4 @@
-import { inject, Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy, signal } from '@angular/core';
 import { collection, Firestore, onSnapshot } from '@angular/fire/firestore';
 import { SingleContact } from '../interfaces/single-contact';
 
@@ -6,7 +6,9 @@ import { SingleContact } from '../interfaces/single-contact';
   providedIn: 'root',
 })
 export class ContactsService implements OnDestroy {
-  contacts: SingleContact[] = [];
+
+  /** Signal for reactive contacts array */
+  contacts = signal<SingleContact[]>([]);
   contactsDB: Firestore = inject(Firestore);
   unsubContacts;
 
@@ -41,7 +43,7 @@ export class ContactsService implements OnDestroy {
       list.forEach((element) => {
         firebaseContacts.push(this.setContactObject(element.data(), element.id));
       });
-        this.contacts= this.sortContacts(firebaseContacts);
+        this.contacts.set(this.sortContacts(firebaseContacts));
       });
   }
 

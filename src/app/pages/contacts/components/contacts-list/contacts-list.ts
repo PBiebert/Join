@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { SingleContact } from '../../../../interfaces/single-contact';
 import { CommonModule } from '@angular/common';
 import { ContactsService } from '../../../../services/contacts-service'; // Service importieren
@@ -17,39 +17,25 @@ export class ContactsList {
 
   contactsService = inject(ContactsService); // Service injizieren
 
-  /**
-   * Die Liste aller Kontakte, bereitgestellt vom ContactsService.
-   */
-  get contactList(): SingleContact[] {
-    return this.contactsService.contacts;
-  }
-
-  
-
-
+  /** Computed signal for contacts */
+  contactList = computed(() => this.contactsService.contacts());
 
 
   /**
    * Gruppiert die Kontakte nach ihrem Anfangsbuchstaben.
-   * Wird nach dem Laden des Inhalts aufgerufen.
    */
-  ngAfterContentInit(): void {
-    this.setContactGroups();
-  }
-
-  /**
-   * Gruppiert die Kontakte nach ihrem Anfangsbuchstaben.
-   */
-  setContactGroups() {
+  contactGroup = computed(() => {
     const groups: string[] = [];
-    for (const contact of this.contactList) {
+    for (const contact of this.contactList()) {
       const initial = contact.name.charAt(0).toUpperCase();
       if (!groups.includes(initial)) {
         groups.push(initial);
       }
     }
-  }
+    return groups.sort((a, b) => a.localeCompare(b, 'de'));
+  });
 
+  /** Get initials from name (e.g., "Anna Müller" -> "AM") */
   getInitials(name: string): string {
     return name
       .split(' ')
@@ -57,6 +43,7 @@ export class ContactsList {
       .join('');
   }
 
+    /** Get CSS class for contact icon color */
   getIconColorClass(contact: SingleContact): string {
     if (contact.color) {
       return contact.color;
