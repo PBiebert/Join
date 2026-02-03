@@ -1,4 +1,4 @@
-import { inject, Injectable, OnDestroy, signal } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { collection, Firestore, onSnapshot } from '@angular/fire/firestore';
 import { SingleContact } from '../interfaces/single-contact';
 
@@ -6,9 +6,9 @@ import { SingleContact } from '../interfaces/single-contact';
   providedIn: 'root',
 })
 export class ContactsService implements OnDestroy {
-
-  /** Signal for reactive contacts array */
-  contacts = signal<SingleContact[]>([]);
+  // Zentrale Quelle für Kontaktlisten und Gruppen
+  contacts: SingleContact[] = [];
+  contactGroups: string[] = [];
   contactsDB: Firestore = inject(Firestore);
   unsubContacts;
 
@@ -16,38 +16,70 @@ export class ContactsService implements OnDestroy {
     this.unsubContacts = this.subContactsList();
   }
 
-    /** Sort contacts alphabetically by name */
-  private sortContacts(contacts: SingleContact[]): SingleContact[] {
-    return contacts.sort((a, b) => a.name.localeCompare(b.name, 'de'));
-  }
-
-
   setContactObject(obj: any, id: string): SingleContact {
     return {
       id: id,
       name: obj.name || '',
       email: obj.email || '',
       phone: obj.phone || '',
-      color: obj.color || '',
     };
   }
 
-  getContactsRef() {
+  getNotesRef() {
     return collection(this.contactsDB, 'contacts');
   }
 
-
   subContactsList() {
-    return onSnapshot(this.getContactsRef(), (list) => {
-      const firebaseContacts: SingleContact[] = [];
+    return onSnapshot(this.getNotesRef(), (list) => {
+      this.contacts = [];
       list.forEach((element) => {
-        firebaseContacts.push(this.setContactObject(element.data(), element.id));
+        this.contacts.push(this.setContactObject(element.data(), element.id));
       });
-        this.contacts.set(this.sortContacts(firebaseContacts));
-      });
+      // Nach Datenupdate Gruppen neu berechnen
+      this.updateContactGroups();
+    });
   }
 
   ngOnDestroy(): void {
     if (this.unsubContacts) this.unsubContacts();
+  }
+
+  // Gibt die zentrale Kontaktliste aus
+  getContacts(): SingleContact[] {
+    return this.contacts;
+  }
+
+  // Gibt die zentral berechneten Gruppen aus
+  getContactGroups(): string[] {
+    return this.contactGroups;
+  }
+
+  // Berechnet Gruppen einmal zentral für alle Components
+  updateContactGroups(): void {
+    this.contactGroups = [];
+    for (let position = 0; position < this.contacts.length; position++) {
+      const initialLetter = this.contacts[position].name.charAt(0);
+      if (!this.contactGroups.includes(initialLetter)) {
+        this.contactGroups.push(initialLetter);
+      }
+    }
+  }
+
+  // Helper: Initialen zentral bereitstellen
+  getInitials(name: string): string {
+    return name
+      .split(' ')
+      .map((part) => part.charAt(0))
+      .join('');
+  }
+
+  // Helper: Icon-Farbe zentral berechnen
+  getIconColorClass(contact: SingleContact): string {
+    const lettersArray = 'ABCDEFGHJKLMNOPQRSTUVW'.split('');
+    const nameParts = contact.name.split(' ');
+    const letter = (nameParts[1]?.charAt(0) || nameParts[0].charAt(0)).toUpperCase();
+    const index = lettersArray.indexOf(letter);
+    const colorId = index !== -1 ? (index % 15) + 1 : 1;
+    return `icon-${colorId}`;
   }
 }

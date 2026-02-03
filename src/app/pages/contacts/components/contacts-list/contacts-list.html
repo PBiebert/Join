@@ -28,17 +28,19 @@
     </span>
   </button>
   <div class="contact-list">
-    @for (group of contactGroup(); track $index) {
+    <!-- Gruppen kommen zentral aus dem Service -->
+    @for (group of contactsService.getContactGroups(); track $index) {
       <div class="contact-group">
         <div class="head-line">
           <h4>{{ group }}</h4>
         </div>
         <span class="underline"></span>
-        @for (contact of contactList(); track $index) {
+        <!-- Kontakte kommen zentral aus dem Service -->
+        @for (contact of contactsService.getContacts(); track $index) {
           @if (group == contact.name.charAt(0)) {
             <div class="single-contact">
-              <div class="icon" [ngClass]="getIconColorClass(contact)">
-                {{ getInitials(contact.name) }}
+              <div class="icon" [ngClass]="contactsService.getIconColorClass(contact)">
+                {{ contactsService.getInitials(contact.name) }}
               </div>
               <div class="data">
                 <p>{{ contact.name }}</p>
