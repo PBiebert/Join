@@ -9,6 +9,7 @@ export class ContactsService implements OnDestroy {
   // Zentrale Quelle für Kontaktlisten und Gruppen
   contacts: SingleContact[] = [];
   contactGroups: string[] = [];
+  activContact: SingleContact | null = null;
   contactsDB: Firestore = inject(Firestore);
   unsubContacts;
 
@@ -63,6 +64,15 @@ export class ContactsService implements OnDestroy {
         this.contactGroups.push(initialLetter);
       }
     }
+  }
+
+  /**
+   * Setzt den angeklickten Kontakt als aktuell aktiven Kontakt.
+   * @param clickedContact - Der ausgewählte Kontakt, wird in this.activContact gespeichert.
+   */
+  getActivContact(clickedContact: SingleContact) {
+    this.activContact = clickedContact;
+    console.log(this.activContact);
   }
 
   // Helper: Initialen zentral bereitstellen
