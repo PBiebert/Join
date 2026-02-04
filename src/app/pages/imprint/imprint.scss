@@ -8,6 +8,10 @@
   background-color: #f0f4f3;
 }
 
+:host ::ng-deep .help-icon {
+  display: none;
+}
+
 .wrapper {
   display: flex;
   width: 100%;
