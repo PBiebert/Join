@@ -14,6 +14,7 @@
         <div class="dropdown" [class.bounce]="dropdownBounce"
             (mouseenter)="triggerBounce()"
     (mouseleave)="triggerBounce()">
+          <a routerLink="/help" class="dropdown__link dropdown__link--help" (click)="closeDropdown()">Help</a>
           <a routerLink="/imprint" class="dropdown__link" (click)="closeDropdown()">Legal Notice</a>
           <a routerLink="/privacy-policy" class="dropdown__link" (click)="closeDropdown()">Privacy Policy</a>
           <a class="dropdown__link" (click)="closeDropdown()">Log out</a>

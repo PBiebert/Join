@@ -115,6 +115,10 @@
     &:hover {
      background-color: var(--color-nav-hover);
     }
+    
+    &--help {
+      display: none;
+    }
   }
 }
 
@@ -125,6 +129,13 @@
 }
 
 @media (max-width: 767px) {
+
+.dropdown {
+  right: -15px;
+  gap: 8px;
+  padding: 16px 20px;
+  font-size: 1rem;
+  }
   .header-container {
     padding: 16px 20px;
   }
@@ -136,5 +147,9 @@
 
   .project-management-tool {
     display: none;
+  }
+
+  .dropdown__link--help {
+    display: block;
   }
 }
