@@ -1,8 +1,24 @@
-<section class="header-container">
-    <img class="header-logo" src="assets/icons/logo-dark.svg" alt="Join Logo" />
-    <p class="project-management-tool">Kanban Project Management Tool</p>
-    <div class="help-and-profile">
-        <a routerLink="/help"><img class="help-icon" src="/assets/Contacts/header/help.png" alt="help_icon"></a>
-        <span class="profile">SM</span>
+<section class="header-container" (click)="closeDropdown()">
+  <img class="header-logo" src="assets/icons/logo-dark.svg" alt="Join Logo" />
+  <p class="project-management-tool">Kanban Project Management Tool</p>
+  
+  <div class="help-and-profile">
+    <a routerLink="/help"><img class="help-icon" src="/assets/Contacts/header/help.png" alt="help_icon"></a>
+    
+    <div class="profile-wrapper">
+      <button class="profile" (click)="toggleDropdown(); $event.stopPropagation()">
+        SM
+      </button>
+      
+      @if(isDropdownOpen) {
+        <div class="dropdown" [class.bounce]="dropdownBounce"
+            (mouseenter)="triggerBounce()"
+    (mouseleave)="triggerBounce()">
+          <a routerLink="/imprint" class="dropdown__link" (click)="closeDropdown()">Legal Notice</a>
+          <a routerLink="/privacy-policy" class="dropdown__link" (click)="closeDropdown()">Privacy Policy</a>
+          <a class="dropdown__link" (click)="closeDropdown()">Log out</a>
+        </div>
+      }
     </div>
+  </div>
 </section>
