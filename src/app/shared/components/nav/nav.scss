@@ -141,7 +141,7 @@
       align-items: center;
       justify-content: center;
       gap: 4px;
-      padding: 8px 14px;
+      padding: 6px 8px;
       width: 76px;
       min-height: 80px;
       margin-left: 0;
@@ -158,8 +158,8 @@
 
       &:hover {
         background-color: transparent;
-        padding-left: 14px;
-        font-weight: 700;
+        padding-left: 8px;
+        // font-weight: 700;
       }
 
       &.active {
@@ -171,6 +171,21 @@
     // Hide footer links on mobile (they go to header)
     &__footer {
       display: none;
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .nav {
+  &__link {
+    width: 64px;      // Daha dar
+    padding: 6px 8px;
+    font-size: 0.75rem;
+    
+    img {
+      width: 18px;
+      height: 18px;
+      }
     }
   }
 }
