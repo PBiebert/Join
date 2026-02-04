@@ -109,6 +109,12 @@ ul {
   }
 }
 
+/* Content Begrenzung für Seiten ohne Nav/Header */
+.content-container {
+  max-width: 1440px;
+  width: 100%;
+}
+
 .btn-primary {
   background: var(--color-medium-blue);
   color: var(--color-font-bright);
