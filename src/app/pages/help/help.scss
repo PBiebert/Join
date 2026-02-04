@@ -15,11 +15,6 @@
   height: 100vh;
 }
 
-// .content-container {
-//   max-width: 1440px;
-//   width: 100%;
-// }
-
 /* --- Wrapper: Header + Content --- */
 .wrapper {
   display: flex;
@@ -103,7 +98,7 @@ app-nav {
 /* --- Fließtext --- */
 .help__text {
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.4;
   color: var(--color-font-dark);
   margin: 0 0 1rem;
 }
