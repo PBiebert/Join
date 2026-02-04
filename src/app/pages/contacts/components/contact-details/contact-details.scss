@@ -111,7 +111,6 @@
   cursor: pointer;
   padding: 0.25rem 0.35rem;
   border-radius: 0.25rem;
-  transition: var(--transition-fast);
 
   img {
     width: 18px;
@@ -123,9 +122,8 @@
     color: var(--color-light-blue);
 
     img {
-      filter: brightness(0) saturate(100%)
-              invert(56%) sepia(91%) saturate(499%)
-              hue-rotate(156deg) brightness(96%) contrast(89%);
+      filter: invert(58%) sepia(85%) saturate(501%)
+              hue-rotate(156deg) brightness(94%) contrast(90%);
     }
   }
 }
