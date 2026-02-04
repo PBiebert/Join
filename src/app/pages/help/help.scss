@@ -5,19 +5,47 @@
  * Mindest-Fontgröße: 16px (1rem).
  * ================================================================ */
 
-/* --- Host-Element --- */
+/* --- Host-Element (Layout-Container) --- */
 :host {
-  display: block;
-  padding: clamp(1.5rem, 4vw, 4rem) clamp(1rem, 3.5vw, 3.5rem);
-  background-color: #f0f4f3;
-  border-top-left-radius: 2rem;
-  overflow-y: auto;
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 1440px;
+  height: 100svh;
+  height: 100vh;
+}
+
+// .content-container {
+//   max-width: 1440px;
+//   width: 100%;
+// }
+
+/* --- Wrapper: Header + Content --- */
+.wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+/* --- Component Sizing --- */
+app-header {
+  height: 96px;
+  width: 100%;
+}
+
+app-nav {
+  width: 232px;
   height: 100%;
 }
 
-/* --- Hauptcontainer: Lesbare Textbreite --- */
+/* --- Hauptcontainer: Help Content --- */
 .help {
-  max-width: 800px;
+  padding: 48px 100px 120px 100px;
+  background-color: #f0f4f3;
+  border-top-left-radius: 2rem;
+  overflow-y: auto;
+  flex: 1;
 }
 
 /* --- Header: Titel + Zurück-Pfeil --- */
@@ -26,7 +54,11 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: clamp(1.25rem, 3vw, 2rem);
+  max-width: 1440 - 100px;  // Text içeriğiyle aynı genişlik
+
 }
+
+
 
 .help__title {
   font-size: clamp(2rem, 5vw, 3.5rem);
@@ -52,6 +84,11 @@
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
+  
+
+  img {
+      transform: scaleX(1.3) translateX(-2px);  // Sola doğru uzar
+    }
   }
 }
 
@@ -110,7 +147,16 @@
  * ================================================================ */
 
 @media (max-width: 768px) {
-  :host {
+  .help {
     border-top-left-radius: 0;
+  }
+
+  app-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 80px;
   }
 }
