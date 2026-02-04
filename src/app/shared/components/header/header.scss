@@ -51,3 +51,9 @@
     cursor: pointer;
   }
 }
+
+@media (max-width: 767px) {
+  .header-container {
+    padding: 16px 20px;
+  }
+}
