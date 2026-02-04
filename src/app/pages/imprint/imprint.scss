@@ -1,24 +1,18 @@
-main {
+:host {
   position: relative;
   display: flex;
   width: 100%;
   height: 100svh;
   height: 100vh;
+  max-width: 1440px;
+  background-color: #f0f4f3;
 }
 
 .wrapper {
+  display: flex;
   width: 100%;
   height: 100%;
-  display: flex;
   flex-direction: column;
-}
-
-.content-wrapper {
-  box-shadow: inset 0 6px 12px -4px rgba(0, 0, 0, 0.38);
-  display: flex;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
 }
 
 app-header {
@@ -32,17 +26,10 @@ app-nav {
 }
 
 .imprint {
-  min-height: 100%;
-  padding: 48px 64px;
-  width: 100%;
-  max-width: 1440px;
   padding: 48px 100px 120px 100px;
+  flex: 1;
+  overflow-y: auto;
 
-    &::after {
-    content: '';
-    display: block;
-    height: 80px;
-  }
 
   // Header with title and back button
   &__header {
@@ -50,13 +37,6 @@ app-nav {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
-
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      color: var(--color-font-dark);
-      margin: 0;
-    }
   }
 
   // Back button (mobile only)
@@ -84,14 +64,12 @@ app-nav {
     margin-bottom: 40px;
 
     h2 {
-      font-size: 1.5rem;
       font-weight: 600;
       color: var(--color-font-dark);
       margin-bottom: 10px;
     }
 
     p {
-      line-height: 1.5;
       color: #4a4a4a;
       margin-bottom: 10px;
     }
@@ -111,8 +89,6 @@ app-nav {
 
     span {
       color: var(--color-font-dark);
-      font-size: 1rem;
-      line-height: 1.6;
 
       &:first-child {
         font-weight: 600;
@@ -137,19 +113,13 @@ app-nav {
     }
   }
 
-  // Date footer
-  &__date {
-    margin-top: 48px;
-    font-size: 0.875rem;
-    color: #888;
-    font-style: italic;
-  }
+
 }
 
 /* Mobile Styles */
 @media (max-width: 767px) {
 
-  main {
+  :host {
     height: auto;
     min-height: 100vh;
   }
@@ -163,10 +133,6 @@ app-nav {
 
     &__header {
       margin-bottom: 32px;
-
-      h1 {
-        font-size: 2rem;
-      }
     }
 
     // Show back button on mobile
@@ -176,22 +142,10 @@ app-nav {
 
     &__section {
       margin-bottom: 24px;
-
-      h2 {
-        font-size: 1.25rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
     }
 
     &__address {
       padding: 12px 16px;
-
-      span {
-        font-size: 0.9375rem;
-      }
     }
   }
 }
