@@ -15,6 +15,10 @@
   height: 100vh;
 }
 
+:host ::ng-deep .help-icon {
+  display: none;
+}
+
 /* --- Wrapper: Header + Content --- */
 .wrapper {
   display: flex;
