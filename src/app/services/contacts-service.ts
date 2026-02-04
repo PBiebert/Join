@@ -6,6 +6,7 @@ import {
   doc,
   deleteDoc,
   updateDoc,
+  addDoc,
 } from '@angular/fire/firestore';
 import { SingleContact } from '../interfaces/single-contact';
 
@@ -128,11 +129,14 @@ export class ContactsService implements OnDestroy {
    * @param contactId - Die ID des Kontakts
    * @param updatedData - Die neuen Daten (name, email, phone)
    */
-  async updateContact(
-    contactId: string,
-    updatedData: Partial<SingleContact>
-  ): Promise<void> {
+  async updateContact(contactId: string, updatedData: Partial<SingleContact>): Promise<void> {
     const contactRef = this.getSingleContactRef(contactId);
     await updateDoc(contactRef, updatedData);
+  }
+
+  // Adding a new contact to the Contacts(DB)
+
+  async addNewSingleContactToDB(addNewSingleContact: SingleContact) {
+    await addDoc(collection(this.contactsDB, 'contacts'), addNewSingleContact);
   }
 }
