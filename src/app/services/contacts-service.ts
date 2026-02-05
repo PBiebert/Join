@@ -98,15 +98,18 @@ export class ContactsService implements OnDestroy {
     return name
       .split(' ')
       .map((part) => part.charAt(0))
-      .join('');
+      .join('')
+      .slice(0, 2);
   }
 
   // Helper: Icon-Farbe zentral berechnen
+  // wenn es keine Zahl ist, ist der Wert immer 1
   getIconColorClass(contact: SingleContact): string {
     const lettersArray = 'ABCDEFGHJKLMNOPQRSTUVW'.split('');
     const nameParts = contact.name.split(' ');
     const letter = (nameParts[1]?.charAt(0) || nameParts[0].charAt(0)).toUpperCase();
     const index = lettersArray.indexOf(letter);
+    // Falls der Buchstabe nicht im Array gefunden wird (index === -1), wird als Fallback immer die Farbe mit der ID 1 verwendet.
     const colorId = index !== -1 ? (index % 15) + 1 : 1;
     return `icon-${colorId}`;
   }
