@@ -171,20 +171,153 @@
 }
 
 /* ================================================================
- * Responsive Anpassungen
+ * Back Button (Mobile Only)
  * ================================================================ */
+.contact-details__back-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-left: auto;
+  border-radius: 50%;
+  transition: var(--transition-fast);
 
-/* Tablets im Hochformat und kleiner */
-@media (max-width: 768px) {
-  :host {
-    border-top-left-radius: 0;
+  img {
+    width: 24px;
+    height: 24px;
+    filter: invert(58%) sepia(85%) saturate(501%) hue-rotate(156deg) brightness(94%) contrast(90%);
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }
 
-/* Kleine Geräte */
-@media (max-width: 576px) {
+/* ================================================================
+ * FAB (Floating Action Button) - Mobile Only
+ * ================================================================ */
+.contact-details__fab-wrapper {
+  display: none;
+  position: fixed;
+  right: 24px;
+  bottom: 100px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  z-index: 50;
+}
+
+.contact-details__fab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--color-medium-blue);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: var(--transition-fast);
+
+  img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+  }
+
+  &:hover {
+    background-color: var(--color-light-blue);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.contact-details__fab-menu {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-medium-blue);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.contact-details__fab-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  color: var(--color-font-bright);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+
+  img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ================================================================
+ * Mobile Responsive (< 768px)
+ * ================================================================ */
+@media (max-width: 767px) {
+  /* Back Button anzeigen */
+  .contact-details__back-btn {
+    display: flex;
+  }
+
+  /* Desktop Actions verstecken */
+  .contact-details__actions {
+    display: none;
+  }
+
+  /* FAB anzeigen */
+  .contact-details__fab-wrapper {
+    display: flex;
+  }
+
+  /* Header Anpassungen */
+  .contact-details__header {
+    position: relative;
+  }
+
+  /* Profil vertikal ausrichten */
   .contact-details__profile {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+/* ================================================================
+ * Extra Small Mobile (< 376px)
+ * ================================================================ */
+@media (max-width: 375px) {
+  .contact-details__fab-wrapper {
+    right: 16px;
+    bottom: 90px;
+  }
+
+  .contact-details__fab {
+    width: 48px;
+    height: 48px;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
   }
 }

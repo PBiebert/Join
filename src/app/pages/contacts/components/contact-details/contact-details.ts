@@ -7,6 +7,10 @@ import { ContactsService } from '../../../../services/contacts-service';
  *
  * Bezieht alle Daten aus contactsService.activContact.
  * Edit und Delete nutzen die Service-Methoden für Firebase.
+ *
+ * Mobile Features:
+ * - Back-Button: Kehrt zur Kontaktliste zurück
+ * - FAB-Menü: Zeigt Edit/Delete Optionen
  */
 @Component({
   selector: 'app-contact-details',
@@ -20,6 +24,35 @@ export class ContactDetails {
    * Public, damit das Template darauf zugreifen kann.
    */
   contactsService = inject(ContactsService);
+
+  /**
+   * Steuert die Sichtbarkeit des FAB-Dropdown-Menüs.
+   * Nur relevant für Mobile-Ansicht.
+   */
+  isFabMenuOpen = false;
+
+  /**
+   * Öffnet/schließt das FAB-Dropdown-Menü.
+   */
+  toggleFabMenu(): void {
+    this.isFabMenuOpen = !this.isFabMenuOpen;
+  }
+
+  /**
+   * Schließt das FAB-Dropdown-Menü.
+   */
+  closeFabMenu(): void {
+    this.isFabMenuOpen = false;
+  }
+
+  /**
+   * Kehrt zur Kontaktliste zurück (Mobile).
+   * Setzt activContact auf null, wodurch die Details ausgeblendet werden.
+   */
+  onBackClick(): void {
+    this.contactsService.activContact = null;
+    this.closeFabMenu();
+  }
 
   /**
    * Öffnet den Bearbeiten-Dialog.
