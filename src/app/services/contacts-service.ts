@@ -99,7 +99,8 @@ export class ContactsService implements OnDestroy {
       .split(' ')
       .map((part) => part.charAt(0))
       .join('')
-      .slice(0, 2);
+      .slice(0, 2)
+      .toUpperCase();
   }
 
   // Helper: Icon-Farbe zentral berechnen
