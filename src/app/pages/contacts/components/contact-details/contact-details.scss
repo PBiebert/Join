@@ -6,13 +6,36 @@
  * Breakpoints aus styles.scss.
  * ================================================================ */
 
-/* --- Host-Element: Hintergrund des gesamten Panels --- */
+/* --- Host-Element --- */
 :host {
   display: flex;
-  flex-direction: column;
-  padding: clamp(1.5rem, 4vw, 4rem) clamp(1rem, 3.5vw, 3.5rem);
+  width: 100%;
+  height: 100%;
+}
+
+/* ================================================================
+ * Outer Wrapper - Hintergrund (volle Breite)
+ * Dehnt sich auf großen Bildschirmen über 1440px aus.
+ * ================================================================ */
+.contact-details__outer {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
   background-color: #f0f4f3;
   overflow-y: auto;
+}
+
+/* ================================================================
+ * Inner Wrapper - Inhalt (max-width begrenzt)
+ * Begrenzt den Inhalt auf 1208px (1440px - 232px Nav).
+ * ================================================================ */
+.contact-details__inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1208px;
+  padding: clamp(1.5rem, 4vw, 4rem) clamp(1rem, 3.5vw, 3.5rem);
 }
 
 /* --- Header: "Contacts | Better with a team" --- */
@@ -46,7 +69,7 @@
   margin: 0;
 }
 
-/* --- Content-Wrapper --- */
+/* --- Content-Wrapper für Kontaktdetails --- */
 .contact-details__content {
   display: flex;
   flex-direction: column;
@@ -93,7 +116,7 @@
   word-break: break-word;
 }
 
-/* --- Edit & Delete Buttons --- */
+/* --- Edit & Delete Buttons (nur Desktop) --- */
 .contact-details__actions {
   display: flex;
   gap: 0.75rem;
@@ -128,7 +151,7 @@
   }
 }
 
-/* --- Kontaktinformationen (Email, Phone) --- */
+/* --- Kontaktinformationen (Email, Telefon) --- */
 .contact-details__info {
   display: flex;
   flex-direction: column;
@@ -171,7 +194,8 @@
 }
 
 /* ================================================================
- * Back Button (Mobile Only)
+ * Back Button (nur Mobile sichtbar)
+ * Ermöglicht Rückkehr zur Kontaktliste.
  * ================================================================ */
 .contact-details__back-btn {
   display: none;
@@ -197,7 +221,8 @@
 }
 
 /* ================================================================
- * FAB (Floating Action Button) - Mobile Only
+ * FAB (Floating Action Button) - nur Mobile sichtbar
+ * Zeigt Edit/Delete Optionen als Dropdown-Menü.
  * ================================================================ */
 .contact-details__fab-wrapper {
   display: none;
@@ -239,6 +264,7 @@
   }
 }
 
+/* FAB Dropdown-Menü */
 .contact-details__fab-menu {
   display: flex;
   flex-direction: column;
@@ -248,6 +274,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* FAB Menü-Einträge */
 .contact-details__fab-item {
   display: flex;
   align-items: center;
