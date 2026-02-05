@@ -4,7 +4,6 @@ main {
   width: 100%;
   height: 100svh;
   height: 100vh;
-  max-width: 1440px;
 }
 
 .wrapper {
@@ -31,7 +30,7 @@ app-nav {
 }
 
 app-contacts-list {
-  // min-width: 456px;
+  min-width: 456px;
   width: 456px;
   height: 100%;
 }
