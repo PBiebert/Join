@@ -9,7 +9,11 @@
 
     <div class="account-img"></div>
 
+
     <form #contactForm="ngForm" class="add-contact" (ngSubmit)="createNewContact()">
+
+      <div class="close" (click)="contactsService.closeAddContactDialog()"></div>
+
       <div class="inputs-container">
         <div class="input-name inputs">
           <input type="text" [(ngModel)]="addNewSingleContact.name" name="name" placeholder="Name" required />
