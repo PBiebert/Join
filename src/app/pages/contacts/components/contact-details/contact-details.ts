@@ -55,14 +55,13 @@ export class ContactDetails {
   }
 
   /**
-   * Öffnet den Bearbeiten-Dialog.
-   * 🔲 PLATZHALTER: Dialog-Komponente kommt von Teammitglied.
+   * Öffnet den Dialog im Edit-Modus für den aktuellen Kontakt.
+   * Nutzt openEditContactDialog() aus dem Service,
+   * das den isEditMode setzt und den Dialog über das BehaviorSubject öffnet.
    */
   protected onEdit(): void {
-    const contact = this.contactsService.activContact;
-    if (contact) {
-      console.log('Edit-Dialog öffnen für:', contact.name);
-      // TODO: Dialog öffnen, wenn Komponente fertig ist
+    if (this.contactsService.activContact) {
+      this.contactsService.openEditContactDialog();
     }
   }
 
