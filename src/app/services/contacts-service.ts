@@ -19,6 +19,7 @@ export class ContactsService implements OnDestroy {
   contacts: SingleContact[] = [];
   contactGroups: string[] = [];
   activContact: SingleContact | null = null;
+  isEditMode = false;
   contactsDB: Firestore = inject(Firestore);
   unsubContacts;
 
@@ -164,9 +165,26 @@ export class ContactsService implements OnDestroy {
     this.openDialogSubject.next(true);
   }
 
+  /**
+   * Öffnet den Dialog im Edit-Modus.
+   * Setzt isEditMode auf true, damit der Dialog weiß:
+   * „Ich soll einen bestehenden Kontakt bearbeiten, nicht neu anlegen."
+   * Nutzt das gleiche BehaviorSubject wie openAddContactDialog().
+   */
+  openEditContactDialog(): void {
+    this.isEditMode = true;
+    this.openDialogSubject.next(true);
+  }
+
   // Schließt das Modal, indem der Wert des Subjects auf 'false' gesetzt wird
   // Mit next(false) wird allen Abonnenten signalisiert, dass das Modal geschlossen werden soll.
-  closeAddContactDialog() {
+  /**
+   * Schließt den Dialog und setzt den Edit-Modus zurück.
+   * Egal ob Add oder Edit – nach dem Schließen ist isEditMode immer false.
+   * So startet der nächste Dialog-Aufruf sauber im Add-Modus.
+   */
+  closeAddContactDialog(): void {
+    this.isEditMode = false;
     this.openDialogSubject.next(false);
   }
 }
