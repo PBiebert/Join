@@ -166,7 +166,7 @@ export class ContactsService implements OnDestroy {
     this.openDialogSubject.next(true);
   }
 
-  /**
+  /**<
    * Öffnet den Dialog im Edit-Modus.
    * Setzt isEditMode auf true, damit der Dialog weiß:
    * „Ich soll einen bestehenden Kontakt bearbeiten, nicht neu anlegen."

@@ -2,10 +2,11 @@ import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angula
 import { ContactsService } from '../../../../services/contacts-service';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact-dialog',
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './contact-dialog.html',
   styleUrl: './contact-dialog.scss',
 })
@@ -15,19 +16,40 @@ export class ContactDialog implements AfterViewInit {
   private dialogSub!: Subscription;
   isClosing = false;
 
+  showSnackbar = false;
+  snackbarMessage = '';
+
   addNewSingleContact = {
     name: '',
     email: '',
     phone: '',
   };
 
+  // This function checks if the name has at least 2 characters besides spaces
+  isNameValid(): boolean {
+    return this.addNewSingleContact.name.trim().length >= 2;
+  }
+
   async createNewContact() {
+    if (!this.isNameValid()) return;
+
     await this.contactsService.addNewSingleContactToDB({
-      name: this.addNewSingleContact.name,
+      name: this.addNewSingleContact.name.trim(),
       email: this.addNewSingleContact.email,
       phone: this.addNewSingleContact.phone,
     });
+    this.showSuccessSnackbar();
     this.clearInputFields();
+    this.contactsService.closeAddContactDialog();
+  }
+
+  showSuccessSnackbar() {
+    this.snackbarMessage = 'Account successfully created!';
+    this.showSnackbar = true;
+    
+    setTimeout(() => {
+      this.showSnackbar = false;
+    }, 3000);
   }
 
   clearInputFields() {

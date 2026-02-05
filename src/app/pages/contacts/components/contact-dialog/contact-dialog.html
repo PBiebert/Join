@@ -1,7 +1,7 @@
 <dialog #dialogRef (click)="contactsService.closeAddContactDialog()">
   <section class="dialog-container" (click)="$event.stopPropagation()">
     <div class="contact-text">
-      <img class="dialog-logo" src="/assets/Contacts/contact-dialog/join_logo.png" alt="" />
+      <img class="dialog-logo" src="/assets/icons/join_logo.png" alt="" />
       <h1>Add contact</h1>
       <p>Tasks are better with a team!</p>
       <div class="line"></div>
@@ -9,36 +9,21 @@
 
     <div class="account-img"></div>
 
-    <form class="add-contact" (ngSubmit)="createNewContact()">
+    <form #contactForm="ngForm" class="add-contact" (ngSubmit)="createNewContact()">
       <div class="inputs-container">
         <div class="input-name inputs">
-          <input
-            type="text"
-            [(ngModel)]="addNewSingleContact.name"
-            name="name"
-            placeholder="Name"
-            required
-          />
+          <input type="text" [(ngModel)]="addNewSingleContact.name" name="name" placeholder="Name" required />
+          <img class="icons" src="/assets/icons/person.png" alt="person">
         </div>
 
         <div class="input-email inputs">
-          <input
-            type="email"
-            [(ngModel)]="addNewSingleContact.email"
-            name="email"
-            placeholder="Email"
-            required
-          />
+          <input type="email" [(ngModel)]="addNewSingleContact.email" name="email" placeholder="Email" />
+          <img class="icons" src="/assets/icons/mail.png" alt="person">
         </div>
 
         <div class="input-phone inputs">
-          <input
-            type="tel"
-            [(ngModel)]="addNewSingleContact.phone"
-            name="phone"
-            placeholder="Phone"
-            required
-          />
+          <input type="tel" [(ngModel)]="addNewSingleContact.phone" name="phone" placeholder="Phone" />
+          <img class="icons" src="/assets/icons/tel.png" alt="person">
         </div>
       </div>
 
@@ -47,10 +32,17 @@
           Cancel &#x2715;
         </button>
 
-        <button type="submit" class="btn-primary" (click)="contactsService.closeAddContactDialog()">
+        <button type="submit" class="btn-primary" [disabled]="!isNameValid()">
           Create Contact &#10003;
         </button>
       </div>
     </form>
   </section>
 </dialog>
+
+@if (showSnackbar) {
+<div class="snackbar success-snackbar">
+  {{ snackbarMessage }}
+  <button class="snackbar-close" (click)="showSnackbar = false">✕</button>
+</div>
+}

@@ -19,6 +19,10 @@ dialog::backdrop {
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-font-bright);
+  gap: 32px;
+
+  max-width: 1280px;
+  max-height: 720px;
 }
 
 .contact-text {
@@ -81,7 +85,7 @@ p {
 .account-img {
   width: 128px;
   height: 128px;
-  background-image: url('/assets/Contacts/contact-dialog/account_profile_standart.png');
+  background-image: url('/assets/icons/account_profile_standart.png');
   background-size: cover;
   background-position: center center;
   background-position: fixed;
@@ -128,6 +132,7 @@ input {
   outline: none;
   border: none;
   background: none;
+  flex-grow: 1;
 }
 
 .inputs-container {
@@ -247,11 +252,43 @@ input {
   animation: slideOutToRight 0.5s ease-in-out forwards;
 }
 
+.snackbar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 4px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  animation: slideInUp 0.3s ease-out;
+}
+
+.success-snackbar {
+  background-color: #4caf50;
+}
+
+.snackbar-close {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  margin-left: 16px;
+}
+
 @keyframes slideInFromRight {
   from {
     transform: translateX(100vw);
     opacity: 0.5;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -263,8 +300,22 @@ input {
     transform: translateX(0);
     opacity: 1;
   }
+
   to {
     transform: translateX(100vw);
     opacity: 0.5;
+  }
+}
+
+
+@keyframes slideInUp {
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
   }
 }
