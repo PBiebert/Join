@@ -9,6 +9,7 @@ import {
   addDoc,
 } from '@angular/fire/firestore';
 import { SingleContact } from '../interfaces/single-contact';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,15 @@ export class ContactsService implements OnDestroy {
   activContact: SingleContact | null = null;
   contactsDB: Firestore = inject(Firestore);
   unsubContacts;
+
+  // Erstellt ein BehaviorSubject mit Startwert 'false' (Modal ist geschlossen)
+  private openDialogSubject = new BehaviorSubject<boolean>(false);
+  // Gibt das Subject als Observable nach außen, damit Komponenten abonnieren können
+  // Das $ am Ende von 'openDialog$' ist eine Konvention, um zu kennzeichnen, dass es sich um ein Observable handelt.
+  // So erkennt man direkt, dass man dieses Property abonnieren kann und nicht direkt verändert.
+  // Die Methode asObservable() wandelt das BehaviorSubject in ein Observable um.
+  // Dadurch können andere Komponenten den Wert abonnieren, aber nicht direkt verändern.
+  openDialog$: Observable<boolean> = this.openDialogSubject.asObservable();
 
   constructor() {
     this.unsubContacts = this.subContactsList();
@@ -138,5 +148,22 @@ export class ContactsService implements OnDestroy {
 
   async addNewSingleContactToDB(addNewSingleContact: SingleContact) {
     await addDoc(collection(this.contactsDB, 'contacts'), addNewSingleContact);
+  }
+
+  /* ============================================================
+   * Öffnen des Dialoges
+   * Siehe auch oben
+   * ============================================================ */
+
+  // Öffnet das Modal, indem der Wert des Subjects auf 'true' gesetzt wird
+  // Mit next(true) wird allen Abonnenten signalisiert, dass das Modal geöffnet werden soll.
+  openAddContactDialog() {
+    this.openDialogSubject.next(true);
+  }
+
+  // Schließt das Modal, indem der Wert des Subjects auf 'false' gesetzt wird
+  // Mit next(false) wird allen Abonnenten signalisiert, dass das Modal geschlossen werden soll.
+  closeAddContactDialog() {
+    this.openDialogSubject.next(false);
   }
 }

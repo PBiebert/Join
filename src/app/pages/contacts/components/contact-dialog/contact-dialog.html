@@ -1,42 +1,56 @@
-<section class="dialog-container">
-
-  <div class="contact-text">
-    <img class="dialog-logo" src="/assets/Contacts/contact-dialog/join_logo.png" alt="">
-    <h1>Add contact</h1>
-    <p>Tasks are better with a team!</p>
-    <div class="line"></div>
-  </div>
-
-  <div class="account-img"></div>
-
-
-  <form class="add-contact" (ngSubmit)="createNewContact()">
-
-    <div class="inputs-container">
-      <div class="input-name inputs">
-        <input type="text" [(ngModel)]="addNewSingleContact.name" name="name" placeholder="Name" required>
-      </div>
-
-      <div class="input-email inputs">
-        <input type="email" [(ngModel)]="addNewSingleContact.email" name="email" placeholder="Email" required>
-      </div>
-
-      <div class="input-phone inputs">
-        <input type="tel" [(ngModel)]="addNewSingleContact.phone" name="phone" placeholder="Phone" required>
-      </div>
+<dialog #dialogRef (click)="contactsService.closeAddContactDialog()">
+  <section class="dialog-container" (click)="$event.stopPropagation()">
+    <div class="contact-text">
+      <img class="dialog-logo" src="/assets/Contacts/contact-dialog/join_logo.png" alt="" />
+      <h1>Add contact</h1>
+      <p>Tasks are better with a team!</p>
+      <div class="line"></div>
     </div>
 
-    <div class="btns-container">
-      <button type="button" class="btn-outline">
-        Cancel &#x2715;
-      </button>
+    <div class="account-img"></div>
 
-      <button type="submit" class="btn-primary">
-        Create Contact &#10003;
-      </button>
-    </div>
+    <form class="add-contact" (ngSubmit)="createNewContact()">
+      <div class="inputs-container">
+        <div class="input-name inputs">
+          <input
+            type="text"
+            [(ngModel)]="addNewSingleContact.name"
+            name="name"
+            placeholder="Name"
+            required
+          />
+        </div>
 
-  </form>
+        <div class="input-email inputs">
+          <input
+            type="email"
+            [(ngModel)]="addNewSingleContact.email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+        </div>
 
+        <div class="input-phone inputs">
+          <input
+            type="tel"
+            [(ngModel)]="addNewSingleContact.phone"
+            name="phone"
+            placeholder="Phone"
+            required
+          />
+        </div>
+      </div>
 
-</section>
+      <div class="btns-container">
+        <button type="button" class="btn-outline" (click)="contactsService.closeAddContactDialog()">
+          Cancel &#x2715;
+        </button>
+
+        <button type="submit" class="btn-primary" (click)="contactsService.closeAddContactDialog()">
+          Create Contact &#10003;
+        </button>
+      </div>
+    </form>
+  </section>
+</dialog>

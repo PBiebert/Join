@@ -1,9 +1,20 @@
-.dialog-container {
-  width: 1212px;
-  height: 592px;
-  background-color: rgb(0, 0, 0);
+dialog {
+  position: fixed; // Überlagert den gesamten Bildschirm
+  top: 0;
+  left: 0;
+  margin: auto;
+  padding: 0;
+  border: none;
   border-radius: 30px;
+}
 
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-container {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,7 +44,6 @@
 }
 
 h1 {
-
   color: var(--color-font-bright);
   font-family: Inter;
   font-weight: 700;
@@ -43,7 +53,6 @@ h1 {
   letter-spacing: 0%;
   margin: 0;
   margin-bottom: 16px;
-
 }
 
 p {
@@ -60,21 +69,19 @@ p {
 
 .line {
   border-radius: 3px;
-  background-color: #29ABE2;
+  background-color: #29abe2;
   height: 90px;
   width: 3px;
   margin-right: 48px;
   margin-left: 48px;
   transform-origin: center center;
   transform: rotate(90deg) translateX(-32px);
-  ;
 }
-
 
 .account-img {
   width: 128px;
   height: 128px;
-  background-image: url("/assets/Contacts/contact-dialog/account_profile_standart.png");
+  background-image: url('/assets/Contacts/contact-dialog/account_profile_standart.png');
   background-size: cover;
   background-position: center center;
   background-position: fixed;
@@ -97,7 +104,7 @@ p {
 .close {
   width: 32px;
   height: 32px;
-  background-image: url("/assets/Contacts/contact-dialog/Close.png");
+  background-image: url('/assets/Contacts/contact-dialog/Close.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -109,7 +116,6 @@ p {
 
   position: relative;
   top: -34px;
-
 
   &:hover {
     background-color: rgba(209, 209, 209, 0.5);
@@ -192,7 +198,7 @@ input {
   border: 1px solid var(--color-medium-blue);
 
   &:hover {
-    border: 1px solid var(--color-light-blue)
+    border: 1px solid var(--color-light-blue);
   }
 }
 
@@ -204,7 +210,6 @@ input {
   &:hover {
     cursor: pointer;
     box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.15);
-
   }
 }
 
@@ -215,7 +220,6 @@ input {
   font-size: 20px;
   line-height: 120%;
   letter-spacing: 0%;
-
 }
 
 .btn-icons {
@@ -233,4 +237,34 @@ input {
   font-size: 21px;
   line-height: 120%;
   letter-spacing: 0%;
+}
+
+.slide-in {
+  animation: slideInFromRight 0.5s ease-in-out forwards;
+}
+
+.slide-out {
+  animation: slideOutToRight 0.5s ease-in-out forwards;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100vw);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100vw);
+    opacity: 0.5;
+  }
 }
