@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { ContactsService } from '../../../../services/contacts-service';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -30,6 +30,34 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     return this.addNewSingleContact.name.trim().length >= 2;
   }
 
+  // This function checks if the email is valid
+  isEmailValid(): boolean {
+    const email = this.addNewSingleContact.email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  isPhoneValid(): boolean {
+    const phone = this.addNewSingleContact.phone.trim();
+    if (!phone) return true;
+    const phoneRegex = /^\+?\d+$/;
+    return phoneRegex.test(phone);
+  }
+
+  // This function checks if the whole form is valid
+  isFormValid(): boolean {
+    return this.isNameValid() && this.isEmailValid() && this.isPhoneValid();
+  }
+
+  @HostListener('input', ['$event'])
+  onPhoneInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target?.name === 'phone') {
+      target.value = target.value.replace(/[^+\d]/g, '');
+      this.addNewSingleContact.phone = target.value;
+    }
+  }
+
   /**
    * Speichert den Kontakt – unterscheidet zwischen Add und Edit.
    * Edit-Modus: Aktualisiert den bestehenden Kontakt in Firebase.
@@ -37,7 +65,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
    * Schließt den Dialog erst NACH erfolgreichem Speichern.
    */
   async saveContact(): Promise<void> {
-    if (!this.isNameValid()) return;
+    if (!this.isFormValid()) return;
     // Formulardaten zusammenstellen
     const contactData = this.buildContactData();
     // Je nach Modus: Update oder Neu anlegen
@@ -57,8 +85,8 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
   private buildContactData(): { name: string; email: string; phone: string } {
     return {
       name: this.addNewSingleContact.name.trim(),
-      email: this.addNewSingleContact.email,
-      phone: this.addNewSingleContact.phone,
+      email: this.addNewSingleContact.email.trim(),
+      phone: this.addNewSingleContact.phone.trim(),
     };
   }
 
