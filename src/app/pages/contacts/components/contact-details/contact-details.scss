@@ -34,8 +34,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  // max-width: 1208px;
-  padding: clamp(0.5rem, 2vw, 4rem) clamp(0.5rem, 2vw, 3.5rem);
+  max-width: 1208px;
+  padding: clamp(3rem, 2vw, 6rem) clamp(0.5rem, 2vw, 6rem);
 }
 
 /* --- Header: "Contacts | Better with a team" --- */
@@ -43,11 +43,11 @@
   display: flex;
   align-items: center;
   gap: clamp(0.25rem, 2vw, 1.5rem);
-  margin-bottom: clamp(1.25rem, 3vw, 2.5rem);
+  margin-bottom: clamp(1rem, 3vw, 2.5rem);
 }
 
 .contact-details__title {
-  font-size: clamp(1.75rem, 4vw, 3.5rem);
+  font-size: clamp(1.20rem, 4vw, 3.5rem);
   font-weight: 700;
   color: var(--color-font-dark);
   margin: 0;
@@ -88,8 +88,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(56px, 8vw, 80px);
-  height: clamp(56px, 8vw, 80px);
+  width: clamp(40px, 7vw, 80px);
+  height: clamp(40px, 7vw, 80px);
   border-radius: 50%;
   border: 3px solid #fff !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -108,7 +108,7 @@
 }
 
 .contact-details__name {
-  font-size: clamp(1rem, 3vw, 2.5rem);
+  font-size: clamp(1rem, 2vw, 2.5rem);
   font-weight: 500;
   color: var(--color-font-dark);
   margin: 0;
@@ -228,7 +228,7 @@
   display: none;
   position: fixed;
   right: 24px;
-  bottom: 100px;
+  bottom: 80px;
   flex-direction: column;
   align-items: flex-end;
   gap: 12px;
@@ -298,75 +298,93 @@
   }
 }
 
-@media (max-width: 856px) {
-  .contact-details__header {
+
+@media (max-width: 1110px) {
+.contact-details__header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
-    padding-bottom: 16px;
-  }
+    gap: 0.5rem;
+    position: relative;
 
-  .contact-details__separator {
-    width: 70px;
+     &::after {
+    content: '';
+    display: block;
+    width: 80px;
     height: 3px;
+    background-color: var(--color-light-blue);
+    }
   }
-
-  .contact-details__profile {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+   .contact-details__separator {
+    display: none;
   }
-
 }
 
 /* ================================================================
- * Mobile Responsive (< 768px)
+ * Mobile Responsive (< 1024px)
  * ================================================================ */
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
+  .contact-details__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    position: relative;
+
+     &::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background-color: var(--color-light-blue);
+    }
+  }
+
+  .contact-details__separator {
+    display: none;
+  }
 
   /* Back Button anzeigen */
   .contact-details__back-btn {
     display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 
-  /* Desktop Actions verstecken */
+  .contact-details__actions {
+    display: flex;
+  }
+
+  /* FAB verstecken */
+  .contact-details__fab-wrapper {
+    display: none;
+  }
+
+  .contact-details__avatar {
+  width: clamp(56px, 8vw, 80px);
+  height: clamp(56px, 8vw, 80px);
+  }
+}
+
+@media (max-width: 768px) {
+/* FAB verstecken */
+  .contact-details__fab-wrapper {
+    display: flex;
+    bottom: 120px;
+  }
+
   .contact-details__actions {
     display: none;
   }
 
-  /* FAB anzeigen */
-  .contact-details__fab-wrapper {
-    display: flex;
-  }
-
-  /* Header Anpassungen */
-  .contact-details__header {
-    position: relative;
-  }
-
-  /* Profil vertikal ausrichten */
-  .contact-details__profile {
-  flex-direction: row;
-    align-items: center;
+  .contact-details__avatar {
+  width: clamp(64px, 8vw, 80px);
+  height: clamp(64px, 8vw, 80px);
   }
 }
 
-/* ================================================================
- * Extra Small Mobile (< 376px)
- * ================================================================ */
 @media (max-width: 375px) {
   .contact-details__fab-wrapper {
     right: 16px;
-    bottom: 90px;
-  }
-
-  .contact-details__fab {
-    width: 48px;
-    height: 48px;
-
-    img {
-      width: 20px;
-      height: 20px;
-    }
+    bottom: 110px;
   }
 }
