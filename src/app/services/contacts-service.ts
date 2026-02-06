@@ -49,14 +49,22 @@ export class ContactsService implements OnDestroy {
     return collection(this.contactsDB, 'contacts');
   }
 
+  /**
+   * Abonniert die Kontaktliste in Firebase mit Echtzeit-Updates.
+   * Bei jeder Änderung (Add, Edit, Delete) wird die lokale Liste aktualisiert.
+   * Nutzt onSnapshot für reaktive Datenbindung.
+   */
   subContactsList() {
     return onSnapshot(this.getNotesRef(), (list) => {
+      // Liste leeren und neu aufbauen
       this.contacts = [];
       list.forEach((element) => {
         this.contacts.push(this.setContactObject(element.data(), element.id));
       });
-      // Nach Datenupdate Gruppen neu berechnen
+      // Gruppen (A, B, C...) neu berechnen
       this.updateContactGroups();
+      // Aktiven Kontakt mit neuen Daten synchronisieren
+      this.refreshActivContact();
     });
   }
 
@@ -83,6 +91,24 @@ export class ContactsService implements OnDestroy {
         this.contactGroups.push(initialLetter);
       }
     }
+  }
+
+  /**
+   * Synchronisiert activContact mit den neuesten Daten aus Firebase.
+   * Wird nach jedem onSnapshot-Update aufgerufen.
+   * Sucht den Kontakt mit der gleichen ID in der aktualisierten Liste
+   * und ersetzt activContact mit den neuen Daten.
+   * Falls der Kontakt gelöscht wurde, wird activContact auf null gesetzt.
+   */
+  private refreshActivContact(): void {
+    // Nur ausführen, wenn ein Kontakt ausgewählt ist
+    if (!this.activContact || !this.activContact.id) {
+      return;
+    }
+    // Kontakt mit gleicher ID in der aktualisierten Liste suchen
+    const updatedContact = this.contacts.find((contact) => contact.id === this.activContact!.id);
+    // Gefunden? → activContact aktualisieren. Nicht gefunden? → null setzen.
+    this.activContact = updatedContact || null;
   }
 
   /**
