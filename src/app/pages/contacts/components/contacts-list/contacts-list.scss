@@ -67,7 +67,6 @@ button {
 
 .single-contact {
   display: flex;
-  padding: 1rem 1rem;
   padding: clamp(0.5rem, 1.5vw, 1rem);
   cursor: pointer;
   border-radius: 0.5rem;
@@ -76,8 +75,7 @@ button {
 
   &:hover {
     background: #f9f9f9;
-    background: linear-gradient(180deg, rgba(249, 249, 249, 1) 0%, rgba(255, 255, 255, 1) 100%);
-  }
+    }
 }
 
 .icon {
@@ -87,10 +85,8 @@ button {
   flex-shrink: 0;
   color: var(--color-font-bright);
   border-radius: 50%;
-  // width: 2.5rem;
-  width: clamp(2rem, 3vw, 2.5rem);
+  width: clamp(2.5rem, 3vw, 2.5rem);
   height: clamp(2.5rem, 3vw, 2.5rem);
-  // height: 2.5rem;
   margin-right: 1rem;
 }
 
@@ -124,14 +120,6 @@ button {
     color: var(--color-font-bright);
     background: var(--color-medium-blue);
   }
-}
-
-.contacts-list__add-btn {
-  display: flex;
-}
-
-.contacts-list__fab {
-  display: none;
 }
 
 
@@ -175,12 +163,13 @@ button {
   .contacts-list__fab {
     display: flex;
     bottom: 100px;
+    right: 35px;
   }
 }
 
 @media (max-width: 375px) {
   .contacts-list__fab {
-    right: 16px;
+    right: 30px;
     bottom: 110px;
     width: 48px;
     height: 48px;
