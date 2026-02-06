@@ -40,8 +40,9 @@ app-contact-details {
   width: 100%;
   flex: 1;
 
-  &:not(:has(.contact-details__content)) {
-      display: none;
+   &:not(:has(.contact-details__content)) {
+      z-index: 0;
+      pointer-events: none;
     }
 }
 
