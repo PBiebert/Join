@@ -144,6 +144,20 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     this.addNewSingleContact.phone = '';
   }
 
+  resetForm() {
+    this.submitted = false;
+  }
+
+  closeDialog() {
+    this.resetForm();
+    this.contactsService.closeAddContactDialog();
+  }
+
+  cancelDialog() {
+    this.resetForm();
+    this.contactsService.closeAddContactDialog();
+  }
+
   /**
    * Befüllt das Formular je nach Modus.
    * Edit-Modus: Lädt die Daten des aktiven Kontakts in die Formularfelder.
@@ -162,6 +176,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
       // Nein → Formular leeren (Add-Modus)
       this.clearInputFields();
     }
+    this.resetForm();
   }
 
   openDialogWithAnimation() {
