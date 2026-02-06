@@ -15,25 +15,41 @@
 
     <div class="account-img"></div>
 
-
     <form #contactForm="ngForm" class="add-contact" (ngSubmit)="saveContact()">
-
       <div class="close" (click)="contactsService.closeAddContactDialog()"></div>
 
       <div class="inputs-container">
         <div class="input-name inputs">
-          <input type="text" [(ngModel)]="addNewSingleContact.name" name="name" placeholder="Name" required />
-          <img class="icons" src="/assets/icons/person.png" alt="person">
+          <input
+            type="text"
+            [(ngModel)]="addNewSingleContact.name"
+            name="name"
+            placeholder="Name"
+            required
+          />
+          <img class="icons" src="/assets/icons/person.png" alt="person" />
         </div>
 
         <div class="input-email inputs">
-          <input type="email" [(ngModel)]="addNewSingleContact.email" name="email" placeholder="Email" />
-          <img class="icons" src="/assets/icons/mail.png" alt="person">
+          <input
+            type="email"
+            [(ngModel)]="addNewSingleContact.email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+          <img class="icons" src="/assets/icons/mail.png" alt="person" />
         </div>
 
         <div class="input-phone inputs">
-          <input type="tel" [(ngModel)]="addNewSingleContact.phone" name="phone" placeholder="Phone" />
-          <img class="icons" src="/assets/icons/tel.png" alt="person">
+          <input
+            type="tel"
+            [(ngModel)]="addNewSingleContact.phone"
+            name="phone"
+            placeholder="Phone"
+            pattern="^\+?\d+$"
+          />
+          <img class="icons" src="/assets/icons/tel.png" alt="person" />
         </div>
       </div>
 
@@ -44,11 +60,11 @@
 
         <!-- Button-Text passt sich dem Modus an -->
         @if (contactsService.isEditMode) {
-          <button type="submit" class="btn-primary" [disabled]="!isNameValid()">
+          <button type="submit" class="btn-primary" [disabled]="!isFormValid()">
             Save &#10003;
           </button>
         } @else {
-          <button type="submit" class="btn-primary" [disabled]="!isNameValid()">
+          <button type="submit" class="btn-primary" [disabled]="!isFormValid()">
             Create Contact &#10003;
           </button>
         }
@@ -58,8 +74,8 @@
 </dialog>
 
 @if (showSnackbar) {
-<div class="snackbar success-snackbar">
-  {{ snackbarMessage }}
-  <button class="snackbar-close" (click)="showSnackbar = false">✕</button>
-</div>
+  <div class="snackbar success-snackbar">
+    {{ snackbarMessage }}
+    <button class="snackbar-close" (click)="showSnackbar = false">✕</button>
+  </div>
 }
