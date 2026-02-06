@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, ViewChild } from '@angular/core';
 import { ContactsService } from '../../../../services/contacts-service';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './contact-dialog.html',
   styleUrl: './contact-dialog.scss',
 })
-export class ContactDialog implements AfterViewInit {
+export class ContactDialog implements AfterViewInit, OnDestroy {
   contactsService = inject(ContactsService);
   @ViewChild('dialogRef') dialogRef!: ElementRef;
   private dialogSub!: Subscription;
@@ -30,23 +30,77 @@ export class ContactDialog implements AfterViewInit {
     return this.addNewSingleContact.name.trim().length >= 2;
   }
 
-  async createNewContact() {
+  /**
+   * Speichert den Kontakt – unterscheidet zwischen Add und Edit.
+   * Edit-Modus: Aktualisiert den bestehenden Kontakt in Firebase.
+   * Add-Modus: Legt einen neuen Kontakt in Firebase an.
+   * Schließt den Dialog erst NACH erfolgreichem Speichern.
+   */
+  async saveContact(): Promise<void> {
     if (!this.isNameValid()) return;
+    // Formulardaten zusammenstellen
+    const contactData = this.buildContactData();
+    // Je nach Modus: Update oder Neu anlegen
+    if (this.contactsService.isEditMode) {
+      await this.updateExistingContact(contactData);
+    } else {
+      await this.contactsService.addNewSingleContactToDB(contactData);
+    }
+    this.handleSuccessfulSave();
+  }
 
-    await this.contactsService.addNewSingleContactToDB({
+  /**
+   * Erstellt das Datenobjekt aus den Formularfeldern.
+   * Trimmt den Namen, um führende/folgende Leerzeichen zu entfernen.
+   * @returns Objekt mit name, email und phone
+   */
+  private buildContactData(): { name: string; email: string; phone: string } {
+    return {
       name: this.addNewSingleContact.name.trim(),
       email: this.addNewSingleContact.email,
       phone: this.addNewSingleContact.phone,
-    });
+    };
+  }
+
+  /**
+   * Aktualisiert den aktiven Kontakt in Firebase.
+   * Holt die ID aus activContact und ruft updateContact() im Service auf.
+   * @param data - Die aktualisierten Kontaktdaten
+   */
+  private async updateExistingContact(data: {
+    name: string;
+    email: string;
+    phone: string;
+  }): Promise<void> {
+    const contactId = this.contactsService.activContact?.id;
+    if (contactId) {
+      await this.contactsService.updateContact(contactId, data);
+    }
+  }
+
+  /**
+   * Wird nach erfolgreichem Speichern aufgerufen.
+   * Zeigt die Erfolgs-Snackbar, leert das Formular und schließt den Dialog.
+   */
+  private handleSuccessfulSave(): void {
     this.showSuccessSnackbar();
     this.clearInputFields();
     this.contactsService.closeAddContactDialog();
   }
 
-  showSuccessSnackbar() {
-    this.snackbarMessage = 'Account successfully created!';
+  /**
+   * Zeigt eine Erfolgs-Snackbar mit passender Nachricht.
+   * Edit-Modus: "Contact successfully updated!"
+   * Add-Modus: "Contact successfully created!"
+   * Die Snackbar verschwindet automatisch nach 3 Sekunden.
+   */
+  showSuccessSnackbar(): void {
+    // Nachricht je nach Modus setzen
+    this.snackbarMessage = this.contactsService.isEditMode
+      ? 'Contact successfully updated!'
+      : 'Contact successfully created!';
     this.showSnackbar = true;
-    
+    // Nach 3 Sekunden automatisch ausblenden
     setTimeout(() => {
       this.showSnackbar = false;
     }, 3000);
@@ -56,6 +110,26 @@ export class ContactDialog implements AfterViewInit {
     this.addNewSingleContact.name = '';
     this.addNewSingleContact.email = '';
     this.addNewSingleContact.phone = '';
+  }
+
+  /**
+   * Befüllt das Formular je nach Modus.
+   * Edit-Modus: Lädt die Daten des aktiven Kontakts in die Formularfelder.
+   * Add-Modus: Leert alle Felder für einen neuen Kontakt.
+   * Wird aufgerufen, bevor der Dialog sichtbar wird.
+   */
+  private loadFormData(): void {
+    const contact = this.contactsService.activContact;
+    // Prüft: Sind wir im Edit-Modus UND gibt es einen aktiven Kontakt?
+    if (this.contactsService.isEditMode && contact) {
+      // Ja → Formular mit bestehenden Daten füllen
+      this.addNewSingleContact.name = contact.name;
+      this.addNewSingleContact.email = contact.email;
+      this.addNewSingleContact.phone = contact.phone;
+    } else {
+      // Nein → Formular leeren (Add-Modus)
+      this.clearInputFields();
+    }
   }
 
   openDialogWithAnimation() {
@@ -77,22 +151,23 @@ export class ContactDialog implements AfterViewInit {
   }
 
   /**
-   * Lifecycle-Hook, der nach der Initialisierung der View aufgerufen wird.
-   * Hier wird das Dialog-Observable abonniert, um auf Änderungen des Dialog-Status zu reagieren.
-   * Das ist notwendig, weil das Dialog-Element erst nach dem Rendern der View verfügbar ist.
+   * Lifecycle-Hook: Wird aufgerufen, nachdem die View initialisiert wurde.
+   * Hier abonnieren wir das Dialog-Observable aus dem Service.
+   * Bei jeder Änderung (true/false) reagiert der Dialog entsprechend.
+   * Das ist das BehaviorSubject-Pattern aus der Dokumentation von Philipp.
    */
-  ngAfterViewInit() {
-    // Wir speichern die Subscription, um sie später wieder aufheben zu können (Speicherlecks vermeiden).
+  ngAfterViewInit(): void {
+    // Subscription speichern, um sie in ngOnDestroy aufheben zu können
     this.dialogSub = this.contactsService.openDialog$.subscribe((dialogOpen) => {
-      // Überprüft, ob das Dialog geöffnet werden soll (true).
       if (dialogOpen) {
-        // Öffnet das native HTML-Dialog-Element per showModal().
-        // Dadurch wird das Dialog-Fenster angezeigt.
+        // Erst Formulardaten laden (Edit: befüllen, Add: leeren)
+        this.loadFormData();
+        // Dann Dialog mit Animation öffnen
         this.openDialogWithAnimation();
       } else {
+        // Dialog mit Animation schließen
         this.closeDialogWithAnimation();
       }
-      // Falls dialogOpen false ist, passiert hier nichts (Dialog bleibt geschlossen).
     });
   }
 
