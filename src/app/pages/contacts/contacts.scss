@@ -40,9 +40,9 @@ app-contact-details {
   width: 100%;
   flex: 1;
 
-  // &:not(:has(.contact-details__content)) {
-  //     display: none;
-  //   }
+  &:not(:has(.contact-details__content)) {
+      display: none;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -62,9 +62,9 @@ app-contact-details {
     height: 100%;
     z-index: 10;
     
-    // &:not(:has(.contact-details__content)) {
-    //   display: none;
-    // }
+    &:not(:has(.contact-details__content)) {
+      display: none;
+    }
   }
 }
 
@@ -93,9 +93,9 @@ app-contact-details {
     z-index: 10;
     background-color: #f0f4f3;
     
-    // &:not(:has(.contact-details__content)) {
-    //   display: none;
-    // }
+    &:not(:has(.contact-details__content)) {
+      display: none;
+    }
   }
 }
 
