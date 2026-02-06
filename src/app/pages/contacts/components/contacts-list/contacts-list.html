@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <button class="btn-primary" (click)="contactsService.openAddContactDialog()">
+  <button class="btn-primary contacts-list__desktop-btn" (click)="contactsService.openAddContactDialog()">
     Add new contact
     <span
       ><svg
@@ -27,6 +27,7 @@
       </svg>
     </span>
   </button>
+
   <div class="contact-list">
     <!-- Gruppen kommen zentral aus dem Service -->
     @for (group of contactsService.getContactGroups(); track $index) {
@@ -56,4 +57,8 @@
       </div>
     }
   </div>
+
+  <button class="contacts-list__fab" (click)="contactsService.openAddContactDialog()">
+    <img src="assets/icons/person_add.svg" alt="Add Contact" />
+  </button>
 </div>
