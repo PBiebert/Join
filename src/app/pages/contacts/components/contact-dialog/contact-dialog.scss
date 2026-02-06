@@ -148,6 +148,13 @@ input {
   gap: 32px;
 }
 
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .inputs {
   display: flex;
   justify-content: space-between;
@@ -183,6 +190,19 @@ input {
 
     color: var(--color-light-grey);
   }
+}
+
+.invalid {
+  border-color: #ff3d00 !important;
+}
+
+.error-text {
+  color: #ff3d00;
+  font-size: 13px;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 8px;
+  white-space: nowrap;
 }
 
 .icons {

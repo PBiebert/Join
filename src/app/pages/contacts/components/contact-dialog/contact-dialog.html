@@ -1,9 +1,7 @@
 <dialog #dialogRef (click)="contactsService.closeAddContactDialog()">
   <section class="dialog-container" (click)="$event.stopPropagation()">
-    
     <div class="contact-text">
       <img class="dialog-logo" src="/assets/icons/join_logo.png" alt="" />
-      <!-- Titel passt sich dem Modus an: Edit oder Add -->
       @if (contactsService.isEditMode) {
         <h1>Edit contact</h1>
       } @else {
@@ -15,56 +13,70 @@
 
     <div class="account-img"></div>
 
-    <form #contactForm="ngForm" class="add-contact" (ngSubmit)="saveContact()">
-      <div class="close" (click)="contactsService.closeAddContactDialog()"></div>
+    <form #contactForm="ngForm" class="add-contact" (ngSubmit)="onSubmit()">
+      <div class="close" (click)="closeDialog()"></div>
 
       <div class="inputs-container">
-        <div class="input-name inputs">
-          <input
-            type="text"
-            [(ngModel)]="addNewSingleContact.name"
-            name="name"
-            placeholder="Name"
-            required
-          />
-          <img class="icons" src="/assets/icons/person.png" alt="person" />
+        <div class="input-wrapper">
+          <div class="input-name inputs" [class.invalid]="submitted && !isNameValid()">
+            <input
+              type="text"
+              [(ngModel)]="addNewSingleContact.name"
+              name="name"
+              placeholder="Name"
+              required
+            />
+            <img class="icons" src="/assets/icons/person.png" alt="person" />
+          </div>
+          @if (submitted && !isNameValid()) {
+            <span class="error-text">At least 2 characters required</span>
+          }
         </div>
 
-        <div class="input-email inputs">
-          <input
-            type="email"
-            [(ngModel)]="addNewSingleContact.email"
-            name="email"
-            placeholder="Email"
-            required
-          />
-          <img class="icons" src="/assets/icons/mail.png" alt="person" />
+        <div class="input-wrapper">
+          <div class="input-email inputs" [class.invalid]="submitted && !isEmailValid()">
+            <input
+              type="email"
+              [(ngModel)]="addNewSingleContact.email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+            <img class="icons" src="/assets/icons/mail.png" alt="person" />
+          </div>
+          @if (submitted && !isEmailValid()) {
+            <span class="error-text">Please enter a valid email</span>
+          }
         </div>
 
-        <div class="input-phone inputs">
-          <input
-            type="tel"
-            [(ngModel)]="addNewSingleContact.phone"
-            name="phone"
-            placeholder="Phone"
-            pattern="^\+?\d+$"
-          />
-          <img class="icons" src="/assets/icons/tel.png" alt="person" />
+        <div class="input-wrapper">
+          <div class="input-phone inputs" [class.invalid]="submitted && !isPhoneValid()">
+            <input
+              type="tel"
+              [(ngModel)]="addNewSingleContact.phone"
+              name="phone"
+              placeholder="Phone"
+              pattern="^\+?\d+$"
+            />
+            <img class="icons" src="/assets/icons/tel.png" alt="person" />
+          </div>
+          @if (submitted && !isPhoneValid()) {
+            <span class="error-text">Only numbers are allowed</span>
+          }
         </div>
       </div>
 
       <div class="btns-container">
-        <button type="button" class="btn-outline" (click)="contactsService.closeAddContactDialog()">
+        <button type="button" class="btn-outline" (click)="cancelDialog()">
           Cancel &#x2715;
         </button>
 
-        <!-- Button-Text passt sich dem Modus an -->
         @if (contactsService.isEditMode) {
-          <button type="submit" class="btn-primary" [disabled]="!isFormValid()">
+          <button type="submit" class="btn-primary">
             Save &#10003;
           </button>
         } @else {
-          <button type="submit" class="btn-primary" [disabled]="!isFormValid()">
+          <button type="submit" class="btn-primary">
             Create Contact &#10003;
           </button>
         }

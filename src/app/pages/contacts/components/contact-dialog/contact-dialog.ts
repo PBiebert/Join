@@ -25,6 +25,9 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     phone: '',
   };
 
+  // This flag tracks if the submit button was clicked
+  submitted = false;
+
   // This function checks if the name has at least 2 characters besides spaces
   isNameValid(): boolean {
     return this.addNewSingleContact.name.trim().length >= 2;
@@ -111,6 +114,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
    * Zeigt die Erfolgs-Snackbar, leert das Formular und schließt den Dialog.
    */
   private handleSuccessfulSave(): void {
+    this.submitted = false; // reset flag nach erfolgreichem Speichern
     this.showSuccessSnackbar();
     this.clearInputFields();
     this.contactsService.closeAddContactDialog();
@@ -140,6 +144,20 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     this.addNewSingleContact.phone = '';
   }
 
+  resetForm() {
+    this.submitted = false;
+  }
+
+  closeDialog() {
+    this.resetForm();
+    this.contactsService.closeAddContactDialog();
+  }
+
+  cancelDialog() {
+    this.resetForm();
+    this.contactsService.closeAddContactDialog();
+  }
+
   /**
    * Befüllt das Formular je nach Modus.
    * Edit-Modus: Lädt die Daten des aktiven Kontakts in die Formularfelder.
@@ -158,6 +176,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
       // Nein → Formular leeren (Add-Modus)
       this.clearInputFields();
     }
+    this.resetForm();
   }
 
   openDialogWithAnimation() {
@@ -207,5 +226,12 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     // Überprüft, ob eine Subscription existiert, und beendet sie.
     this.dialogSub?.unsubscribe();
+  }
+
+  // Neue Methode zum kontrollierten Submit mit Fehlermeldungen anzeigen
+  onSubmit(): void {
+    this.submitted = true;
+    if (!this.isFormValid()) return;
+    this.saveContact();
   }
 }
