@@ -1,5 +1,6 @@
 <dialog #dialogRef (click)="contactsService.closeAddContactDialog()">
   <section class="dialog-container" (click)="$event.stopPropagation()">
+    
     <div class="contact-text">
       <img class="dialog-logo" src="/assets/icons/join_logo.png" alt="" />
       @if (contactsService.isEditMode) {
