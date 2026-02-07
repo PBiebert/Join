@@ -146,11 +146,10 @@ app-nav {
   margin-top: 48px;
   color: #888;
   font-style: italic;
-  margin-bottom: 80px;
 }
 
 /* Mobile Styles */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   app-nav {
     width: 0;
   }
@@ -174,5 +173,10 @@ app-nav {
   .privacy-policy__list li {
     font-size: 1rem;
     padding-left: 24px;
+  }
+
+  .privacy-policy__date{
+    padding: 1rem 6.25rem 7.5rem 6.25rem;
+    white-space: nowrap;
   }
 }
