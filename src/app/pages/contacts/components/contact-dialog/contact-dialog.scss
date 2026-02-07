@@ -425,12 +425,11 @@ input {
   }
 
   .account-img {
-    width: 120px;
     height: 120px;
     position: relative;
     top: -50px;
     margin: 0 auto;
-    border-radius: 50%;
+    border-radius:50%;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   }
 
@@ -476,15 +475,4 @@ input {
     width: 100%;
     max-width: 280px;
   }
-}
-
-/* ================================================================
- * EXTRA SMALL MOBILE (≤ 375px)
- * ================================================================ */
-@media (max-width: 375px) {
-  .account-img {
-    width: 90px;
-    height: 90px;
-  }
-
 }
