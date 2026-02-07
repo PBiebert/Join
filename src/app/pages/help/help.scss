@@ -61,7 +61,6 @@ app-nav {
 .help {
   padding: 48px 100px 120px 100px;
   background-color: #f0f4f3;
-  overflow-y: auto;
   flex: 1;
 }
 
@@ -73,10 +72,7 @@ app-nav {
   margin-bottom: clamp(1.25rem, 3vw, 2rem);
 }
 
-
-
 .help__title {
-  // font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   color: var(--color-font-dark);
   margin: 0;
@@ -109,7 +105,6 @@ app-nav {
 
 /* --- Überschriften (h2) --- */
 .help__heading {
-  // font-size: clamp(1.25rem, 2vw, 1.5rem);
   font-weight: 700;
   color: var(--color-font-dark);
   margin: clamp(1.25rem, 2.5vw, 2rem) 0 clamp(0.5rem, 1.5vw, 1rem);
@@ -117,8 +112,6 @@ app-nav {
 
 /* --- Fließtext --- */
 .help__text {
-  // font-size: 1rem;
-  // line-height: 1.4;
   color: var(--color-font-dark);
   margin: 0 0 1rem;
 }
@@ -144,15 +137,12 @@ app-nav {
 }
 
 .help__step-title {
-  // font-size: clamp(1rem, 1.3vw, 1.1rem);
   font-weight: 700;
   color: var(--color-font-dark);
   margin: 0 0 0.35rem;
 }
 
 .help__step-text {
-  // font-size: 1rem;
-  // line-height: 1.6;
   color: var(--color-font-dark);
   margin: 0;
 }
@@ -162,10 +152,10 @@ app-nav {
  * ================================================================ */
 
 @media (max-width: 768px) {
-  
    :host {
-    height: auto;
-    min-height: 100vh;
+    // height: auto;
+    // min-height: 100vh;
+    height: 100vh;
   }
 
   app-nav {
@@ -182,5 +172,9 @@ app-nav {
 
   .help__inner {
     padding: 1.5rem 1.25rem 8.75rem 1.25rem;
+  }
+
+  .help__heading_{
+  padding: 1rem 6.25rem 7.5rem 6.25rem;
   }
 }
