@@ -135,7 +135,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     // Nach 3 Sekunden automatisch ausblenden
     setTimeout(() => {
       this.showSnackbar = false;
-    }, 3000);
+    }, 2000);
   }
 
   clearInputFields() {
