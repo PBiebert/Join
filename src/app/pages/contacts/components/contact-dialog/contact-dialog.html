@@ -29,7 +29,7 @@
             <img class="icons" src="assets/icons/person.png" alt="person" />
           </div>
           @if (submitted && !isNameValid()) {
-            <span class="error-text">At least 2 characters required</span>
+            <span class="error-text">At least 2 letters required (letters only)</span>
           }
         </div>
 
@@ -42,7 +42,7 @@
               placeholder="Email"
               required
             />
-            <img class="icons" src="assets/icons/mail.png" alt="person" />
+            <img class="icons" src="/assets/icons/mail.png" alt="person" />
           </div>
           @if (submitted && !isEmailValid()) {
             <span class="error-text">Please enter a valid email</span>
@@ -58,7 +58,7 @@
               placeholder="Phone"
               pattern="^\+?\d+$"
             />
-            <img class="icons" src="assets/icons/tel.png" alt="person" />
+            <img class="icons" src="/assets/icons/tel.png" alt="person" />
           </div>
           @if (submitted && !isPhoneValid()) {
             <span class="error-text">Only numbers are allowed</span>
