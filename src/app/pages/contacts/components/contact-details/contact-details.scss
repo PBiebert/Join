@@ -47,7 +47,7 @@
 }
 
 .contact-details__title {
-  font-size: clamp(1.20rem, 4vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
   color: var(--color-font-dark);
   margin: 0;
@@ -63,7 +63,7 @@
 }
 
 .contact-details__subtitle {
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-size: clamp(1rem, 3vw, 3rem);
   font-weight: 400;
   color: var(--color-font-dark);
   margin: 0;
@@ -108,7 +108,7 @@
 }
 
 .contact-details__name {
-  font-size: clamp(1rem, 2vw, 2.5rem);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
   font-weight: 500;
   color: var(--color-font-dark);
   margin: 0;
@@ -159,7 +159,7 @@
 }
 
 .contact-details__info-title {
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
   font-weight: 400;
   color: var(--color-font-dark);
   margin: 0;
@@ -305,6 +305,7 @@
     align-items: flex-start;
     gap: 0.5rem;
     position: relative;
+    margin-bottom: 3rem;
 
      &::after {
     content: '';
@@ -323,6 +324,10 @@
  * Mobile Responsive (< 1024px)
  * ================================================================ */
 @media (max-width: 1024px) {
+  .contact-details__title {
+    font-size: 4rem;
+  }
+
   .contact-details__header {
     flex-direction: column;
     align-items: flex-start;
@@ -360,13 +365,20 @@
   }
 
   .contact-details__avatar {
-  width: clamp(56px, 8vw, 80px);
-  height: clamp(56px, 8vw, 80px);
+  width:100px;
+  height:100px;
   }
 }
 
 @media (max-width: 768px) {
 /* FAB verstecken */
+.contact-details__name {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
   .contact-details__fab-wrapper {
     display: flex;
     bottom: 120px;
@@ -377,8 +389,8 @@
   }
 
   .contact-details__avatar {
-  width: clamp(64px, 8vw, 80px);
-  height: clamp(64px, 8vw, 80px);
+  width: 80px;
+  height:80px;
   }
 }
 
