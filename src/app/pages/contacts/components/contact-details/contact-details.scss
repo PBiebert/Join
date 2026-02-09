@@ -63,7 +63,7 @@
 }
 
 .contact-details__subtitle {
-  font-size: clamp(1rem, 3vw, 3rem);
+  font-size: clamp(1.50rem, 3vw, 3rem);
   font-weight: 400;
   color: var(--color-font-dark);
   margin: 0;
@@ -395,6 +395,10 @@
 }
 
 @media (max-width: 375px) {
+  .contact-details__title {
+  font-size: clamp(3rem, 5vw, 4rem);
+  }
+
   .contact-details__fab-wrapper {
     right: 16px;
     bottom: 110px;
