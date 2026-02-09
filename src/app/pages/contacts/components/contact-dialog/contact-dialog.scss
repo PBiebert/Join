@@ -93,10 +93,11 @@ p {
   background-image: url('/assets/icons/account_profile_standart.png');
   background-size: cover;
   background-position: center center;
-  background-position: fixed;
   background-repeat: no-repeat;
   position: relative;
   top: -34px;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
 .add-contact {
@@ -289,9 +290,9 @@ input {
   display: flex;
   align-items: center;
   min-width: 300px;
-   animation: slideInFromRight 0.4s ease-out forwards;
+  animation: slideInFromRight 0.4s ease-out forwards;
 
-&.slide-out {
+  &.slide-out {
     animation: slideOutToRight 0.4s ease-in forwards;
   }
 }
@@ -303,6 +304,7 @@ input {
       right: -400px;
       opacity: 0;
     }
+
     to {
       right: calc(70% - 650px);
       opacity: 1;
@@ -314,6 +316,7 @@ input {
       right: calc(70% - 650px);
       opacity: 1;
     }
+
     to {
       right: -400px;
       opacity: 0;
@@ -328,6 +331,7 @@ input {
       right: -400px;
       opacity: 0;
     }
+
     to {
       right: 350px;
       opacity: 1;
@@ -339,6 +343,7 @@ input {
       right: 350px;
       opacity: 1;
     }
+
     to {
       right: -400px;
       opacity: 0;
@@ -352,17 +357,20 @@ input {
       right: -400px;
       opacity: 0;
     }
+
     to {
       right: 150px;
       opacity: 1;
     }
   }
 
+
   @keyframes slideOutToRight {
     from {
       right: 150px;
       opacity: 1;
     }
+
     to {
       right: -400px;
       opacity: 0;
@@ -376,6 +384,7 @@ input {
       right: -400px;
       opacity: 0;
     }
+
     to {
       right: calc(40% - 150px);
       opacity: 1;
@@ -387,6 +396,7 @@ input {
       right: calc(40% - 150px);
       opacity: 1;
     }
+
     to {
       right: -400px;
       opacity: 0;
@@ -396,15 +406,15 @@ input {
 
 
 @media (max-width: 1024px) {
-  
+
   .dialog-logo {
     display: none;
   }
 
   .contact-text {
     width: 420px;
-    height: 450px; 
-    padding: 48px 0 48px 32px;
+    height: 450px;
+    padding: 48px 32px 48px 32px;
   }
 
   .line {
@@ -413,8 +423,8 @@ input {
   }
 
   .account-img {
-    width: 96px;
-    height: 96px;
+    width: 92px;
+    height: 92px;
   }
 
   .inputs-container {
@@ -433,12 +443,13 @@ input {
     height: 32px;
     top: 10px;
     right: -3px;
+    margin-top: 32px;
   }
 }
 
 
 @media (max-width: 900px) {
-  
+
   dialog {
     position: fixed;
     width: 95vw;
@@ -463,12 +474,12 @@ input {
   }
 
   h1 {
-   font-size: clamp(2rem, 9vw, 4rem);
+    font-size: clamp(2rem, 9vw, 4rem);
   }
 
   p {
     font-size: clamp(1rem, 4.5vw, 2.25rem);
-     margin-bottom: 1rem;
+    margin-bottom: 1rem;
   }
 
   .line {
@@ -480,27 +491,33 @@ input {
   }
 
   .account-img {
-    position: relative;
-    top: -50px;
-    margin: 0 auto;
-    border-radius:50%;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-    width: 78px;
+    align-self: center;
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+
   }
 
   .add-contact {
     width: 100%;
     padding: 0 1.5rem 2rem;
-    top: -20px;
     align-items: center;
+    margin-top: 32px;
   }
 
   .close {
-    top: -31rem;
-    right: -25px;
     background-image: url('/assets/icons/close-white.svg');
-    width: 24px;
-    height: 24px;
+    background-size: cover;
+    background-position: center;
+    width: 16px;
+    height: 16px;
+    position: fixed;
+
+    &:hover {
+      background-color: transparent;
+      border-radius: 0;
+      cursor: pointer;
+    }
   }
 
   .inputs-container {
@@ -542,7 +559,7 @@ input {
     min-width: 280px;
     max-width: calc(100vw - 40px);
     animation: slideInFromBottom 0.4s ease-out forwards;
-    
+
     &.slide-out {
       animation: slideOutToBottom 0.4s ease-in forwards;
     }
@@ -553,6 +570,7 @@ input {
       bottom: -200px;
       opacity: 0;
     }
+
     to {
       bottom: 180px;
       opacity: 1;
@@ -564,6 +582,7 @@ input {
       bottom: 180px;
       opacity: 1;
     }
+
     to {
       bottom: -200px;
       opacity: 0;
@@ -583,6 +602,7 @@ input {
       bottom: -200px;
       opacity: 0;
     }
+
     to {
       bottom: 130px;
       opacity: 1;
@@ -594,6 +614,7 @@ input {
       bottom: 130px;
       opacity: 1;
     }
+
     to {
       bottom: -200px;
       opacity: 0;
