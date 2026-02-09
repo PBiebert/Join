@@ -1,10 +1,9 @@
 dialog {
   position: fixed; // Überlagert den gesamten Bildschirm
-  top: 65%;
+
+  top: calc(100% - height / 2);
   left: 50%;
-  // top: 0;
-  // left: 0;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%);
   margin: auto;
   padding: 0;
   border: none;
@@ -274,7 +273,7 @@ input {
 }
 
 .slide-out {
-  animation: slideOutToRight 0.5s ease-in-out forwards;
+  animation: 0.5s ease-in-out forwards;
 }
 
 .snackbar {
@@ -291,7 +290,9 @@ input {
   align-items: center;
   min-width: 300px;
   animation: slideInFromRight 0.4s ease-out forwards;
+  animation: slideInFromRight 0.4s ease-out forwards;
 
+  &.slide-out {
   &.slide-out {
     animation: slideOutToRight 0.4s ease-in forwards;
   }
@@ -447,7 +448,6 @@ input {
   }
 }
 
-
 @media (max-width: 900px) {
 
   dialog {
@@ -455,7 +455,10 @@ input {
     width: 95vw;
     max-width: 600px;
     border-radius: 24px;
-    top: 82%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
   }
 
   .dialog-container {
@@ -475,10 +478,12 @@ input {
 
   h1 {
     font-size: clamp(2rem, 9vw, 4rem);
+    font-size: clamp(2rem, 9vw, 4rem);
   }
 
   p {
     font-size: clamp(1rem, 4.5vw, 2.25rem);
+    margin-bottom: 1rem;
     margin-bottom: 1rem;
   }
 
@@ -549,7 +554,6 @@ input {
   }
 }
 
-
 @media (max-width: 768px) {
   .snackbar {
     bottom: -200px;
@@ -559,6 +563,7 @@ input {
     min-width: 280px;
     max-width: calc(100vw - 40px);
     animation: slideInFromBottom 0.4s ease-out forwards;
+
 
     &.slide-out {
       animation: slideOutToBottom 0.4s ease-in forwards;
@@ -589,7 +594,6 @@ input {
     }
   }
 }
-
 
 @media (max-width: 375px) {
   .snackbar {
