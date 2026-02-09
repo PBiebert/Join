@@ -1,10 +1,9 @@
 dialog {
   position: fixed; // Überlagert den gesamten Bildschirm
-  top: 65%;
+
+  top: calc(100% - height / 2);
   left: 50%;
-  // top: 0;
-  // left: 0;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%);
   margin: auto;
   padding: 0;
   border: none;
@@ -273,7 +272,7 @@ input {
 }
 
 .slide-out {
-  animation: slideOutToRight 0.5s ease-in-out forwards;
+  animation: 0.5s ease-in-out forwards;
 }
 
 .snackbar {
@@ -289,121 +288,46 @@ input {
   display: flex;
   align-items: center;
   min-width: 300px;
-   animation: slideInFromRight 0.4s ease-out forwards;
+  animation: slideInFromRight 0.4s ease-out forwards;
 
-&.slide-out {
+  &.slide-out {
     animation: slideOutToRight 0.4s ease-in forwards;
   }
 }
 
+@keyframes slideInFromRight {
+  from {
+    left: 100%;
+    opacity: 0;
+  }
+  to {
+    left: 50%;
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    left: 50%;
+    opacity: 1;
+  }
+  to {
+    left: 100%;
+    opacity: 0;
+  }
+}
 
 @media (min-width: 2001px) {
-  @keyframes slideInFromRight {
-    from {
-      right: -400px;
-      opacity: 0;
-    }
-    to {
-      right: calc(70% - 650px);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutToRight {
-    from {
-      right: calc(70% - 650px);
-      opacity: 1;
-    }
-    to {
-      right: -400px;
-      opacity: 0;
-    }
-  }
 }
-
-
-@media (min-width: 1501px) and (max-width: 2000px) {
-  @keyframes slideInFromRight {
-    from {
-      right: -400px;
-      opacity: 0;
-    }
-    to {
-      right: 350px;
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutToRight {
-    from {
-      right: 350px;
-      opacity: 1;
-    }
-    to {
-      right: -400px;
-      opacity: 0;
-    }
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1500px) {
-  @keyframes slideInFromRight {
-    from {
-      right: -400px;
-      opacity: 0;
-    }
-    to {
-      right: 150px;
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutToRight {
-    from {
-      right: 150px;
-      opacity: 1;
-    }
-    to {
-      right: -400px;
-      opacity: 0;
-    }
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-  @keyframes slideInFromRight {
-    from {
-      right: -400px;
-      opacity: 0;
-    }
-    to {
-      right: calc(40% - 150px);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutToRight {
-    from {
-      right: calc(40% - 150px);
-      opacity: 1;
-    }
-    to {
-      right: -400px;
-      opacity: 0;
-    }
-  }
-}
-
 
 @media (max-width: 1024px) {
-  
   .dialog-logo {
     display: none;
   }
 
   .contact-text {
     width: 420px;
-    height: 450px; 
+    height: 450px;
     padding: 48px 0 48px 32px;
   }
 
@@ -436,15 +360,16 @@ input {
   }
 }
 
-
 @media (max-width: 900px) {
-  
   dialog {
     position: fixed;
     width: 95vw;
     max-width: 600px;
     border-radius: 24px;
-    top: 82%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
   }
 
   .dialog-container {
@@ -463,12 +388,12 @@ input {
   }
 
   h1 {
-   font-size: clamp(2rem, 9vw, 4rem);
+    font-size: clamp(2rem, 9vw, 4rem);
   }
 
   p {
     font-size: clamp(1rem, 4.5vw, 2.25rem);
-     margin-bottom: 1rem;
+    margin-bottom: 1rem;
   }
 
   .line {
@@ -483,7 +408,7 @@ input {
     position: relative;
     top: -50px;
     margin: 0 auto;
-    border-radius:50%;
+    border-radius: 50%;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
     width: 78px;
   }
@@ -532,7 +457,6 @@ input {
   }
 }
 
-
 @media (max-width: 768px) {
   .snackbar {
     bottom: -200px;
@@ -542,7 +466,7 @@ input {
     min-width: 280px;
     max-width: calc(100vw - 40px);
     animation: slideInFromBottom 0.4s ease-out forwards;
-    
+
     &.slide-out {
       animation: slideOutToBottom 0.4s ease-in forwards;
     }
@@ -570,7 +494,6 @@ input {
     }
   }
 }
-
 
 @media (max-width: 375px) {
   .snackbar {
