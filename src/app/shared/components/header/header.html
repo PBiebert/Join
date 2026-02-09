@@ -1,27 +1,39 @@
-<section class="header-outer" (click)="closeDropdown()"> 
-<div class="header-container" >
-  <img class="header-logo" src="assets/icons/logo-dark.svg" alt="Join Logo" />
-  <p class="project-management-tool">Kanban Project Management Tool</p>
-  
-  <div class="help-and-profile">
-    <a routerLink="/help"><img class="help-icon" src="/assets/icons/help.png" alt="help_icon"></a>
-    
-    <div class="profile-wrapper">
-      <button class="profile" (click)="toggleDropdown(); $event.stopPropagation()">
-        SM
-      </button>
-      
-      @if(isDropdownOpen) {
-        <div class="dropdown" [class.bounce]="dropdownBounce"
+<section class="header-outer" (click)="closeDropdown()">
+  <div class="header-container">
+    <img class="header-logo" src="assets/icons/logo-dark.svg" alt="Join Logo" />
+    <p class="project-management-tool">Kanban Project Management Tool</p>
+
+    <div class="help-and-profile">
+      <a routerLink="/help"
+        ><img class="help-icon" src="assets/icons/help.png" alt="help_icon"
+      /></a>
+
+      <div class="profile-wrapper">
+        <button class="profile" (click)="toggleDropdown(); $event.stopPropagation()">SM</button>
+
+        @if (isDropdownOpen) {
+          <div
+            class="dropdown"
+            [class.bounce]="dropdownBounce"
             (mouseenter)="triggerBounce()"
-    (mouseleave)="triggerBounce()">
-          <a routerLink="/help" class="dropdown__link dropdown__link--help" (click)="closeDropdown()">Help</a>
-          <a routerLink="/imprint" class="dropdown__link" (click)="closeDropdown()">Legal Notice</a>
-          <a routerLink="/privacy-policy" class="dropdown__link" (click)="closeDropdown()">Privacy Policy</a>
-          <a class="dropdown__link" (click)="closeDropdown()">Log out</a>
-        </div>
-      }
+            (mouseleave)="triggerBounce()"
+          >
+            <a
+              routerLink="/help"
+              class="dropdown__link dropdown__link--help"
+              (click)="closeDropdown()"
+              >Help</a
+            >
+            <a routerLink="/imprint" class="dropdown__link" (click)="closeDropdown()"
+              >Legal Notice</a
+            >
+            <a routerLink="/privacy-policy" class="dropdown__link" (click)="closeDropdown()"
+              >Privacy Policy</a
+            >
+            <a class="dropdown__link" (click)="closeDropdown()">Log out</a>
+          </div>
+        }
+      </div>
     </div>
   </div>
-</div>
 </section>

@@ -1,7 +1,7 @@
 <dialog #dialogRef (click)="contactsService.closeAddContactDialog()">
   <section class="dialog-container" (click)="$event.stopPropagation()">
     <div class="contact-text">
-      <img class="dialog-logo" src="/assets/icons/join_logo.png" alt="" />
+      <img class="dialog-logo" src="assets/icons/join_logo.png" alt="" />
       @if (contactsService.isEditMode) {
         <h1>Edit contact</h1>
       } @else {
@@ -26,7 +26,7 @@
               placeholder="Name"
               required
             />
-            <img class="icons" src="/assets/icons/person.png" alt="person" />
+            <img class="icons" src="assets/icons/person.png" alt="person" />
           </div>
           @if (submitted && !isNameValid()) {
             <span class="error-text">At least 2 characters required</span>
@@ -42,7 +42,7 @@
               placeholder="Email"
               required
             />
-            <img class="icons" src="/assets/icons/mail.png" alt="person" />
+            <img class="icons" src="assets/icons/mail.png" alt="person" />
           </div>
           @if (submitted && !isEmailValid()) {
             <span class="error-text">Please enter a valid email</span>
@@ -58,7 +58,7 @@
               placeholder="Phone"
               pattern="^\+?\d+$"
             />
-            <img class="icons" src="/assets/icons/tel.png" alt="person" />
+            <img class="icons" src="assets/icons/tel.png" alt="person" />
           </div>
           @if (submitted && !isPhoneValid()) {
             <span class="error-text">Only numbers are allowed</span>
@@ -67,18 +67,12 @@
       </div>
 
       <div class="btns-container">
-        <button type="button" class="btn-outline" (click)="cancelDialog()">
-          Cancel &#x2715;
-        </button>
+        <button type="button" class="btn-outline" (click)="cancelDialog()">Cancel &#x2715;</button>
 
         @if (contactsService.isEditMode) {
-          <button type="submit" class="btn-primary">
-            Save &#10003;
-          </button>
+          <button type="submit" class="btn-primary">Save &#10003;</button>
         } @else {
-          <button type="submit" class="btn-primary">
-            Create Contact &#10003;
-          </button>
+          <button type="submit" class="btn-primary">Create Contact &#10003;</button>
         }
       </div>
     </form>
