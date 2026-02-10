@@ -34,6 +34,19 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     return name.length >= 2 && /^[A-Za-z\s]+$/.test(name);
   }
 
+    @HostListener('input', ['$event'])
+  onInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target?.name === 'name') {
+      target.value = target.value.replace(/[^A-Za-z\s]/g, '');
+      this.addNewSingleContact.name = target.value;
+    }
+    if (target?.name === 'phone') {
+      target.value = target.value.replace(/[^+\d]/g, '');
+      this.addNewSingleContact.phone = target.value;
+    }
+  }
+
   // This function checks if the email is valid
   isEmailValid(): boolean {
     const email = this.addNewSingleContact.email.trim();
@@ -53,14 +66,6 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     return this.isNameValid() && this.isEmailValid() && this.isPhoneValid();
   }
 
-  @HostListener('input', ['$event'])
-  onPhoneInput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    if (target?.name === 'phone') {
-      target.value = target.value.replace(/[^+\d]/g, '');
-      this.addNewSingleContact.phone = target.value;
-    }
-  }
 
   /**
    * Speichert den Kontakt – unterscheidet zwischen Add und Edit.
@@ -191,6 +196,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     this.isClosing = true;
     this.dialogRef.nativeElement.classList.remove('slide-in');
     this.dialogRef.nativeElement.classList.add('slide-out');
+    
     setTimeout(() => {
       this.dialogRef.nativeElement.close();
       this.isClosing = false;
@@ -234,5 +240,31 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     this.submitted = true;
     if (!this.isFormValid()) return;
     this.saveContact();
+  }
+
+  /**
+   * Löscht den aktiven Kontakt und zeigt Erfolgs-Snackbar.
+   * Nutzt die deleteContact() Methode aus dem Service.
+   */
+  async deleteContact(): Promise<void> {
+    const contactId = this.contactsService.activContact?.id;
+    if (!contactId) return;
+    
+    await this.contactsService.deleteContact(contactId);
+    this.snackbarMessage = 'Contact successfully deleted!';
+    this.showSnackbar = true;
+    setTimeout(() => {
+      this.showSnackbar = false;
+    }, 2000);
+    this.closeDialog();
+  }
+
+  /**
+   * Gibt die Initialen für den Avatar zurück (Edit-Modus).
+   * Nutzt die getInitials() Methode aus dem Service.
+   */
+  getContactInitials(): string {
+    if (!this.contactsService.activContact) return '';
+    return this.contactsService.getInitials(this.contactsService.activContact.name);
   }
 }

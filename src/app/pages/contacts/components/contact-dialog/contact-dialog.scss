@@ -95,6 +95,7 @@ input {
   border: none;
   background: none;
   flex-grow: 1;
+  font-size: clamp(1rem, 1.2vw + 0.75rem, 1.25rem);
 }
 
 .inputs-container {
@@ -167,6 +168,29 @@ input {
   justify-content: flex-start;
   gap: 24px;
 }
+// -----Merge start
+.btn-outline {
+  border: 1px solid var(--color-medium-blue);
+  font-size: clamp(1rem, 1.2vw + 0.75rem, 1.25rem);
+}
+
+.btn-outline:hover {
+  border: 1px solid var(--color-light-blue);
+}
+
+.btn-outline,
+.btn-primary {
+  transition: var(--transition-fast);
+  box-sizing: border-box;
+  font-size: clamp(1rem, 1.2vw + 0.75rem, 1.25rem);
+}
+
+.btn-outline:hover,
+.btn-primary:hover {
+  cursor: pointer;
+  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.15);
+}
+// -----Merge ende
 
 .btn-txt {
   font-family: Inter;
@@ -217,6 +241,24 @@ input {
   &.slide-out {
     animation: slideOutToRight 0.4s ease-in forwards;
   }
+
+  /* Edit Mode Avatar Styles */
+  .edit-avatar {
+    // Überschreibt das background-image für Edit-Modus
+    background-image: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 2.5rem; // ~40px für Initialen
+    font-weight: 500;
+    color: white;
+    border: 3px solid white;
+  }
+
+  .btn-primary {
+    padding: 8px 10px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -224,11 +266,21 @@ input {
     margin-left: 44px;
     margin-right: 44px;
   }
+
+  .edit-avatar {
+    font-size: 2.25rem; // ~36px
+  }
 }
 
 @media (max-width: 900px) {
   .dialog-logo {
     display: none;
+  }
+
+  .edit-avatar {
+    width: 120px;
+    height: 120px;
+    font-size: 3rem;
   }
 
   .dialog-container {
@@ -315,9 +367,22 @@ input {
     width: 60%;
     max-width: 280px;
   }
+  // --was ist das für ein button?
+  .create-btn {
+    max-width: 280px;
+    font-size: clamp(1.3rem, 1vw + 1.1rem, 1.5rem);
+  }
+  // ------
 }
 
 @media (max-width: 768px) {
+  input {
+    padding-left: 12px 4px;
+  }
+
+  .icons {
+    padding-right: 4px;
+  }
   .snackbar {
     bottom: 20px;
     right: auto;
