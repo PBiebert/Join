@@ -59,18 +59,17 @@
   --transition-fast: all 125ms ease-in-out;
   --transition-slow: all 250ms ease-in-out;
 
-  --color-primary-blue: #0038FF;
-  --color-primary-teal: #1FD7C1; 
+  --color-primary-blue: #0038ff;
+  --color-primary-teal: #1fd7c1;
 
   /*  Task Category Colors */
-  --category-user-story: #0038FF;
-  --category-technical-task: #1FD7C1;
-
+  --category-user-story: #0038ff;
+  --category-technical-task: #1fd7c1;
 
   /* NEU: Priority Colors */
-  --priority-urgent: #FF3D00;
-  --priority-medium: #FFA800;
-  --priority-low: #7AE229;
+  --priority-urgent: #ff3d00;
+  --priority-medium: #ffa800;
+  --priority-low: #7ae229;
 }
 
 * {
@@ -241,4 +240,89 @@ ul {
 .icon-15 {
   background-color: var(--bg-icon-15);
   border: 2px solid var(--bg-icon-15);
+}
+
+dialog {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin: auto 0;
+  transform: translate(-50%);
+  padding: 0;
+  border: none;
+  border-radius: 30px;
+  height: 70%;
+  width: 90%;
+  max-height: 95vh;
+  overflow: hidden;
+
+  &.slide-in {
+    animation: dialogSlideInFromRight 0.5s ease-in-out forwards;
+  }
+
+  &.slide-out {
+    animation: dialogSlideOutToRight 0.5s ease-in-out forwards;
+  }
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  @media (max-width: 900px) {
+    height: 95%;
+    width: 50%;
+    max-width: 600px;
+  }
+
+  @media (max-width: 768px) {
+    width: 70%;
+  }
+
+  @media (max-width: 500px) {
+    width: 90%;
+  }
+}
+
+@keyframes dialogSlideInFromRight {
+  from {
+    transform: translate(100vw, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes dialogSlideOutToRight {
+  from {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(100vw, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes dialogSlideInFromBottom {
+  from {
+    transform: translate(-50%, 100vh);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes dialogSlideOutToBottom {
+  from {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, 100vh);
+    opacity: 0;
+  }
 }

@@ -1,23 +1,8 @@
-dialog {
-  position: fixed;
-  top: calc(100% - height / 2);
-  left: 50%;
-  transform: translate(-50%);
-  margin: auto;
-  padding: 0;
-  border: none;
-  border-radius: 30px;
-}
-
-dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
 .dialog-container {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   background-color: var(--color-font-bright);
   gap: 32px;
@@ -29,12 +14,10 @@ dialog::backdrop {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 66px;
-  padding-bottom: 66px;
-  padding-left: 48px;
   background-color: var(--color-medium-blue);
-  width: 467px;
-  height: 594px;
+  min-width: 40%;
+  height: 100%;
+  padding-left: 2rem;
 }
 
 .dialog-logo {
@@ -46,33 +29,17 @@ dialog::backdrop {
 
 h1 {
   color: var(--color-font-bright);
-  font-family: Inter;
   font-weight: 700;
-  font-style: Bold;
-  font-size: 61px;
-  line-height: 120%;
-  letter-spacing: 0%;
-  margin: 0;
   margin-bottom: 16px;
-  font-size: clamp(2rem, 3vw, 61px);
 }
 
 p {
   color: var(--color-font-bright);
-  font-family: Inter;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 27px;
-  line-height: 120%;
-  letter-spacing: 0%;
-  margin: 0;
-  padding: 0;
-  font-size: clamp(1.25rem, 2vw, 27px);
 }
 
 .line {
   border-radius: 3px;
-  background-color: #29abe2;
+  background-color: var(--color-light-blue);
   height: 90px;
   width: 3px;
   margin-right: 48px;
@@ -82,46 +49,45 @@ p {
 }
 
 .account-img {
-  width: 96px;
-  height: 96px;
+  width: 15%;
+  aspect-ratio: 1/1;
   background-image: url('../../../../../../public/assets/icons/account_profile_standart.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   position: relative;
   top: -34px;
-  padding-left: 32px;
-  padding-right: 32px;
 }
 
 .add-contact {
   display: flex;
+  width: 45%;
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
-  position: relative;
   top: -40px;
+  flex-direction: column;
+  height: 60%; // nimmt den restlichen Platz ein
+  min-height: 0; // wichtig für flexbox + overflow
 }
 
 .close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
   width: 32px;
   height: 32px;
   background-image: url('../../../../../../public/assets/icons/Close.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  align-self: flex-end;
-  margin-left: 32px;
-  margin-right: 32px;
   transition: var(--transition-fast);
-  position: relative;
-  top: -34px;
-}
-
-.close:hover {
-  background-color: rgba(209, 209, 209, 0.5);
-  border-radius: 50%;
   cursor: pointer;
+
+  &:hover {
+    background-color: rgba(209, 209, 209, 0.5);
+    border-radius: 50%;
+  }
 }
 
 input {
@@ -132,14 +98,19 @@ input {
 }
 
 .inputs-container {
-  width: 422px;
-  height: 215px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 32px;
-  margin-right: 32px;
-  gap: 32px;
+  width: 100%;
+  padding-right: 2rem;
+  gap: 2rem;
+  overflow-y: auto;
+  max-height: 250px;
+  flex-shrink: 1;
+  flex-grow: 1;
+  margin-right: 2rem;
+  max-height: 100%; // nimmt den verfügbaren Platz in .add-contact ein
+  min-height: 0; // wichtig für flexbox + overflow
 }
 
 .input-wrapper {
@@ -152,43 +123,33 @@ input {
 .inputs {
   display: flex;
   justify-content: space-between;
-  padding-top: 13px;
-  padding-bottom: 13px;
-  padding-left: 21px;
-  padding-right: 21px;
-  width: 422px;
+  padding: 0.75rem;
+  width: 100%;
   height: 50px;
-  border: solid;
-  border-color: var(--color-light-grey);
-  border-width: 1px;
+  border: 1px solid var(--color-light-grey);
   border-radius: 10px;
-  gap: 32px;
-}
 
-.inputs:focus-within {
-  border-color: var(--color-light-blue);
-}
+  &:focus-within,
+  &:active {
+    border-color: var(--color-light-blue);
+  }
 
-.inputs:active {
-  border-color: var(--color-light-blue);
-}
-
-.inputs::placeholder {
-  font-family: Inter;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 20px;
-  line-height: 120%;
-  letter-spacing: 0%;
-  color: var(--color-light-grey);
+  &::placeholder {
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: var(--color-light-grey);
+  }
 }
 
 .invalid {
-  border-color: #ff3d00 !important;
+  border-color: var(--color-error) !important;
 }
 
 .error-text {
-  color: #ff3d00;
+  color: var(--color-error);
   font-size: 13px;
   position: absolute;
   top: calc(100% + 4px);
@@ -202,37 +163,14 @@ input {
 }
 
 .btns-container {
-  margin-left: 32px;
-  margin-right: 32px;
   display: flex;
   justify-content: flex-start;
   gap: 24px;
 }
 
-.btn-outline {
-  border: 1px solid var(--color-medium-blue);
-}
-
-.btn-outline:hover {
-  border: 1px solid var(--color-light-blue);
-}
-
-.btn-outline,
-.btn-primary {
-  transition: var(--transition-fast);
-  box-sizing: border-box;
-}
-
-.btn-outline:hover,
-.btn-primary:hover {
-  cursor: pointer;
-  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.15);
-}
-
 .btn-txt {
   font-family: Inter;
   font-weight: 400;
-  font-style: Regular;
   font-size: 20px;
   line-height: 120%;
   letter-spacing: 0%;
@@ -249,7 +187,6 @@ input {
 .create-account {
   font-family: Inter;
   font-weight: 700;
-  font-style: Bold;
   font-size: 21px;
   line-height: 120%;
   letter-spacing: 0%;
@@ -260,12 +197,11 @@ input {
 }
 
 .slide-out {
-  animation: 0.5s ease-in-out forwards;
+  animation: slideOutToRight 0.5s ease-in-out forwards;
 }
 
 .snackbar {
   position: fixed;
-  bottom: 20px;
   right: -400px;
   background-color: var(--color-dark-blue);
   color: white;
@@ -277,241 +213,98 @@ input {
   align-items: center;
   min-width: 300px;
   animation: slideInFromRight 0.4s ease-out forwards;
-}
 
-.snackbar.slide-out {
-  animation: slideOutToRight 0.4s ease-in forwards;
-}
-
-@media (min-width: 2001px) {
-  @keyframes slideInFromRight {
-    from {
-      right: -400px;
-      opacity: 0;
-    }
-    to {
-      right: calc(70% - 650px);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutToRight {
-    from {
-      right: calc(70% - 650px);
-      opacity: 1;
-    }
-    to {
-      right: -400px;
-      opacity: 0;
-    }
-  }
-}
-
-@media (min-width: 1501px) and (max-width: 2000px) {
-  @keyframes slideInFromRight {
-    from {
-      right: -400px;
-      opacity: 0;
-    }
-    to {
-      right: 350px;
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutToRight {
-    from {
-      right: 350px;
-      opacity: 1;
-    }
-    to {
-      right: -400px;
-      opacity: 0;
-    }
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1500px) {
-  @keyframes slideInFromRight {
-    from {
-      right: -400px;
-      opacity: 0;
-    }
-    to {
-      right: 150px;
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutToRight {
-    from {
-      right: 150px;
-      opacity: 1;
-    }
-    to {
-      right: -400px;
-      opacity: 0;
-    }
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-  @keyframes slideInFromRight {
-    from {
-      right: -400px;
-      opacity: 0;
-    }
-    to {
-      right: calc(40% - 150px);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutToRight {
-    from {
-      right: calc(40% - 150px);
-      opacity: 1;
-    }
-    to {
-      right: -400px;
-      opacity: 0;
-    }
+  &.slide-out {
+    animation: slideOutToRight 0.4s ease-in forwards;
   }
 }
 
 @media (max-width: 1024px) {
-  .dialog-logo {
-    display: none;
-  }
-
-  .contact-text {
-    width: 420px;
-    height: 450px;
-    padding: 48px 32px 48px 32px;
-  }
-
   .line {
     margin-left: 44px;
     margin-right: 44px;
   }
-
-  .account-img {
-    width: 92px;
-    height: 92px;
-  }
-
-  .inputs-container {
-    width: 380px;
-    margin-left: 24px;
-    margin-right: 24px;
-    gap: 24px;
-  }
-
-  .inputs {
-    width: 360px;
-  }
-
-  .close {
-    width: 32px;
-    height: 32px;
-    top: 10px;
-    right: -3px;
-    margin-top: 32px;
-  }
 }
 
 @media (max-width: 900px) {
-  dialog {
-    position: fixed;
-    width: 95vw;
-    max-width: 600px;
-    border-radius: 24px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
+  .dialog-logo {
+    display: none;
   }
 
   .dialog-container {
     flex-direction: column;
-    max-width: 100%;
-    max-height: 90vh;
-    height: auto;
     gap: 0;
-    align-items: stretch;
-    position: relative;
+    height: 100%; // nimmt die volle Dialog-Höhe ein
+    max-height: 100%;
   }
 
   .contact-text {
     width: 100%;
+    height: 40%;
     padding: 2rem 1.5rem;
-  }
-
-  h1 {
-    font-size: clamp(2rem, 9vw, 4rem);
-  }
-
-  p {
-    font-size: clamp(1rem, 4.5vw, 2.25rem);
-    margin-bottom: 1rem;
+    overflow: hidden;
+    flex-shrink: 0;
   }
 
   .line {
     transform: rotate(0) translateX(0);
-    width: 90px;
+    width: 70px;
     height: 3px;
-    margin: 0;
-    margin-bottom: 50px;
+    margin: 0 0 50px 0;
   }
 
   .account-img {
+    position: absolute;
+    top: calc(40% - (96px / 2));
     align-self: center;
-    flex-shrink: 0;
-    width: 120px;
-    height: 120px;
-    transform: translateY(-28px);
-
+    width: 96px;
+    z-index: 1;
   }
 
   .add-contact {
+    margin-top: 4rem;
     width: 100%;
-    padding: 0 1.5rem 2rem;
-    align-items: center;
-    margin-top: 32px;
+    flex-grow: 1;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 60%; // nimmt den restlichen Platz ein
+    min-height: 0; // wichtig für flexbox + overflow
   }
 
   .close {
     background-image: url('../../../../../../public/assets/icons/close-white.svg');
-    background-size: cover;
-    background-position: center;
     width: 16px;
     height: 16px;
     position: fixed;
-  }
 
-  .close:hover {
-    background-color: transparent;
-    border-radius: 0;
-    cursor: pointer;
+    &:hover {
+      background-color: transparent;
+      border-radius: 0;
+    }
   }
 
   .inputs-container {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    max-width: 100%;
-    margin: 0;
-    gap: 2rem;
+    gap: 1.5rem;
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 0;
+    max-height: 100%;
+    min-height: 0;
   }
 
   .inputs {
     width: 100%;
     padding: 12px 16px;
-    gap: 12px;
   }
 
   .btns-container {
     width: 100%;
-    margin: 0;
     justify-content: center;
+    margin-bottom: 2rem;
   }
 
   .btn-outline {
@@ -519,74 +312,47 @@ input {
   }
 
   .btn-primary {
-    width: 100%;
+    width: 60%;
     max-width: 280px;
   }
 }
 
 @media (max-width: 768px) {
   .snackbar {
-    bottom: -200px;
+    bottom: 20px;
     right: auto;
     left: 50%;
     transform: translateX(-50%);
     min-width: 280px;
     max-width: calc(100vw - 40px);
     animation: slideInFromBottom 0.4s ease-out forwards;
-  }
 
-  .snackbar.slide-out {
-    animation: slideOutToBottom 0.4s ease-in forwards;
-  }
-
-  @keyframes slideInFromBottom {
-    from {
-      bottom: -200px;
-      opacity: 0;
-    }
-    to {
-      bottom: 180px;
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutToBottom {
-    from {
-      bottom: 180px;
-      opacity: 1;
-    }
-    to {
-      bottom: -200px;
-      opacity: 0;
+    &.slide-out {
+      animation: slideOutToBottom 0.4s ease-in forwards;
     }
   }
 }
 
 @media (max-width: 375px) {
+  .contact-text {
+    padding: 1rem 1rem;
+  }
+
+  .add-contact {
+    padding: 0 1rem;
+  }
+
+  .line[_ngcontent-ng-c3168714695] {
+    display: none;
+  }
+
+  .btn-primary {
+    width: 70%;
+    max-width: 280px;
+  }
+
   .snackbar {
     min-width: 260px;
     max-width: calc(100vw - 32px);
-  }
-
-  @keyframes slideInFromBottom {
-    from {
-      bottom: -200px;
-      opacity: 0;
-    }
-    to {
-      bottom: 130px;
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutToBottom {
-    from {
-      bottom: 130px;
-      opacity: 1;
-    }
-    to {
-      bottom: -200px;
-      opacity: 0;
-    }
   }
 }
