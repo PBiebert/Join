@@ -28,9 +28,10 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
   // This flag tracks if the submit button was clicked
   submitted = false;
 
-  // This function checks if the name has at least 2 characters besides spaces
+  // This function checks if the name has at least 2 letters and contains only letters
   isNameValid(): boolean {
-    return this.addNewSingleContact.name.trim().length >= 2;
+    const name = this.addNewSingleContact.name.trim();
+    return name.length >= 2 && /^[A-Za-z\s]+$/.test(name);
   }
 
   // This function checks if the email is valid

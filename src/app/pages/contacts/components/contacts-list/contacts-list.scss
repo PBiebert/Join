@@ -17,18 +17,25 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   height: clamp(2.5rem, 4vw, 3.5rem);
   width: 100%;
-  font-weight: bold;
+  font-size: clamp(1.25rem, 1.5vw, 1.75rem);
+  font-weight: 500;
   margin-bottom: 1rem;
   flex-shrink: 0;
 
   span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: 0.25rem;
+    margin-left: 0;
 
     svg {
-      height: 20px;
-      aspect-ratio: 1/1;
+      height: 1.7rem;
+      width: 1.7rem;
+      display: block;
     }
   }
 }

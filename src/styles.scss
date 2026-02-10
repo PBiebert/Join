@@ -58,6 +58,19 @@
   /* Breakpoint */
   --transition-fast: all 125ms ease-in-out;
   --transition-slow: all 250ms ease-in-out;
+
+  --color-primary-blue: #0038FF;
+  --color-primary-teal: #1FD7C1; 
+
+  /*  Task Category Colors */
+  --category-user-story: #0038FF;
+  --category-technical-task: #1FD7C1;
+
+
+  /* NEU: Priority Colors */
+  --priority-urgent: #FF3D00;
+  --priority-medium: #FFA800;
+  --priority-low: #7AE229;
 }
 
 * {
@@ -87,7 +100,7 @@ h4 {
 }
 
 p {
-  font-size: clamp(1rem, 1.5vw, 1.25rem); // 16px - 20px
+  font-size: clamp(1.25rem, 1.5vw, 1.75rem); // 16px - 20px
   line-height: 1.4;
 }
 
