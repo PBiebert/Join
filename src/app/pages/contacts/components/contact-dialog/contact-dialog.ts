@@ -191,6 +191,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     this.isClosing = true;
     this.dialogRef.nativeElement.classList.remove('slide-in');
     this.dialogRef.nativeElement.classList.add('slide-out');
+    
     setTimeout(() => {
       this.dialogRef.nativeElement.close();
       this.isClosing = false;
