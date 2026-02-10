@@ -235,4 +235,32 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     if (!this.isFormValid()) return;
     this.saveContact();
   }
+
+
+
+/**
+ * Löscht den aktiven Kontakt und zeigt Erfolgs-Snackbar.
+ * Nutzt die deleteContact() Methode aus dem Service.
+ */
+async deleteContact(): Promise<void> {
+  const contactId = this.contactsService.activContact?.id;
+  if (!contactId) return;
+  
+  await this.contactsService.deleteContact(contactId);
+  this.snackbarMessage = 'Contact successfully deleted!';
+  this.showSnackbar = true;
+  setTimeout(() => {
+    this.showSnackbar = false;
+  }, 2000);
+  this.closeDialog();
+}
+
+/**
+ * Gibt die Initialen für den Avatar zurück (Edit-Modus).
+ * Nutzt die getInitials() Methode aus dem Service.
+ */
+getContactInitials(): string {
+  if (!this.contactsService.activContact) return '';
+  return this.contactsService.getInitials(this.contactsService.activContact.name);
+}
 }
