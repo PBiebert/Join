@@ -6,9 +6,8 @@
         <h1>Edit contact</h1>
       } @else {
         <h1>Add contact</h1>
-        <p>Tasks are better with a team!</p>
       }
-      
+      <p>Tasks are better with a team!</p>
       <div class="line"></div>
     </div>
 
@@ -68,7 +67,7 @@
       </div>
 
       <div class="btns-container">
-        <button type="button" class="btn-outline" (click)="cancelDialog()">Cancel &#x2715;</button>
+        <button type="button" class="btn-outline" (click)="cancelDialog()">Delete &#x2715;</button>
 
         @if (contactsService.isEditMode) {
           <button type="submit" class="btn-primary">Save &#10003;</button>
