@@ -1,1 +1,111 @@
-<p>add-task works!</p>
+
+  <app-nav></app-nav>
+  <div class="wrapper">
+    <app-header></app-header>
+    <div class="contacts-wrapper">
+
+
+    <section class="form-container">
+        <h1>Add Task</h1>
+
+        <form action="" method="post">
+
+          <div class="input-fields">
+            <label for="title">Title<span class="required">*</span></label>
+            <input type="text" name="title" id="title" placeholder="Enter a title" required>
+          </div>
+
+          <div class="input-fields">
+            <label for="description">Description</label>
+            <textarea placeholder="Enter a description" name="description" id="description"></textarea>
+          </div>
+
+          <div class="input-fields">
+            <label for="due-date">Due date <span class="required">*</span></label>
+            <input type="date" name="due_date" id="due-date">
+          </div>
+
+        </form>
+
+        <p><span class="required">*</span>This field is required</p>
+    </section>
+
+    <div class="line"></div>
+
+    <section class="task-details-container">
+
+      <div class="form-subtask">
+
+          <div class="btns-container">
+
+
+            <p>Priority</p>
+
+              <div class="priority-btns">
+
+                <button class="priorty-level-btns btn-urgent">
+                  <div class="icons urgent"></div>
+                  <span class="btn-txt">Urgent 
+                  </span>
+                </button>
+
+                <button class="priorty-level-btns btn-medium">
+                  <div class="icons medium"></div>
+                  <span class="btn-txt">Medium 
+                  </span>
+                </button>
+
+                <button class="priorty-level-btns btn-low">
+                  <div class="icons low"></div>
+                  <span class="btn-txt">Low 
+                  </span>
+                </button>
+
+              </div>
+
+          </div>
+
+          <div class="assign-container">
+
+          <label for="assignment">Assigned to</label>
+
+            <select name="assign" id="" required>
+              <option value="" disabled selected>Select contacts to assign</option>
+              <option value="Option_1">Option_1</option>
+              <option value="Option_2">Option_2</option>
+              <option value="Option_3">Option_3</option>
+            </select>
+
+          </div>
+
+          <div class="category-container">
+
+          <label for="category">Category <span class="required">*</span></label>
+
+            <select name="category" id="" required>
+              <option value="" disabled selected>Select contacts to assign</option>
+              <option value="Option_1">Option_1</option>
+              <option value="Option_2">Option_2</option>
+              <option value="Option_3">Option_3</option>
+            </select>
+
+          </div>
+
+          <div class="input-fields">
+                <label for="subTask">Subtask</label>
+                <input type="text" name="subTask" id="subTask" placeholder="Add new Subtask" required>
+          </div>
+
+      </div>
+
+      <div class="create-clear-btns-container">
+        <button>Clear</button>
+        <button>Add task</button>
+      </div>
+
+    </section>
+
+    </div>
+  </div>
+
+

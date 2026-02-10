@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { Nav } from '../../shared/components/nav/nav';
+import { Header } from '../../shared/components/header/header';
 
 @Component({
   selector: 'app-add-task',
-  imports: [],
+  imports: [Nav, Header],
   templateUrl: './add-task.html',
   styleUrl: './add-task.scss',
 })

@@ -1,0 +1,225 @@
+:host {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.contacts-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  background-color: #F6F7F8;
+}
+
+app-header {
+  height: 96px;
+  flex-shrink: 0;
+}
+
+app-nav {
+  width: 232px;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+// From here my scss code
+
+.form-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 32px;
+  padding: 64px 32px 64px 64px;
+}
+
+h1{
+  font-family: Inter;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 61px;
+  line-height: 120%;
+  letter-spacing: 0%;
+}
+
+.required{
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color:#FF8190;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  width: 440px;
+  height: 376px;
+  gap: 32px;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+
+  input:focus,
+  textarea:focus {
+    border-color: var(--color-light-blue);
+    outline: none;
+  }
+}
+
+textarea{
+  width: 440px;
+  height: 136px;
+}
+
+input,
+textarea {
+  border: 1px solid var(--color-light-grey);
+  border-radius: 10px;
+  padding: 10px;
+
+  width: 440px;
+
+  &::placeholder {
+    font-family: Inter;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0%;
+  }
+}
+
+.invalid {
+  border-color: #ff3d00 !important;
+}
+
+.error-text {
+  color: #ff3d00;
+  font-size: 13px;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 8px;
+  white-space: nowrap;
+}
+
+
+p{
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+
+}
+
+.line{
+  width: 1px;
+  height: 424px;
+  background-color: #D1D1D1;
+  align-self: center;
+}
+
+.task-details-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  padding: 64px 64px 64px 32px;
+}
+
+.priority-btns{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.priorty-level-btns{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  width: 136px;
+  height: 56px;
+  padding: 10px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-light-grey);
+  border-radius: 10px;
+
+    &:hover{
+      cursor: pointer;
+      box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.btn-txt{
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
+}
+
+.icons {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.urgent {
+  width: 20px;
+  height: 14.51px;
+  background-image: url("/assets/icons/urgent.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.medium {
+  width: 20px;
+  height: 7.45px;
+  background-color: #FFA800;
+  mask: url("/assets/icons/medium.svg") no-repeat center;
+}
+
+.low {
+  width: 20px;
+  height: 14.51px;
+  background-image: url("/assets/icons/low.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+
+@media (max-width: 768px) {
+
+  :host {
+    flex-direction: column;
+  }
+  app-nav {
+    width: 100%;
+    height: 80px;
+    order: 2;
+  }
+}
+
