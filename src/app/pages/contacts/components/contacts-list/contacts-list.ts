@@ -9,6 +9,5 @@ import { ContactsService } from '../../../../services/contacts-service';
   styleUrl: './contacts-list.scss',
 })
 export class ContactsList {
-  // Service ist die einzige Quelle für Kontakte, Gruppen und Helper-Logik
   contactsService = inject(ContactsService);
 }

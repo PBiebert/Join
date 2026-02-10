@@ -15,27 +15,39 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ContactsService implements OnDestroy {
-  // Zentrale Quelle für Kontaktlisten und Gruppen
+  /** Zentrale Quelle für Kontaktlisten. */
   contacts: SingleContact[] = [];
+  /** Zentrale Quelle für Kontaktgruppen. */
   contactGroups: string[] = [];
+  /** Aktiver Kontakt. */
   activContact: SingleContact | null = null;
+  /** Status des Editiermodus. */
   isEditMode = false;
+  /** Firestore-Instanz. */
   contactsDB: Firestore = inject(Firestore);
+  /** Unsubscribe-Funktion für Kontakte. */
   unsubContacts;
 
-  // Erstellt ein BehaviorSubject mit Startwert 'false' (Modal ist geschlossen)
+  /**
+   * Steuert das Öffnen/Schließen des Dialogs.
+   */
   private openDialogSubject = new BehaviorSubject<boolean>(false);
-  // Gibt das Subject als Observable nach außen, damit Komponenten abonnieren können
-  // Das $ am Ende von 'openDialog$' ist eine Konvention, um zu kennzeichnen, dass es sich um ein Observable handelt.
-  // So erkennt man direkt, dass man dieses Property abonnieren kann und nicht direkt verändert.
-  // Die Methode asObservable() wandelt das BehaviorSubject in ein Observable um.
-  // Dadurch können andere Komponenten den Wert abonnieren, aber nicht direkt verändern.
+
+  /**
+   * Observable für den Dialog-Status.
+   */
   openDialog$: Observable<boolean> = this.openDialogSubject.asObservable();
 
   constructor() {
     this.unsubContacts = this.subContactsList();
   }
 
+  /**
+   * Erstellt ein Kontaktobjekt aus Daten und einer ID.
+   * @param obj Quelldaten
+   * @param id Kontakt-ID
+   * @returns Das erzeugte Kontaktobjekt
+   */
   setContactObject(obj: any, id: string): SingleContact {
     return {
       id: id,
@@ -45,44 +57,57 @@ export class ContactsService implements OnDestroy {
     };
   }
 
+  /**
+   * Gibt die Referenz auf die Kontaktsammlung zurück.
+   * @returns Die Collection-Referenz für Kontakte
+   */
   getNotesRef() {
     return collection(this.contactsDB, 'contacts');
   }
 
   /**
    * Abonniert die Kontaktliste in Firebase mit Echtzeit-Updates.
-   * Bei jeder Änderung (Add, Edit, Delete) wird die lokale Liste aktualisiert.
-   * Nutzt onSnapshot für reaktive Datenbindung.
+   * @returns Die Unsubscribe-Funktion für das Abonnement
    */
   subContactsList() {
     return onSnapshot(this.getNotesRef(), (list) => {
-      // Liste leeren und neu aufbauen
       this.contacts = [];
       list.forEach((element) => {
         this.contacts.push(this.setContactObject(element.data(), element.id));
       });
-      // Gruppen (A, B, C...) neu berechnen
       this.updateContactGroups();
-      // Aktiven Kontakt mit neuen Daten synchronisieren
       this.refreshActivContact();
     });
   }
 
+  /**
+   * Beendet das Abonnement der Kontakte.
+   * @returns void
+   */
   ngOnDestroy(): void {
     if (this.unsubContacts) this.unsubContacts();
   }
 
-  // Gibt die zentrale Kontaktliste aus
+  /**
+   * Gibt die aktuelle Kontaktliste zurück.
+   * @returns Die Kontaktliste
+   */
   getContacts(): SingleContact[] {
     return this.contacts;
   }
 
-  // Gibt die zentral berechneten Gruppen aus
+  /**
+   * Gibt die Kontaktgruppen zurück.
+   * @returns Die Kontaktgruppen
+   */
   getContactGroups(): string[] {
     return this.contactGroups;
   }
 
-  // Berechnet Gruppen einmal zentral für alle Components
+  /**
+   * Berechnet die Kontaktgruppen.
+   * @returns void
+   */
   updateContactGroups(): void {
     this.contactGroups = [];
     for (let position = 0; position < this.contacts.length; position++) {
@@ -92,37 +117,36 @@ export class ContactsService implements OnDestroy {
       }
     }
     this.contactGroups = this.contactGroups.sort();
-    console.log(this.contactGroups);
   }
 
   /**
-   * Synchronisiert activContact mit den neuesten Daten aus Firebase.
-   * Wird nach jedem onSnapshot-Update aufgerufen.
-   * Sucht den Kontakt mit der gleichen ID in der aktualisierten Liste
-   * und ersetzt activContact mit den neuen Daten.
-   * Falls der Kontakt gelöscht wurde, wird activContact auf null gesetzt.
+   * Synchronisiert den aktiven Kontakt mit den aktuellen Daten aus der Kontaktliste.
+   * @private
+   * @returns void
    */
   private refreshActivContact(): void {
-    // Nur ausführen, wenn ein Kontakt ausgewählt ist
     if (!this.activContact || !this.activContact.id) {
       return;
     }
-    // Kontakt mit gleicher ID in der aktualisierten Liste suchen
     const updatedContact = this.contacts.find((contact) => contact.id === this.activContact!.id);
-    // Gefunden? → activContact aktualisieren. Nicht gefunden? → null setzen.
     this.activContact = updatedContact || null;
   }
 
   /**
-   * Setzt den angeklickten Kontakt als aktuell aktiven Kontakt.
-   * @param clickedContact - Der ausgewählte Kontakt, wird in this.activContact gespeichert.
+   * Setzt den angeklickten Kontakt als aktiv.
+   * @param clickedContact Der ausgewählte Kontakt
+   * @returns void
    */
-  getActivContact(clickedContact: SingleContact) {
+  getActivContact(clickedContact: SingleContact): void {
     this.activContact = clickedContact;
     console.log(this.activContact);
   }
 
-  // Helper: Initialen zentral bereitstellen
+  /**
+   * Gibt die Initialen eines Namens zurück.
+   * @param name Name des Kontakts
+   * @returns Die Initialen (maximal 2 Buchstaben)
+   */
   getInitials(name: string): string {
     return name
       .split(' ')
@@ -132,26 +156,25 @@ export class ContactsService implements OnDestroy {
       .toUpperCase();
   }
 
-  // Helper: Icon-Farbe zentral berechnen
-  // wenn es keine Zahl ist, ist der Wert immer 1
+  /**
+   * Berechnet die Icon-Farbe für einen Kontakt.
+   * @param contact Kontaktobjekt
+   * @returns CSS-Klassenname für die Icon-Farbe
+   */
   getIconColorClass(contact: SingleContact): string {
     const lettersArray = 'ABCDEFGHJKLMNOPQRSTUVW'.split('');
     const nameParts = contact.name.split(' ');
     const letter = (nameParts[1]?.charAt(0) || nameParts[0].charAt(0)).toUpperCase();
     const index = lettersArray.indexOf(letter);
-    // Falls der Buchstabe nicht im Array gefunden wird (index === -1), wird als Fallback immer die Farbe mit der ID 1 verwendet.
     const colorId = index !== -1 ? (index % 15) + 1 : 1;
     return `icon-${colorId}`;
   }
 
-  /* ============================================================
-   * CRUD-OPERATIONEN (Edit & Delete)
-   * Hinzugefügt von: Akin
-   * ============================================================ */
-
   /**
    * Gibt die Referenz zu einem einzelnen Kontakt-Dokument zurück.
-   * @param contactId - Die ID des Kontakts in Firebase
+   * @param contactId Die ID des Kontakts
+   * @returns Die Dokument-Referenz
+   * @private
    */
   private getSingleContactRef(contactId: string) {
     return doc(this.contactsDB, 'contacts', contactId);
@@ -159,7 +182,8 @@ export class ContactsService implements OnDestroy {
 
   /**
    * Löscht einen Kontakt aus Firebase.
-   * @param contactId - Die ID des zu löschenden Kontakts
+   * @param contactId Die ID des zu löschenden Kontakts
+   * @returns Promise, das abgeschlossen wird, wenn der Kontakt gelöscht wurde
    */
   async deleteContact(contactId: string): Promise<void> {
     const contactRef = this.getSingleContactRef(contactId);
@@ -169,48 +193,44 @@ export class ContactsService implements OnDestroy {
 
   /**
    * Aktualisiert einen bestehenden Kontakt in Firebase.
-   * @param contactId - Die ID des Kontakts
-   * @param updatedData - Die neuen Daten (name, email, phone)
+   * @param contactId Die ID des Kontakts
+   * @param updatedData Neue Daten (name, email, phone)
+   * @returns Promise, das abgeschlossen wird, wenn der Kontakt aktualisiert wurde
    */
   async updateContact(contactId: string, updatedData: Partial<SingleContact>): Promise<void> {
     const contactRef = this.getSingleContactRef(contactId);
     await updateDoc(contactRef, updatedData);
   }
 
-  // Adding a new contact to the Contacts(DB)
-
-  async addNewSingleContactToDB(addNewSingleContact: SingleContact) {
+  /**
+   * Fügt einen neuen Kontakt zur Datenbank hinzu.
+   * @param addNewSingleContact Das Kontaktobjekt
+   * @returns Promise, das abgeschlossen wird, wenn der Kontakt hinzugefügt wurde
+   */
+  async addNewSingleContactToDB(addNewSingleContact: SingleContact): Promise<void> {
     await addDoc(collection(this.contactsDB, 'contacts'), addNewSingleContact);
   }
 
-  /* ============================================================
-   * Öffnen des Dialoges
-   * Siehe auch oben
-   * ============================================================ */
-
-  // Öffnet das Modal, indem der Wert des Subjects auf 'true' gesetzt wird
-  // Mit next(true) wird allen Abonnenten signalisiert, dass das Modal geöffnet werden soll.
-  openAddContactDialog() {
+  /**
+   * Öffnet das Modal zum Hinzufügen eines Kontakts.
+   * @returns void
+   */
+  openAddContactDialog(): void {
     this.openDialogSubject.next(true);
   }
 
-  /**<
+  /**
    * Öffnet den Dialog im Edit-Modus.
-   * Setzt isEditMode auf true, damit der Dialog weiß:
-   * „Ich soll einen bestehenden Kontakt bearbeiten, nicht neu anlegen."
-   * Nutzt das gleiche BehaviorSubject wie openAddContactDialog().
+   * @returns void
    */
   openEditContactDialog(): void {
     this.isEditMode = true;
     this.openDialogSubject.next(true);
   }
 
-  // Schließt das Modal, indem der Wert des Subjects auf 'false' gesetzt wird
-  // Mit next(false) wird allen Abonnenten signalisiert, dass das Modal geschlossen werden soll.
   /**
    * Schließt den Dialog und setzt den Edit-Modus zurück.
-   * Egal ob Add oder Edit – nach dem Schließen ist isEditMode immer false.
-   * So startet der nächste Dialog-Aufruf sauber im Add-Modus.
+   * @returns void
    */
   closeAddContactDialog(): void {
     this.isEditMode = false;
