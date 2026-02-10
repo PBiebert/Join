@@ -453,7 +453,7 @@ input {
     height: 120px;
     font-size: 3rem;
   }
-  
+
   dialog {
     position: fixed;
     width: 95vw;
@@ -547,14 +547,18 @@ input {
     justify-content: center;
   }
 
-  .btn-primary {
-    width:140px;
+  
+  .delete-btn,
+  .save-btn {
     max-width: 150px;
   }
 
-    .btn-outline {
-   width:140px;
-    max-width: 150px;
+  .cancel-btn {
+    display: none;
+  }
+  .create-btn {
+  max-width: 280px;
+   font-size: clamp(1.3rem, 1vw + 1.1rem, 1.5rem);
   }
 }
 
