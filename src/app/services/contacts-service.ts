@@ -91,6 +91,8 @@ export class ContactsService implements OnDestroy {
         this.contactGroups.push(initialLetter);
       }
     }
+    this.contactGroups = this.contactGroups.sort();
+    console.log(this.contactGroups);
   }
 
   /**
