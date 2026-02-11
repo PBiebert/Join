@@ -139,7 +139,6 @@ export class ContactsService implements OnDestroy {
    */
   getActivContact(clickedContact: SingleContact): void {
     this.activContact = clickedContact;
-    console.log(this.activContact);
   }
 
   /**
