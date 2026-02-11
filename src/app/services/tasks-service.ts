@@ -17,6 +17,7 @@ export class TasksService implements OnDestroy {
   setTaskObject(obj: any, id: string): SingleTask {
     return {
       id: id,
+      status: obj.status || 'To do',
       title: obj.title,
       description: obj.description || '',
       dueDate: obj.dueDate,
