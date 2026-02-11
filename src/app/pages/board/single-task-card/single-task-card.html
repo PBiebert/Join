@@ -1,1 +1,46 @@
-<p>single-task-card works!</p>
+<div class="task-card" (click)="onCardClick()">
+
+  <!-- Kategorie-Badge: Blau für 'User Story', Grün für 'Technical Task' -->
+  <span class="task-badge" [ngClass]="badgeClass">
+    {{ task.category }}
+  </span>
+
+  <!-- Task Titel -->
+  <h3 class="task-title">{{ task.title }}</h3>
+
+  <!-- Task Beschreibung (gekürzt auf 2 Zeilen via CSS) -->
+  <p class="task-description">{{ task.description }}</p>
+
+  <!-- Subtasks Fortschrittsbalken: Nur sichtbar wenn Subtasks existieren -->
+  @if (task.subtasks && task.subtasks.length > 0) {
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progressPercentage"></div>
+      </div>
+      <span class="progress-text">
+        {{ completedSubtasks }}/{{ task.subtasks.length }} Subtasks
+      </span>
+    </div>
+  }
+
+  <!-- Footer: Zugewiesene Nutzer-Avatare + Priority Icon -->
+  <div class="task-footer">
+    <!-- Avatare der zugewiesenen Nutzer -->
+    <div class="avatars">
+      @if (task.assignedTo) {
+        @for (user of task.assignedTo; track user.id) {
+          <div class="avatar" [ngClass]="user.color" [title]="user.name">
+            {{ user.initials }}
+          </div>
+        }
+      }
+    </div>
+
+    <!-- Priority Icon (Urgent/Medium/Low) -->
+    <img
+      [src]="priorityIcon"
+      [alt]="task.priority"
+      class="priority-icon"
+      [title]="task.priority">
+  </div>
+</div>
