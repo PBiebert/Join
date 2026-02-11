@@ -210,6 +210,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
       this.dialogRef.nativeElement.close();
       this.isClosing = false;
       this.dialogRef.nativeElement.classList.remove('slide-out');
+      this.contactsService.isEditMode = false;
     }, 500); // Dauer muss mit CSS übereinstimmen
   }
 

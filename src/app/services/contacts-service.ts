@@ -233,7 +233,6 @@ export class ContactsService implements OnDestroy {
    * @returns void
    */
   closeAddContactDialog(): void {
-    this.isEditMode = false;
     this.openDialogSubject.next(false);
   }
 }
