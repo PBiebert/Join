@@ -1,18 +1,18 @@
 <dialog #dialogRef (click)="contactsService.closeAddContactDialog()">
   <section class="dialog-container" (click)="$event.stopPropagation()">
     <div class="contact-text">
-      <img class="dialog-logo" src="assets/icons/join_logo.png" alt="" />
+      <img class="dialog-logo" src="assets/icons/join_logo.png" />
       @if (contactsService.isEditMode) {
         <h1>Edit contact</h1>
       } @else {
         <h1>Add contact</h1>
+        <p>Tasks are better with a team!</p>
       }
-      <p>Tasks are better with a team!</p>
       <div class="line"></div>
     </div>
 
     @if (contactsService.isEditMode && contactsService.activContact) {
-      <!-- Edit Mode: Avatar mit Initialen -->
+      <!-- Edit Mode: Avatar mit InitiaWlen -->
       <div
         class="account-img edit-avatar"
         [ngClass]="contactsService.getIconColorClass(contactsService.activContact)"
