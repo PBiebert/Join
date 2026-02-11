@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ElementRef, inject, OnDestroy, ViewChild, HostListener } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+  ViewChild,
+  HostListener,
+} from '@angular/core';
 import { ContactsService } from '../../../../services/contacts-service';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -34,7 +42,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     return name.length >= 2 && /^[A-Za-z\s]+$/.test(name);
   }
 
-    @HostListener('input', ['$event'])
+  @HostListener('input', ['$event'])
   onInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     if (target?.name === 'name') {
@@ -66,7 +74,6 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     return this.isNameValid() && this.isEmailValid() && this.isPhoneValid();
   }
 
-
   /**
    * Speichert den Kontakt – unterscheidet zwischen Add und Edit.
    * Edit-Modus: Aktualisiert den bestehenden Kontakt in Firebase.
@@ -93,6 +100,8 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
    */
   private buildContactData(): { name: string; email: string; phone: string } {
     return {
+      //! Erster Buchstabe muss immer groß geschrieben werden um richtig in die Gruppen eingeordnert zu werden!
+      //*this.addNewSingleContact.name.trim().charAt(0).toUpperCase() + this.addNewSingleContact.name.slice(1),
       name: this.addNewSingleContact.name.trim(),
       email: this.addNewSingleContact.email.trim(),
       phone: this.addNewSingleContact.phone.trim(),
@@ -196,7 +205,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     this.isClosing = true;
     this.dialogRef.nativeElement.classList.remove('slide-in');
     this.dialogRef.nativeElement.classList.add('slide-out');
-    
+
     setTimeout(() => {
       this.dialogRef.nativeElement.close();
       this.isClosing = false;
@@ -249,7 +258,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
   async deleteContact(): Promise<void> {
     const contactId = this.contactsService.activContact?.id;
     if (!contactId) return;
-    
+
     await this.contactsService.deleteContact(contactId);
     this.snackbarMessage = 'Contact successfully deleted!';
     this.showSnackbar = true;

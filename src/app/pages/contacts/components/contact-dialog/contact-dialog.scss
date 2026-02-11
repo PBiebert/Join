@@ -5,9 +5,9 @@
   display: flex;
   align-items: center;
   background-color: var(--color-font-bright);
-  gap: 32px;
-  max-width: 1280px;
-  max-height: 720px;
+  gap: 24px;
+  // max-width: 1280px;
+  // max-height: 720px;
 }
 
 .contact-text {
@@ -50,6 +50,7 @@ p {
 
 .account-img {
   width: 15%;
+  max-width: 120px;
   aspect-ratio: 1/1;
   background-image: url('../../../../../../public/assets/icons/account_profile_standart.png');
   background-size: cover;
@@ -57,6 +58,19 @@ p {
   background-repeat: no-repeat;
   position: relative;
   top: -34px;
+}
+
+/* Edit Mode Avatar Styles */
+.edit-avatar {
+  background-image: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 2.5rem; // ~40px für Initialen
+  font-weight: 500;
+  color: white;
+  border: 3px solid white;
 }
 
 .add-contact {
@@ -67,8 +81,9 @@ p {
   gap: 32px;
   top: -40px;
   flex-direction: column;
-  height: 60%; // nimmt den restlichen Platz ein
-  min-height: 0; // wichtig für flexbox + overflow
+  height: 60%;
+  min-height: 0;
+  padding-right: 2rem;
 }
 
 .close {
@@ -103,15 +118,13 @@ input {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  padding-right: 2rem;
   gap: 2rem;
   overflow-y: auto;
   max-height: 250px;
   flex-shrink: 1;
   flex-grow: 1;
-  margin-right: 2rem;
-  max-height: 100%; // nimmt den verfügbaren Platz in .add-contact ein
-  min-height: 0; // wichtig für flexbox + overflow
+  max-height: 100%;
+  min-height: 0;
 }
 
 .input-wrapper {
@@ -124,6 +137,7 @@ input {
 .inputs {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.75rem;
   width: 100%;
   height: 50px;
@@ -166,31 +180,8 @@ input {
 .btns-container {
   display: flex;
   justify-content: flex-start;
-  gap: 24px;
+  gap: 18px;
 }
-// -----Merge start
-.btn-outline {
-  border: 1px solid var(--color-medium-blue);
-  font-size: clamp(1rem, 1.2vw + 0.75rem, 1.25rem);
-}
-
-.btn-outline:hover {
-  border: 1px solid var(--color-light-blue);
-}
-
-.btn-outline,
-.btn-primary {
-  transition: var(--transition-fast);
-  box-sizing: border-box;
-  font-size: clamp(1rem, 1.2vw + 0.75rem, 1.25rem);
-}
-
-.btn-outline:hover,
-.btn-primary:hover {
-  cursor: pointer;
-  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.15);
-}
-// -----Merge ende
 
 .btn-txt {
   font-family: Inter;
@@ -242,20 +233,6 @@ input {
     animation: slideOutToRight 0.4s ease-in forwards;
   }
 
-  /* Edit Mode Avatar Styles */
-  .edit-avatar {
-    // Überschreibt das background-image für Edit-Modus
-    background-image: none !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 2.5rem; // ~40px für Initialen
-    font-weight: 500;
-    color: white;
-    border: 3px solid white;
-  }
-
   .btn-primary {
     padding: 8px 10px;
   }
@@ -272,7 +249,7 @@ input {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .dialog-logo {
     display: none;
   }
@@ -350,7 +327,6 @@ input {
 
   .inputs {
     width: 100%;
-    padding: 12px 16px;
   }
 
   .btns-container {
@@ -364,22 +340,12 @@ input {
   }
 
   .btn-primary {
-    width: 60%;
+    width: 70%;
     max-width: 280px;
   }
-  // --was ist das für ein button?
-  .create-btn {
-    max-width: 280px;
-    font-size: clamp(1.3rem, 1vw + 1.1rem, 1.5rem);
-  }
-  // ------
 }
 
 @media (max-width: 768px) {
-  input {
-    padding-left: 12px 4px;
-  }
-
   .icons {
     padding-right: 4px;
   }
@@ -395,6 +361,10 @@ input {
     &.slide-out {
       animation: slideOutToBottom 0.4s ease-in forwards;
     }
+  }
+
+  .btn-primary {
+    width: 70%;
   }
 }
 
@@ -412,12 +382,15 @@ input {
   }
 
   .btn-primary {
-    width: 70%;
-    max-width: 280px;
+    width: 100%;
   }
 
   .snackbar {
     min-width: 260px;
     max-width: calc(100vw - 32px);
+  }
+
+  .inputs {
+    padding: 0.4rem;
   }
 }

@@ -111,7 +111,7 @@ export class ContactsService implements OnDestroy {
   updateContactGroups(): void {
     this.contactGroups = [];
     for (let position = 0; position < this.contacts.length; position++) {
-      const initialLetter = this.contacts[position].name.charAt(0);
+      const initialLetter = this.contacts[position].name.charAt(0).toUpperCase();
       if (!this.contactGroups.includes(initialLetter)) {
         this.contactGroups.push(initialLetter);
       }

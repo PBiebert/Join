@@ -133,13 +133,27 @@ ul {
   color: var(--color-font-bright);
   border: 1px solid var(--color-medium-blue);
   border-radius: 0.5rem;
-  padding: 1rem 1.5rem;
+  padding: 1rem;
   transition: var(--transition-fast);
+  font-size: clamp(1.313rem, 0.441vw + 0.971rem, 1.5rem);
+
+  @media (max-width: 1240px) {
+    font-size: clamp(1rem, 0.543vw + 0.891rem, 1.313rem);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.75rem;
+  }
+
+  @media (max-width: 375px) {
+    padding: 0.5rem;
+  }
 
   &:hover {
     color: var(--color-font-bright);
     background: var(--color-light-blue);
     border-color: var(--color-light-blue);
+    box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.15);
   }
 
   &:active {
@@ -153,12 +167,26 @@ ul {
   color: var(--color-medium-blue);
   border: 1px solid var(--color-medium-blue);
   border-radius: 0.5rem;
-  padding: 1rem 1.5rem;
+  padding: 1rem;
   transition: var(--transition-fast);
+  font-size: clamp(1.313rem, 0.441vw + 0.971rem, 1.5rem);
+
+  @media (max-width: 1240px) {
+    font-size: clamp(1rem, 0.543vw + 0.891rem, 1.313rem);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.75rem;
+  }
+
+  @media (max-width: 375px) {
+    padding: 0.5rem;
+  }
 
   &:hover {
     border: 2px solid var(--color-light-blue);
     color: var(--color-light-blue);
+    box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.15);
   }
 
   &:active {
@@ -268,9 +296,9 @@ dialog {
     background-color: rgba(0, 0, 0, 0.5);
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
     height: 95%;
-    width: 50%;
+    width: 55%;
     max-width: 600px;
   }
 
