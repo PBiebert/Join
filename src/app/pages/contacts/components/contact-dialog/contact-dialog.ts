@@ -196,11 +196,12 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
     this.isClosing = true;
     this.dialogRef.nativeElement.classList.remove('slide-in');
     this.dialogRef.nativeElement.classList.add('slide-out');
-    
+
     setTimeout(() => {
       this.dialogRef.nativeElement.close();
       this.isClosing = false;
       this.dialogRef.nativeElement.classList.remove('slide-out');
+      this.contactsService.isEditMode = false;
     }, 500); // Dauer muss mit CSS übereinstimmen
   }
 
@@ -249,7 +250,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
   async deleteContact(): Promise<void> {
     const contactId = this.contactsService.activContact?.id;
     if (!contactId) return;
-    
+
     await this.contactsService.deleteContact(contactId);
     this.snackbarMessage = 'Contact successfully deleted!';
     this.showSnackbar = true;
