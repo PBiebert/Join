@@ -67,9 +67,9 @@ export class Board {
    * Wird aufgerufen, wenn eine Task per Drag & Drop losgelassen wird.
    * Liest die Task-Daten und den Ziel-Status aus dem CDK-Event.
    * Aktualisiert den Status in Firebase – onSnapshot aktualisiert die UI.
-   * @param event - Das CDK Drop-Event mit Quell- und Ziel-Informationen
+   * @param event - Das CDK Drop-Event mit den Task-Listen der Quell- und Ziel-Spalte
    */
-  onTaskDrop(event: CdkDragDrop<string>): void {
+  onTaskDrop(event: CdkDragDrop<SingleTask[]>): void {
     const task = event.item.data as SingleTask;
     const newStatus = event.container.id;
     if (!task.id || task.status === newStatus) return;
