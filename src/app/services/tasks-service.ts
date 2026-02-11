@@ -1,5 +1,5 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { collection, Firestore, onSnapshot } from '@angular/fire/firestore';
+import { collection, doc, Firestore, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { SingleTask } from '../interfaces/single-task';
 
 @Injectable({
@@ -33,13 +33,33 @@ export class TasksService implements OnDestroy {
       this.tasks = [];
       arr.forEach((element) => {
         this.tasks.push(this.setTaskObject(element.data(), element.id));
-        console.log(element);
       });
     });
   }
 
   getTasksRef() {
     return collection(this.tasksDB, 'tasks');
+  }
+
+  /**
+   * Gibt die Referenz zu einem einzelnen Task-Dokument zurück.
+   * Wird intern genutzt, um gezielt ein Dokument zu lesen oder zu ändern.
+   * @param taskId - Die eindeutige Firebase-ID der Task
+   * @returns Die Dokument-Referenz für diese Task
+   */
+  private getSingleTaskRef(taskId: string) {
+    return doc(this.tasksDB, 'tasks', taskId);
+  }
+
+  /**
+   * Aktualisiert den Status einer Task in Firebase.
+   * Wird nach Drag & Drop aufgerufen, um den neuen Spaltenstatus zu speichern.
+   * @param taskId - Die eindeutige Firebase-ID der Task
+   * @param newStatus - Der neue Status ('To do', 'In progress', etc.)
+   */
+  async updateTaskStatus(taskId: string, newStatus: string): Promise<void> {
+    const taskRef = this.getSingleTaskRef(taskId);
+    await updateDoc(taskRef, { status: newStatus });
   }
 
   ngOnDestroy() {
