@@ -1,1 +1,164 @@
-<p>board works!</p>
+<main>
+  <div class="board__outer">
+    <div class="board-main-container">
+      <app-nav></app-nav>
+
+      <div class="board-wrapper">
+        <!-- Header -->
+        <app-header></app-header>
+
+        <!-- Board Content -->
+        <div class="board-content">
+          <div class="board-inner">
+
+            <!-- Board Titel + Suchfeld + Add-Button -->
+            <div class="board-header">
+              <h1>Board</h1>
+              <div class="board-actions">
+                <div class="search-box">
+                  <input
+                    type="text"
+                    placeholder="Find Task"
+                    (input)="onSearch($event)">
+                  <img src="assets/icons/search.svg" alt="Search">
+                </div>
+                <button class="btn-primary" (click)="openAddTaskDialog()">
+                  Add task <span>+</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Board Spalten: cdkDropListGroup verbindet alle Spalten -->
+            <div class="board-columns" cdkDropListGroup>
+
+              <!-- Spalte: To do -->
+              <div class="board-column">
+                <div class="column-header">
+                  <h2>To do</h2>
+                  <button class="add-task-btn" (click)="openAddTaskDialog()">
+                    <img src="assets/icons/plus.svg" alt="Add Task">
+                  </button>
+                </div>
+
+                <div
+                  class="column-content"
+                  cdkDropList
+                  id="To do"
+                  [cdkDropListData]="todoTasks"
+                  (cdkDropListDropped)="onTaskDrop($event)">
+
+                  @for (task of todoTasks; track task.id) {
+                    <app-single-task-card
+                      cdkDrag
+                      [cdkDragData]="task"
+                      [task]="task"
+                      (taskClicked)="openTaskDialog($event)">
+                    </app-single-task-card>
+                  }
+
+                  @if (todoTasks.length === 0) {
+                    <div class="empty-state">No tasks To do</div>
+                  }
+                </div>
+              </div>
+
+              <!-- Spalte: In progress -->
+              <div class="board-column">
+                <div class="column-header">
+                  <h2>In progress</h2>
+                  <button class="add-task-btn" (click)="openAddTaskDialog()">
+                    <img src="assets/icons/plus.svg" alt="Add Task">
+                  </button>
+                </div>
+
+                <div
+                  class="column-content"
+                  cdkDropList
+                  id="In progress"
+                  [cdkDropListData]="inProgressTasks"
+                  (cdkDropListDropped)="onTaskDrop($event)">
+
+                  @for (task of inProgressTasks; track task.id) {
+                    <app-single-task-card
+                      cdkDrag
+                      [cdkDragData]="task"
+                      [task]="task"
+                      (taskClicked)="openTaskDialog($event)">
+                    </app-single-task-card>
+                  }
+
+                  @if (inProgressTasks.length === 0) {
+                    <div class="empty-state">No tasks In progress</div>
+                  }
+                </div>
+              </div>
+
+              <!-- Spalte: Await feedback -->
+              <div class="board-column">
+                <div class="column-header">
+                  <h2>Await feedback</h2>
+                  <button class="add-task-btn" (click)="openAddTaskDialog()">
+                    <img src="assets/icons/plus.svg" alt="Add Task">
+                  </button>
+                </div>
+
+                <div
+                  class="column-content"
+                  cdkDropList
+                  id="Await feedback"
+                  [cdkDropListData]="awaitFeedbackTasks"
+                  (cdkDropListDropped)="onTaskDrop($event)">
+
+                  @for (task of awaitFeedbackTasks; track task.id) {
+                    <app-single-task-card
+                      cdkDrag
+                      [cdkDragData]="task"
+                      [task]="task"
+                      (taskClicked)="openTaskDialog($event)">
+                    </app-single-task-card>
+                  }
+
+                  @if (awaitFeedbackTasks.length === 0) {
+                    <div class="empty-state">No tasks awaiting feedback</div>
+                  }
+                </div>
+              </div>
+
+              <!-- Spalte: Done -->
+              <div class="board-column">
+                <div class="column-header">
+                  <h2>Done</h2>
+                  <button class="add-task-btn" (click)="openAddTaskDialog()">
+                    <img src="assets/icons/plus.svg" alt="Add Task">
+                  </button>
+                </div>
+
+                <div
+                  class="column-content"
+                  cdkDropList
+                  id="Done"
+                  [cdkDropListData]="doneTasks"
+                  (cdkDropListDropped)="onTaskDrop($event)">
+
+                  @for (task of doneTasks; track task.id) {
+                    <app-single-task-card
+                      cdkDrag
+                      [cdkDragData]="task"
+                      [task]="task"
+                      (taskClicked)="openTaskDialog($event)">
+                    </app-single-task-card>
+                  }
+
+                  @if (doneTasks.length === 0) {
+                    <div class="empty-state">No tasks Done</div>
+                  }
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
