@@ -53,6 +53,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.4;
+  word-break: break-word;  //Lange Wörter umbrechen
+  hyphens: auto; //Automatische Silbentrennung
 }
 
 // Task Description
@@ -66,7 +68,9 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.5;
+  line-height: 1.2;
+  word-break: break-word;  // Lange Wörter umbrechen
+  hyphens: auto; // Automatische Silbentrennung
 }
 
 // Progress Bar Container
@@ -129,6 +133,13 @@
   &:first-child {
     margin-left: 0;
   }
+}
+
+// Avatar Counter (+X Badge)
+.avatar-counter {
+  background-color: var(--color-medium-blue);
+  font-weight: 400;
+  cursor: help;
 }
 
 // Priority Icon
