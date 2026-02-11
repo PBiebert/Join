@@ -32,16 +32,16 @@ app-nav {
 
 // From here my scss code
 
-.form-container{
+.form-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 32px;
-  padding: 64px 32px 64px 64px;
+  padding: 64px 32px 64px 128px;
 }
 
-h1{
+h1 {
   font-family: Inter;
   font-weight: 700;
   font-style: Bold;
@@ -50,14 +50,14 @@ h1{
   letter-spacing: 0%;
 }
 
-.required{
+.required {
   font-family: Inter;
   font-weight: 400;
   font-style: Regular;
   font-size: 16px;
   line-height: 120%;
   letter-spacing: 0%;
-  color:#FF8190;
+  color: #FF8190;
 }
 
 form {
@@ -84,7 +84,7 @@ form {
   }
 }
 
-textarea{
+textarea {
   width: 440px;
   height: 136px;
 }
@@ -121,7 +121,7 @@ textarea {
 }
 
 
-p{
+p {
   font-family: Inter;
   font-weight: 400;
   font-size: 16px;
@@ -129,28 +129,33 @@ p{
 
 }
 
-.line{
+.line {
   width: 1px;
   height: 424px;
   background-color: #D1D1D1;
   align-self: center;
 }
 
-.task-details-container{
+.task-details-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 64px 64px 64px 32px;
 }
 
-.priority-btns{
+.priority-title {
+  margin-bottom: 8px;
+  margin-top: 64px;
+}
+
+.priority-btns {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.priorty-level-btns{
+.priorty-level-btns {
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
@@ -163,14 +168,15 @@ p{
   background-color: #FFFFFF;
   border: 1px solid var(--color-light-grey);
   border-radius: 10px;
+  transition: var(--transition-fast);
 
-    &:hover{
-      cursor: pointer;
-      box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.3);
-    }
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.3);
+  }
 }
 
-.btn-txt{
+.btn-txt {
   font-family: Inter;
   font-weight: 400;
   font-style: Regular;
@@ -210,16 +216,241 @@ p{
   background-size: contain;
 }
 
+.assigned-to-title {
+  margin-top: 32px;
+}
+
+.assign-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.assign {
+  position: relative;
+  border: 1px solid var(--color-light-grey);
+  border-radius: 10px;
+  padding: 10px;
+  width: 440px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: white;
+  z-index: 1;
+}
+
+.assign:focus-within {
+  border-color: var(--color-light-blue);
+}
+
+.assign-selected {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100%;
+}
+
+.categories-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(209, 209, 209, 0.3);
+  }
+
+  &::before {
+    content: '';
+    width: 7.21px;
+    height: 4.6px;
+    background-image: url("/assets/icons/categories_arrow_drop_down.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: block;
+  }
+}
+
+.assign-options {
+  position: absolute;
+  top: 80%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.assign-option {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.assign-option:hover {
+  background-color: var(--color-light-grey);
+}
+
+.category-title {
+  margin-top: 32px;
+}
+
+.category-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-dropdown {
+  position: relative;
+  border: 1px solid var(--color-light-grey);
+  border-radius: 10px;
+  padding: 10px;
+  width: 440px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: white;
+}
+
+.category-dropdown:focus-within {
+  border-color: var(--color-light-blue);
+}
+
+.category-selected {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100%;
+}
+
+.category-options {
+  position: absolute;
+  top: 80%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.category-option {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.category-option:hover {
+  background-color: var(--color-light-grey);
+}
+
+.required {
+  color: #ff3d00;
+  margin-left: 2px;
+}
+
+
+.subtask-title {
+  margin-top: 32px;
+
+}
+
+.create-clear-btns-container {
+  display: flex;
+  align-self: flex-end;
+  height: 56px;
+  gap: 16px;
+}
+
+.btn-txt {
+  text-align: center;
+}
+
+.btn-outline:hover {
+  border: 1px solid var(--color-light-blue);
+  transition: var(--transition-fast);
+}
+
+.btn-primary:hover {
+  transition: var(--transition-fast);
+}
+
+.input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  input {
+    width: 100%;
+    padding-right: 50px;
+    height: 40px;
+    box-sizing: border-box;
+
+    &:focus+.input-icons {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  .input-icons {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba(209, 209, 209, 0.3);
+      }
+    }
+  }
+
+  .input-line {
+    height: 24px;
+    width: 1px;
+    background-color: #D1D1D1;
+  }
+}
+
 
 @media (max-width: 768px) {
 
   :host {
     flex-direction: column;
   }
+
   app-nav {
     width: 100%;
     height: 80px;
     order: 2;
   }
 }
-

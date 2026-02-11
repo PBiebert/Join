@@ -136,6 +136,7 @@ ul {
   padding: 1rem;
   transition: var(--transition-fast);
   font-size: clamp(1.313rem, 0.441vw + 0.971rem, 1.5rem);
+  cursor: pointer;
 
   @media (max-width: 1240px) {
     font-size: clamp(1rem, 0.543vw + 0.891rem, 1.313rem);
@@ -170,6 +171,7 @@ ul {
   padding: 1rem;
   transition: var(--transition-fast);
   font-size: clamp(1.313rem, 0.441vw + 0.971rem, 1.5rem);
+  cursor: pointer;
 
   @media (max-width: 1240px) {
     font-size: clamp(1rem, 0.543vw + 0.891rem, 1.313rem);

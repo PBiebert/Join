@@ -1,111 +1,137 @@
-
-  <app-nav></app-nav>
-  <div class="wrapper">
-    <app-header></app-header>
-    <div class="contacts-wrapper">
-
-
+<app-nav></app-nav>
+<div class="wrapper">
+  <app-header></app-header>
+  <div class="contacts-wrapper">
     <section class="form-container">
-        <h1>Add Task</h1>
+      <h1>Add Task</h1>
 
-        <form action="" method="post">
+      <form action="" method="post">
+        <div class="input-fields">
+          <label for="title">Title<span class="required">*</span></label>
+          <input type="text" name="title" id="title" placeholder="Enter a title" required />
+        </div>
 
-          <div class="input-fields">
-            <label for="title">Title<span class="required">*</span></label>
-            <input type="text" name="title" id="title" placeholder="Enter a title" required>
-          </div>
+        <div class="input-fields">
+          <label for="description">Description</label>
+          <textarea
+            placeholder="Enter a description"
+            name="description"
+            id="description"
+          ></textarea>
+        </div>
 
-          <div class="input-fields">
-            <label for="description">Description</label>
-            <textarea placeholder="Enter a description" name="description" id="description"></textarea>
-          </div>
+        <div class="input-fields">
+          <label for="due-date">Due date <span class="required">*</span></label>
+          <input type="date" name="due_date" id="due-date" />
+        </div>
+      </form>
 
-          <div class="input-fields">
-            <label for="due-date">Due date <span class="required">*</span></label>
-            <input type="date" name="due_date" id="due-date">
-          </div>
-
-        </form>
-
-        <p><span class="required">*</span>This field is required</p>
+      <p><span class="required">*</span>This field is required</p>
     </section>
 
     <div class="line"></div>
 
     <section class="task-details-container">
-
       <div class="form-subtask">
 
           <div class="btns-container">
+            <p class="priority-title">Priority</p>
 
+            <div class="priority-btns">
+              <button class="priorty-level-btns btn-urgent">
+                <div class="icons urgent"></div>
+                <span class="btn-txt">Urgent </span>
+              </button>
 
-            <p>Priority</p>
+              <button class="priorty-level-btns btn-medium">
+                <div class="icons medium"></div>
+                <span class="btn-txt">Medium </span>
+              </button>
 
-              <div class="priority-btns">
-
-                <button class="priorty-level-btns btn-urgent">
-                  <div class="icons urgent"></div>
-                  <span class="btn-txt">Urgent 
-                  </span>
-                </button>
-
-                <button class="priorty-level-btns btn-medium">
-                  <div class="icons medium"></div>
-                  <span class="btn-txt">Medium 
-                  </span>
-                </button>
-
-                <button class="priorty-level-btns btn-low">
-                  <div class="icons low"></div>
-                  <span class="btn-txt">Low 
-                  </span>
-                </button>
-
-              </div>
-
+              <button class="priorty-level-btns btn-low">
+                <div class="icons low"></div>
+                <span class="btn-txt">Low </span>
+              </button>
+            </div>
           </div>
 
           <div class="assign-container">
+            <label class="assigned-to-title">Assigned to</label>
 
-          <label for="assignment">Assigned to</label>
+            <div class="assign" tabindex="0" (click)="toggleDropdown()" (blur)="closeDropdown()">
+              <div class="assign-selected">
+                {{ selectedOption }}
+                <div class="categories-icon"></div>
+              </div>
 
-            <select name="assign" id="" required>
-              <option value="" disabled selected>Select contacts to assign</option>
-              <option value="Option_1">Option_1</option>
-              <option value="Option_2">Option_2</option>
-              <option value="Option_3">Option_3</option>
-            </select>
-
+              @if (isOpen) {
+                <div class="assign-options">
+                  @for (option of options; track option) {
+                    <div
+                      class="assign-option"
+                      (click)="selectOption(option); $event.stopPropagation()"
+                    >
+                      {{ option }}
+                    </div>
+                  }
+                </div>
+              }
+            </div>
           </div>
 
           <div class="category-container">
+            <label class="category-title" for="category"
+              >Category <span class="required">*</span></label
+            >
 
-          <label for="category">Category <span class="required">*</span></label>
+            <div
+              class="category-dropdown"
+              tabindex="0"
+              (click)="toggleCategoryDropdown()"
+              (blur)="closeCategoryDropdown()"
+            >
+              <div class="category-selected">
+                {{ selectedCategory }}
+                <div class="categories-icon"></div>
+              </div>
 
-            <select name="category" id="" required>
-              <option value="" disabled selected>Select contacts to assign</option>
-              <option value="Option_1">Option_1</option>
-              <option value="Option_2">Option_2</option>
-              <option value="Option_3">Option_3</option>
-            </select>
-
+              @if (isCategoryOpen) {
+                <div class="category-options">
+                  @for (option of categoryOptions; track option) {
+                    <div
+                      class="category-option"
+                      (click)="selectCategory(option); $event.stopPropagation()"
+                    >
+                      {{ option }}
+                    </div>
+                  }
+                </div>
+              }
+            </div>
           </div>
 
           <div class="input-fields">
-                <label for="subTask">Subtask</label>
-                <input type="text" name="subTask" id="subTask" placeholder="Add new Subtask" required>
+            <label class="subtask-title" for="subTask">Subtask</label>
+            <div class="input-wrapper">
+              <input type="text" name="subTask" id="subTask" placeholder="Add new Subtask" required />
+              <div class="input-icons">
+                <img src="/assets/icons/small_cancle_icon.svg" alt="Cancel" class="icon" />
+                <div class="input-line"></div>
+                <img src="/assets/icons/small_approv_icon.svg" alt="Approve" class="icon" />
+              </div>
+            </div>
           </div>
 
       </div>
 
       <div class="create-clear-btns-container">
-        <button>Clear</button>
-        <button>Add task</button>
+        <button class="btn-outline">
+          <span class="btn-txt">Clear &#x2715;</span>
+        </button>
+        <button class="btn-primary">
+          <span class="btn-txt">Add task &#10003;</span>
+        </button>
       </div>
-
     </section>
-
-    </div>
   </div>
-
-
+</div>
