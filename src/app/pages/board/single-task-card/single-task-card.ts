@@ -1,4 +1,3 @@
-
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -48,6 +47,8 @@ export class SingleTaskCard {
       return 0;
     }
     const completed = this.task.subtasks.filter((st: any) => st.completed).length;
+    // const percentage = (completed / this.task.subtasks.length) * 100;
+    // return percentage;
     return (completed / this.task.subtasks.length) * 100;
   }
 
@@ -74,6 +75,68 @@ export class SingleTaskCard {
       Low: 'assets/icons/prio-low.svg',
     };
     return icons[this.task.priority] || icons['Medium'];
+  }
+
+  /**
+   * Gibt die ersten 3 zugewiesenen User zurück für die Anzeige.
+   * Bei mehr als 3 Usern werden nur die ersten 3 angezeigt.
+   * @returns Array der ersten 3 User
+   */
+  get displayedUsers(): any[] {
+    // if (!this.task.assignedTo || this.task.assignedTo.length === 0) {
+    //   return [];
+    // }
+    // return this.task.assignedTo.slice(0, 3);
+    const users = this.task.assigned || this.task.assignedTo || [];
+    
+    if (users.length === 0) {
+      return [];
+  }
+
+  // Falls string array (nur IDs), konvertiere zu User-Objekten
+    if (typeof users[0] === 'string') {
+      return users.slice(0, 3).map((userId: string, index: number) => ({
+        id: userId,
+        name: `User ${index + 1}`,
+        initials: `U${index + 1}`,
+        color: `icon-${(index % 15) + 1}`
+      }));
+    }
+    
+    // Falls User-Objekte, direkt verwenden
+    return users.slice(0, 3);
+  }
+
+
+
+  /**
+   * Zählt die zusätzlichen User (mehr als 3).
+   * Wird für das "+X" Badge verwendet.
+   * @returns Anzahl der User über 3 hinaus
+   */
+  get remainingUsersCount(): number {
+    const users = this.task.assigned || this.task.assignedTo || [];
+    if (users.length <= 3) {
+      return 0;
+    }
+    return users.length - 3;
+  }
+
+  /**
+   * Gibt die Namen aller zugewiesenen User als Tooltip zurück.
+   * @returns Komma-getrennte Liste aller User-Namen
+   */
+  get allUsersTooltip(): string {
+    const users = this.task.assigned || this.task.assignedTo || [];
+    if (users.length === 0) return '';
+    
+    // Falls string array (IDs), zeige IDs
+    if (typeof users[0] === 'string') {
+      return users.join(', ');
+    }
+    
+    // Falls User-Objekte, zeige Namen
+    return users.map((u: any) => u.name).join(', ');
   }
 
   /**
