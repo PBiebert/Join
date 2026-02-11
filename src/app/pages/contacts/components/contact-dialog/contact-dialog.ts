@@ -95,14 +95,14 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
 
   /**
    * Erstellt das Datenobjekt aus den Formularfeldern.
-   * Trimmt den Namen, um führende/folgende Leerzeichen zu entfernen.
-   * @returns Objekt mit name, email und phone
+   * Der Name wird getrimmt und der erste Buchstabe wird großgeschrieben.
+   * @returns Objekt mit korrekt formatiertem name, sowie getrimmtem email und phone
    */
   private buildContactData(): { name: string; email: string; phone: string } {
     return {
-      //! Erster Buchstabe muss immer groß geschrieben werden um richtig in die Gruppen eingeordnert zu werden!
-      //*this.addNewSingleContact.name.trim().charAt(0).toUpperCase() + this.addNewSingleContact.name.slice(1),
-      name: this.addNewSingleContact.name.trim(),
+      name:
+        this.addNewSingleContact.name.trim().charAt(0).toUpperCase() +
+        this.addNewSingleContact.name.slice(1),
       email: this.addNewSingleContact.email.trim(),
       phone: this.addNewSingleContact.phone.trim(),
     };

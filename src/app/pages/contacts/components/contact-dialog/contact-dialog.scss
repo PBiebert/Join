@@ -206,14 +206,6 @@ input {
   letter-spacing: 0%;
 }
 
-.slide-in {
-  animation: slideInFromRight 0.5s ease-in-out forwards;
-}
-
-.slide-out {
-  animation: slideOutToRight 0.5s ease-in-out forwards;
-}
-
 .snackbar {
   position: fixed;
   right: -400px;

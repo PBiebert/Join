@@ -13,13 +13,16 @@
 
     @if (contactsService.isEditMode && contactsService.activContact) {
       <!-- Edit Mode: Avatar mit Initialen -->
-    <div class="account-img edit-avatar" [ngClass]="contactsService.getIconColorClass(contactsService.activContact)">
-    {{ getContactInitials() }}
-  </div>
-} @else {
-  <!-- Add Mode: Standard Icon -->
-  <div class="account-img"></div>
-}
+      <div
+        class="account-img edit-avatar"
+        [ngClass]="contactsService.getIconColorClass(contactsService.activContact)"
+      >
+        {{ getContactInitials() }}
+      </div>
+    } @else {
+      <!-- Add Mode: Standard Icon -->
+      <div class="account-img"></div>
+    }
 
     <form #contactForm="ngForm" class="add-contact" (ngSubmit)="onSubmit()">
       <div class="close" (click)="closeDialog()"></div>
@@ -80,19 +83,15 @@
           <button type="button" class="btn-outline delete-btn" (click)="deleteContact()">
             Delete &#x2715;
           </button>
-          <button type="submit" class="btn-primary save-btn">
-            Save &#10003;
-          </button>
+          <button type="submit" class="btn-primary save-btn">Save &#10003;</button>
         } @else {
           <!-- Add Mode: Cancel + Create (breit: 100% bis 280px) -->
           <button type="button" class="btn-outline cancel-btn" (click)="cancelDialog()">
             Cancel &#x2715;
           </button>
-          <button type="submit" class="btn-primary create-btn">
-            Create Contact &#10003;
-          </button>
+          <button type="submit" class="btn-primary create-btn">Create Contact &#10003;</button>
         }
-</div>
+      </div>
     </form>
   </section>
 </dialog>
