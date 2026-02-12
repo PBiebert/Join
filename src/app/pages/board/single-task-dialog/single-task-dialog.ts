@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TasksService } from '../../../services/tasks-service';
 
 @Component({
   selector: 'app-single-task-dialog',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './single-task-dialog.scss',
 })
 export class SingleTaskDialog {
-
+  tasksService = inject(TasksService);
 }
