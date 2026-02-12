@@ -27,7 +27,7 @@
   <div class="task-footer">
     <!-- Avatare der zugewiesenen Nutzer -->
     <div class="avatars">
-      @if (task.assignedTo && task.assignedTo.length > 0) {
+      @if (task.assigned && task.assigned.length > 0) {
         <!-- Erste 3 User -->
         @for (user of displayedUsers; track user.id) {
           <div class="avatar" [ngClass]="user.color" [title]="user.name">
@@ -36,8 +36,8 @@
         }
         <!-- "+X" Badge wenn mehr als 3 User -->
       @if (remainingUsersCount > 0) {
-        <div 
-          class="avatar avatar-counter" 
+        <div
+          class="avatar avatar-counter"
           [title]="allUsersTooltip">
           +{{ remainingUsersCount }}
         </div>
