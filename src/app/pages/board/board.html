@@ -10,19 +10,15 @@
         <!-- Board Content -->
         <div class="board-content">
           <div class="board-inner">
-
             <!-- Board Titel + Suchfeld + Add-Button -->
             <div class="board-header">
               <h1>Board</h1>
               <div class="board-actions">
                 <div class="search-box">
-                  <input
-                    type="text"
-                    placeholder="Find Task"
-                    (input)="onSearch($event)">
-                  <img src="assets/icons/search.svg" alt="Search">
+                  <input type="text" placeholder="Find Task" (input)="onSearch($event)" />
+                  <img src="assets/icons/search.svg" alt="Search" />
                 </div>
-                <button class="btn-primary" (click)="openAddTaskDialog()">
+                <button class="btn-primary" (click)="tasksService.openAddTaskDialog()">
                   Add task <span>+</span>
                 </button>
               </div>
@@ -30,13 +26,12 @@
 
             <!-- Board Spalten: cdkDropListGroup verbindet alle Spalten -->
             <div class="board-columns" cdkDropListGroup>
-
               <!-- Spalte: To do -->
               <div class="board-column">
                 <div class="column-header">
                   <h2>To do</h2>
-                  <button class="add-task-btn" (click)="openAddTaskDialog()">
-                    <img src="assets/icons/plus.svg" alt="Add Task">
+                  <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                    <img src="assets/icons/plus.svg" alt="Add Task" />
                   </button>
                 </div>
 
@@ -45,14 +40,15 @@
                   cdkDropList
                   id="To do"
                   [cdkDropListData]="todoTasks"
-                  (cdkDropListDropped)="onTaskDrop($event)">
-
+                  (cdkDropListDropped)="onTaskDrop($event)"
+                >
                   @for (task of todoTasks; track task.id) {
                     <app-single-task-card
                       cdkDrag
                       [cdkDragData]="task"
                       [task]="task"
-                      (taskClicked)="openTaskDialog($event)">
+                      (taskClicked)="openTaskDialog($event)"
+                    >
                     </app-single-task-card>
                   }
 
@@ -66,8 +62,8 @@
               <div class="board-column">
                 <div class="column-header">
                   <h2>In progress</h2>
-                  <button class="add-task-btn" (click)="openAddTaskDialog()">
-                    <img src="assets/icons/plus.svg" alt="Add Task">
+                  <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                    <img src="assets/icons/plus.svg" alt="Add Task" />
                   </button>
                 </div>
 
@@ -76,14 +72,15 @@
                   cdkDropList
                   id="In progress"
                   [cdkDropListData]="inProgressTasks"
-                  (cdkDropListDropped)="onTaskDrop($event)">
-
+                  (cdkDropListDropped)="onTaskDrop($event)"
+                >
                   @for (task of inProgressTasks; track task.id) {
                     <app-single-task-card
                       cdkDrag
                       [cdkDragData]="task"
                       [task]="task"
-                      (taskClicked)="openTaskDialog($event)">
+                      (taskClicked)="openTaskDialog($event)"
+                    >
                     </app-single-task-card>
                   }
 
@@ -97,8 +94,8 @@
               <div class="board-column">
                 <div class="column-header">
                   <h2>Await feedback</h2>
-                  <button class="add-task-btn" (click)="openAddTaskDialog()">
-                    <img src="assets/icons/plus.svg" alt="Add Task">
+                  <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                    <img src="assets/icons/plus.svg" alt="Add Task" />
                   </button>
                 </div>
 
@@ -107,14 +104,15 @@
                   cdkDropList
                   id="Await feedback"
                   [cdkDropListData]="awaitFeedbackTasks"
-                  (cdkDropListDropped)="onTaskDrop($event)">
-
+                  (cdkDropListDropped)="onTaskDrop($event)"
+                >
                   @for (task of awaitFeedbackTasks; track task.id) {
                     <app-single-task-card
                       cdkDrag
                       [cdkDragData]="task"
                       [task]="task"
-                      (taskClicked)="openTaskDialog($event)">
+                      (taskClicked)="openTaskDialog($event)"
+                    >
                     </app-single-task-card>
                   }
 
@@ -128,8 +126,8 @@
               <div class="board-column">
                 <div class="column-header">
                   <h2>Done</h2>
-                  <button class="add-task-btn" (click)="openAddTaskDialog()">
-                    <img src="assets/icons/plus.svg" alt="Add Task">
+                  <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                    <img src="assets/icons/plus.svg" alt="Add Task" />
                   </button>
                 </div>
 
@@ -138,14 +136,15 @@
                   cdkDropList
                   id="Done"
                   [cdkDropListData]="doneTasks"
-                  (cdkDropListDropped)="onTaskDrop($event)">
-
+                  (cdkDropListDropped)="onTaskDrop($event)"
+                >
                   @for (task of doneTasks; track task.id) {
                     <app-single-task-card
                       cdkDrag
                       [cdkDragData]="task"
                       [task]="task"
-                      (taskClicked)="openTaskDialog($event)">
+                      (taskClicked)="openTaskDialog($event)"
+                    >
                     </app-single-task-card>
                   }
 
@@ -154,7 +153,6 @@
                   }
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -165,3 +163,4 @@
   <!-- Task-Detail-Dialog: Erscheint, wenn activeTask gesetzt ist -->
   <app-single-task-dialog></app-single-task-dialog>
 </main>
+<app-add-task-dialog></app-add-task-dialog>

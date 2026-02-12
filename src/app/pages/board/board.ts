@@ -14,6 +14,7 @@ import { Header } from '../../shared/components/header/header';
 import { Nav } from '../../shared/components/nav/nav';
 import { TasksService } from '../../services/tasks-service';
 import { SingleTask } from '../../interfaces/single-task';
+import { AddTaskDialog } from './add-task-dialog/add-task-dialog';
 
 /**
  * Board – Kanban-Board mit 4 Spalten, Drag & Drop und Task-Detail-Dialog.
@@ -30,6 +31,7 @@ import { SingleTask } from '../../interfaces/single-task';
     SingleTaskDialog,
     Header,
     Nav,
+    AddTaskDialog,
     CdkDropListGroup,
     CdkDropList,
     CdkDrag,
@@ -132,9 +134,10 @@ export class Board {
   }
 
   /** Öffnet den Dialog zum Erstellen einer neuen Task. */
-  openAddTaskDialog(): void {
-    // TODO: Add Task Dialog öffnen
-  }
+  //! PB wird über Service geregelt
+  // openAddTaskDialog(): void {
+  //? TODO: Add Task Dialog öffnen
+  // }
 
   /**
    * Liest den Suchbegriff aus dem Input-Feld.

@@ -1,6 +1,7 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import { collection, deleteDoc, doc, Firestore, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { SingleTask } from '../interfaces/single-task';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,9 @@ export class TasksService implements OnDestroy {
   /** Die aktuell im Dialog angezeigte Task (null = Dialog geschlossen). */
   activeTask: SingleTask | null = null;
   unsubTasks;
+
+  private openAddTaskDialogSubject = new BehaviorSubject<boolean>(false);
+  openAddTaskDialog$: Observable<boolean> = this.openAddTaskDialogSubject.asObservable();
 
   constructor() {
     this.unsubTasks = this.subTasksArr();
@@ -155,5 +159,15 @@ export class TasksService implements OnDestroy {
 
   ngOnDestroy() {
     if (this.unsubTasks) this.unsubTasks();
+  }
+
+  openAddTaskDialog() {
+    this.openAddTaskDialogSubject.next(true);
+    console.log('Dialog offen');
+  }
+
+  closeAddTaskDialog() {
+    this.openAddTaskDialogSubject.next(false);
+    console.log('Dialog geschlossen');
   }
 }
