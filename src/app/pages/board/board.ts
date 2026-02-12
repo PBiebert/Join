@@ -1,23 +1,39 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  CdkDropListGroup,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { SingleTaskCard } from './single-task-card/single-task-card';
+import { SingleTaskDialog } from './single-task-dialog/single-task-dialog';
 import { Header } from '../../shared/components/header/header';
 import { Nav } from '../../shared/components/nav/nav';
 import { TasksService } from '../../services/tasks-service';
 import { SingleTask } from '../../interfaces/single-task';
 
 /**
- * Board – Kanban-Board mit 4 Spalten und Drag & Drop.
+ * Board – Kanban-Board mit 4 Spalten, Drag & Drop und Task-Detail-Dialog.
  *
  * Bezieht alle Tasks aus dem TasksService (Firebase Echtzeit-Daten).
- * Drag & Drop nutzt Angular CDK: cdkDropListGroup verbindet die Spalten,
- * cdkDropList definiert jede Spalte als Drop-Zone,
- * cdkDrag macht jede Task-Karte verschiebbar.
+ * Klick auf eine Karte öffnet den Detail-Dialog.
+ * Drag & Drop nutzt Angular CDK für Verschiebung und Sortierung.
  */
 @Component({
   selector: 'app-board',
-  imports: [CommonModule, SingleTaskCard, Header, Nav, CdkDropListGroup, CdkDropList, CdkDrag],
+  imports: [
+    CommonModule,
+    SingleTaskCard,
+    SingleTaskDialog,
+    Header,
+    Nav,
+    CdkDropListGroup,
+    CdkDropList,
+    CdkDrag,
+  ],
   templateUrl: './board.html',
   styleUrl: './board.scss',
 })
@@ -28,12 +44,6 @@ export class Board {
   /** Suchbegriff für die Task-Filterung. */
   searchTerm = '';
 
-  /**
-   * Filtert Tasks nach Status und optionalem Suchbegriff.
-   * Wird intern von den Gettern aufgerufen.
-   * @param status - Der Spalten-Status ('To do', 'In progress', etc.)
-   * @returns Gefilterte Tasks für diese Spalte
-   */
   /**
    * Filtert Tasks nach Status, sortiert nach order-Feld.
    * Wendet optional den Suchbegriff an.
@@ -72,16 +82,8 @@ export class Board {
   }
 
   /**
-   * Wird aufgerufen, wenn eine Task per Drag & Drop losgelassen wird.
-   * Liest die Task-Daten und den Ziel-Status aus dem CDK-Event.
-   * Aktualisiert den Status in Firebase – onSnapshot aktualisiert die UI.
-   * @param event - Das CDK Drop-Event mit den Task-Listen der Quell- und Ziel-Spalte
-   */
-  /**
    * Verarbeitet das Drop-Event nach Drag & Drop.
    * Unterscheidet: gleiche Spalte (umsortieren) vs. andere Spalte (verschieben).
-   * Nutzt CDK-Hilfsfunktionen für Array-Manipulation,
-   * dann werden die neuen Positionen in Firebase gespeichert.
    * @param event - Das CDK Drop-Event
    */
   onTaskDrop(event: CdkDragDrop<SingleTask[]>): void {
@@ -94,7 +96,6 @@ export class Board {
 
   /**
    * Sortiert eine Karte innerhalb derselben Spalte um.
-   * Verschiebt das Element im Array und speichert die neue Reihenfolge.
    * @param event - Das CDK Drop-Event
    */
   private handleSameColumnDrop(event: CdkDragDrop<SingleTask[]>): void {
@@ -105,7 +106,6 @@ export class Board {
 
   /**
    * Verschiebt eine Karte von einer Spalte in eine andere.
-   * Entfernt die Karte aus der Quell-Spalte, fügt sie an der Zielposition ein.
    * Speichert beide Spalten mit neuen Positionen.
    * @param event - Das CDK Drop-Event
    */
@@ -124,10 +124,11 @@ export class Board {
 
   /**
    * Öffnet den Task-Detail-Dialog.
+   * Delegiert an den TasksService, der activeTask setzt.
    * @param taskId - Die ID der angeklickten Task
    */
   openTaskDialog(taskId: string): void {
-    // TODO: Task Detail Dialog öffnen
+    this.tasksService.openTaskDialog(taskId);
   }
 
   /** Öffnet den Dialog zum Erstellen einer neuen Task. */
@@ -137,7 +138,6 @@ export class Board {
 
   /**
    * Liest den Suchbegriff aus dem Input-Feld.
-   * Die Getter filtern automatisch bei jeder Eingabe neu.
    * @param event - Das native Input-Event
    */
   onSearch(event: Event): void {
