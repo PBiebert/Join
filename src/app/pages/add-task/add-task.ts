@@ -12,8 +12,14 @@ import { CommonModule } from '@angular/common';
 })
 export class AddTask {
 
+  // Date only for today and future
+  minDate: string = new Date().toISOString().split('T')[0];
+
+  // ------------------- ASSIGN DROPDOWN -------------------
+
   isOpen = false;
   selectedOption: string = 'Select contacts to assign';
+
   options: string[] = [
     'Option_1',
     'Option_2',
@@ -33,10 +39,11 @@ export class AddTask {
     this.isOpen = false;
   }
 
-  // -------------------
+  // ------------------- CATEGORY DROPDOWN -------------------
 
   isCategoryOpen = false;
   selectedCategory: string = 'Select category';
+
   categoryOptions: string[] = [
     'Task',
     'Subtask'
