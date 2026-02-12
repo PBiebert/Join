@@ -6,6 +6,7 @@ import { Header } from '../../shared/components/header/header';
 import { Nav } from '../../shared/components/nav/nav';
 import { TasksService } from '../../services/tasks-service';
 import { SingleTask } from '../../interfaces/single-task';
+import { AddTaskDialog } from './add-task-dialog/add-task-dialog';
 
 /**
  * Board – Kanban-Board mit 4 Spalten und Drag & Drop.
@@ -17,7 +18,16 @@ import { SingleTask } from '../../interfaces/single-task';
  */
 @Component({
   selector: 'app-board',
-  imports: [CommonModule, SingleTaskCard, Header, Nav, CdkDropListGroup, CdkDropList, CdkDrag],
+  imports: [
+    CommonModule,
+    SingleTaskCard,
+    Header,
+    Nav,
+    AddTaskDialog,
+    CdkDropListGroup,
+    CdkDropList,
+    CdkDrag,
+  ],
   templateUrl: './board.html',
   styleUrl: './board.scss',
 })
@@ -85,9 +95,10 @@ export class Board {
   }
 
   /** Öffnet den Dialog zum Erstellen einer neuen Task. */
-  openAddTaskDialog(): void {
-    // TODO: Add Task Dialog öffnen
-  }
+  //! PB wird über Service geregelt
+  // openAddTaskDialog(): void {
+  //? TODO: Add Task Dialog öffnen
+  // }
 
   /**
    * Liest den Suchbegriff aus dem Input-Feld.

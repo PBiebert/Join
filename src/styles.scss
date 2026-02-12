@@ -137,10 +137,6 @@ ul {
   transition: var(--transition-fast);
   font-size: 20px;
 
-  // @media (max-width: 1240px) {
-  //   font-size: clamp(1rem, 0.543vw + 0.891rem, 1.313rem);
-  // }
-
   @media (max-width: 768px) {
     padding: 0.75rem;
   }
@@ -170,10 +166,6 @@ ul {
   padding: 1rem;
   transition: var(--transition-fast);
   font-size: 20px;
-
-  // @media (max-width: 1240px) {
-  //   font-size: clamp(1rem, 0.543vw + 0.891rem, 1.313rem);
-  // }
 
   @media (max-width: 768px) {
     padding: 0.75rem;
@@ -284,6 +276,7 @@ dialog {
   width: 90%;
   max-width: 1200px;
   overflow: hidden;
+  z-index: 999;
 
   &::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
