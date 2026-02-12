@@ -1,1 +1,102 @@
-<p>single-task-dialog works!</p>
+@if (task) {
+  <dialog 
+    #taskDialog 
+    [open]="true" 
+    class="slide-in"
+    (click)="closeDialog()">
+    
+    <div class="dialog-content" (click)="onDialogContentClick($event)">
+      
+      <!-- Header: Close Button -->
+      <div class="dialog-header">
+        <button class="close-btn" (click)="closeDialog()" aria-label="Close Dialog">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Category Badge -->
+      <span class="task-badge" [ngClass]="badgeClass">
+        {{ task.category }}
+      </span>
+
+      <!-- Task Title -->
+      <h1 class="task-title">{{ task.title }}</h1>
+
+      <!-- Task Description -->
+      <p class="task-description">{{ task.description }}</p>
+
+      <!-- Due Date Section -->
+      <div class="info-section">
+        <span class="info-label">Due date:</span>
+        <span class="info-value">{{ formattedDueDate }}</span>
+      </div>
+
+      <!-- Priority Section -->
+      <div class="info-section">
+        <span class="info-label">Priority:</span>
+        <div class="priority-container">
+          <span class="info-value">{{ task.priority }}</span>
+          <img [src]="priorityIcon" [alt]="task.priority" class="priority-icon">
+        </div>
+      </div>
+
+      <!-- Assigned To Section -->
+      @if (assignedUsers.length > 0) {
+        <div class="info-section">
+          <span class="info-label">Assigned To:</span>
+          <div class="assigned-list">
+            @for (user of assignedUsers; track user.id) {
+              <div class="assigned-user">
+                <div class="avatar-large" [ngClass]="user.color">
+                  {{ user.initials }}
+                </div>
+                <span class="user-name">{{ user.name }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Subtasks Section -->
+@if (task.subtasks && task.subtasks.length > 0) {
+  <div class="info-section">
+    <span class="info-label">Subtasks</span>
+    <div class="subtasks-list">
+      @for (subtask of task.subtasks; track subtask.id) {
+        <label class="subtask-item">
+          <input 
+            type="checkbox" 
+            [checked]="subtask.completed"
+            (change)="onSubtaskToggle(subtask.id, subtask.completed)"
+            class="subtask-checkbox">
+          <span class="subtask-title" [class.completed]="subtask.completed">
+            {{ subtask.title }}
+          </span>
+        </label>
+      }
+    </div>
+  </div>
+}
+
+      <!-- Footer: Delete & Edit Buttons -->
+      <div class="dialog-footer">
+        <button class="btn-delete" (click)="onDeleteTask()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M3 6H5H21M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Delete
+        </button>
+
+        <button class="btn-edit" disabled>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13M18.5 2.5C18.8978 2.1022 19.4374 1.87868 20 1.87868C20.5626 1.87868 21.1022 2.1022 21.5 2.5C21.8978 2.8978 22.1213 3.43739 22.1213 4C22.1213 4.56261 21.8978 5.1022 21.5 5.5L12 15L8 16L9 12L18.5 2.5Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Edit
+        </button>
+      </div>
+
+    </div>
+  </dialog>
+}

@@ -144,6 +144,7 @@ export class SingleTaskCard {
    * Gibt die Task-ID per Event an das Board weiter.
    */
   onCardClick(): void {
+    console.log('🔴 CARD CLICKED! Task ID:', this.task.id);
     this.taskClicked.emit(this.task.id);
   }
 }
