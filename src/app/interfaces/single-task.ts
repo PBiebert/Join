@@ -7,6 +7,6 @@ export interface SingleTask {
   priority: 'Urgent' | 'Medium' | 'Low';
   assigned?: string[];
   category: 'User Story' | 'Technical Task';
-  subtasks?: string[];
+  subtasks?: { id: string; title: string; completed: boolean }[];
   order?: number;
 }
