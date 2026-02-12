@@ -4,7 +4,7 @@ import { TasksService } from '../../../services/tasks-service';
 
 /**
  * SingleTaskDialog - Zeigt alle Details einer Task in einem großen Dialog.
- * 
+ *
  * Nutzt TasksService.activeTask für reaktive Daten-Anzeige.
  * Alle Änderungen (Subtask-Toggle, Delete) werden über den Service durchgeführt.
  */
@@ -16,6 +16,9 @@ import { TasksService } from '../../../services/tasks-service';
 })
 export class SingleTaskDialog {
   tasksService = inject(TasksService);
+
+  /** Steuert die Slide-Out-Animation beim Schließen. */
+  isClosing = false;
 
   /**
    * Gibt die aktive Task aus dem Service zurück.
@@ -29,9 +32,7 @@ export class SingleTaskDialog {
    * Gibt die CSS-Klasse für das Kategorie-Badge zurück.
    */
   get badgeClass(): string {
-    return this.task?.category === 'User Story'
-      ? 'badge-user-story'
-      : 'badge-technical-task';
+    return this.task?.category === 'User Story' ? 'badge-user-story' : 'badge-technical-task';
   }
 
   /**
@@ -64,7 +65,7 @@ export class SingleTaskDialog {
    */
   get assignedUsers(): any[] {
     const users = this.task?.assigned || [];
-    
+
     if (users.length === 0) return [];
 
     // Falls string array (nur IDs), konvertiere zu User-Objekten
@@ -73,27 +74,24 @@ export class SingleTaskDialog {
         id: userId,
         name: `User ${index + 1}`,
         initials: `U${index + 1}`,
-        color: `icon-${(index % 15) + 1}`
+        color: `icon-${(index % 15) + 1}`,
       }));
     }
-    
+
     return users;
   }
 
   /**
    * Schließt den Dialog mit Slide-Out-Animation.
+   * Setzt isClosing auf true → CSS wechselt zu slide-out.
+   * Nach 500ms (Animationsdauer) wird activeTask auf null gesetzt.
    */
   closeDialog(): void {
-    const dialog = document.querySelector('dialog');
-    if (dialog) {
-      dialog.classList.remove('slide-in');
-      dialog.classList.add('slide-out');
-      
-      // Warte auf Animation, dann close
-      setTimeout(() => {
-        this.tasksService.closeTaskDialog();
-      }, 500);
-    }
+    this.isClosing = true;
+    setTimeout(() => {
+      this.isClosing = false;
+      this.tasksService.closeTaskDialog();
+    }, 500);
   }
 
   /**
@@ -101,23 +99,19 @@ export class SingleTaskDialog {
    */
   async onDeleteTask(): Promise<void> {
     if (!this.task || !this.task.id) return;
-    
+
     await this.tasksService.deleteTask(this.task.id);
     this.closeDialog();
   }
 
   /**
- * Toggled den completed-Status eines Subtasks.
- */
-async onSubtaskToggle(subtaskId: string, currentStatus: boolean): Promise<void> {
-  if (!this.task || !this.task.id) return;
-  
-  await this.tasksService.updateSubtaskStatus(
-    this.task.id,
-    subtaskId,
-    !currentStatus
-  );
-}
+   * Toggled den completed-Status eines Subtasks.
+   */
+  async onSubtaskToggle(subtaskId: string, currentStatus: boolean): Promise<void> {
+    if (!this.task || !this.task.id) return;
+
+    await this.tasksService.updateSubtaskStatus(this.task.id, subtaskId, !currentStatus);
+  }
 
   /**
    * Verhindert Event-Propagation beim Klick auf Dialog-Content.

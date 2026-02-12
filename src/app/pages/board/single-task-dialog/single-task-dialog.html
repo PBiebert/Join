@@ -1,12 +1,14 @@
 @if (task) {
-  <dialog 
-    #taskDialog 
-    [open]="true" 
-    class="slide-in"
-    (click)="closeDialog()">
-    
-    <div class="dialog-content" (click)="onDialogContentClick($event)">
-      
+  <!-- Overlay: Dunkler Hintergrund, Klick = Dialog schließen -->
+  <div class="dialog-overlay" (click)="closeDialog()">
+
+    <!-- Karte: stopPropagation verhindert Schließen bei Klick ins Innere -->
+    <div
+      class="dialog-card"
+      [class.card-slide-in]="!isClosing"
+      [class.card-slide-out]="isClosing"
+      (click)="onDialogContentClick($event)">
+
       <!-- Header: Close Button -->
       <div class="dialog-header">
         <button class="close-btn" (click)="closeDialog()" aria-label="Close Dialog">
@@ -60,25 +62,25 @@
       }
 
       <!-- Subtasks Section -->
-@if (task.subtasks && task.subtasks.length > 0) {
-  <div class="info-section">
-    <span class="info-label">Subtasks</span>
-    <div class="subtasks-list">
-      @for (subtask of task.subtasks; track subtask.id) {
-        <label class="subtask-item">
-          <input 
-            type="checkbox" 
-            [checked]="subtask.completed"
-            (change)="onSubtaskToggle(subtask.id, subtask.completed)"
-            class="subtask-checkbox">
-          <span class="subtask-title" [class.completed]="subtask.completed">
-            {{ subtask.title }}
-          </span>
-        </label>
+      @if (task.subtasks && task.subtasks.length > 0) {
+        <div class="info-section">
+          <span class="info-label">Subtasks</span>
+          <div class="subtasks-list">
+            @for (subtask of task.subtasks; track subtask.id) {
+              <label class="subtask-item">
+                <input
+                  type="checkbox"
+                  [checked]="subtask.completed"
+                  (change)="onSubtaskToggle(subtask.id, subtask.completed)"
+                  class="subtask-checkbox">
+                <span class="subtask-title" [class.completed]="subtask.completed">
+                  {{ subtask.title }}
+                </span>
+              </label>
+            }
+          </div>
+        </div>
       }
-    </div>
-  </div>
-}
 
       <!-- Footer: Delete & Edit Buttons -->
       <div class="dialog-footer">
@@ -98,5 +100,5 @@
       </div>
 
     </div>
-  </dialog>
+  </div>
 }

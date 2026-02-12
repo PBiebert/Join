@@ -1,25 +1,76 @@
-dialog {
-  // Basis-Styles kommen aus styles.scss
-  // Hier nur Dialog-spezifische Anpassungen
-  max-width: 525px;
-  width: 90%;
-  height: auto;
-  max-height: 95vh;
+/* ================================================================
+ * Overlay – Dunkler Hintergrund, deckt den gesamten Bildschirm ab.
+ * z-index: 101 liegt über dem Header (100) und über der mobilen Nav (1000 → 1001 wäre nötig,
+ * aber da die Nav am unteren Rand sitzt und der Dialog zentriert ist, reicht 101).
+ * ================================================================ */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 101;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0;
+  margin: 0;
 }
 
-.dialog-content {
+/* ================================================================
+ * Dialog-Karte – Die weiße Box mit dem eigentlichen Inhalt.
+ * ================================================================ */
+.dialog-card {
   display: flex;
   flex-direction: column;
   gap: 25px;
   padding: 48px;
   overflow-y: auto;
-  height: 100%;
+  max-width: 525px;
+  width: 90%;
+  max-height: 95vh;
   background: white;
   border-radius: 30px;
 }
 
-// Header mit Close Button
+/* ================================================================
+ * Animationen – Eigene Klassen, damit sie nicht mit den
+ * globalen .slide-in/.slide-out aus styles.scss kollidieren.
+ * ================================================================ */
+.card-slide-in {
+  animation: cardSlideInFromRight 0.5s ease-in-out forwards;
+}
+
+.card-slide-out {
+  animation: cardSlideOutToRight 0.5s ease-in-out forwards;
+}
+
+@keyframes cardSlideInFromRight {
+  from {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes cardSlideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+/* ================================================================
+ * Header mit Close Button
+ * ================================================================ */
 .dialog-header {
   display: flex;
   justify-content: flex-end;
@@ -43,7 +94,9 @@ dialog {
   }
 }
 
-// Category Badge
+/* ================================================================
+ * Category Badge
+ * ================================================================ */
 .task-badge {
   display: inline-block;
   padding: 4px 25px;
@@ -63,7 +116,9 @@ dialog {
   background-color: var(--category-technical-task);
 }
 
-// Task Title
+/* ================================================================
+ * Task Title & Description
+ * ================================================================ */
 .task-title {
   font-size: 47px;
   font-weight: 700;
@@ -73,7 +128,6 @@ dialog {
   word-break: break-word;
 }
 
-// Task Description
 .task-description {
   font-size: 20px;
   font-weight: 400;
@@ -83,7 +137,9 @@ dialog {
   word-break: break-word;
 }
 
-// Info Sections (Due Date, Priority, Assigned To)
+/* ================================================================
+ * Info Sections (Due Date, Priority, Assigned To)
+ * ================================================================ */
 .info-section {
   display: flex;
   flex-direction: column;
@@ -102,7 +158,6 @@ dialog {
   color: var(--color-medium-blue);
 }
 
-// Priority Container
 .priority-container {
   display: flex;
   align-items: center;
@@ -114,7 +169,9 @@ dialog {
   height: 24px;
 }
 
-// Assigned To List
+/* ================================================================
+ * Assigned To List
+ * ================================================================ */
 .assigned-list {
   display: flex;
   flex-direction: column;
@@ -147,7 +204,9 @@ dialog {
   color: var(--color-medium-blue);
 }
 
-// Subtasks List
+/* ================================================================
+ * Subtasks List
+ * ================================================================ */
 .subtasks-list {
   display: flex;
   flex-direction: column;
@@ -187,7 +246,9 @@ dialog {
   }
 }
 
-// Footer Buttons
+/* ================================================================
+ * Footer Buttons
+ * ================================================================ */
 .dialog-footer {
   display: flex;
   gap: 16px;
@@ -225,14 +286,45 @@ dialog {
   }
 }
 
-// Responsive Design
-@media (max-width: 768px) {
-  dialog {
-    width: 95%;
-    max-width: none;
+/* ================================================================
+ * Responsive Design
+ * ================================================================ */
+@media (max-width: 1024px) {
+  .card-slide-in {
+    animation: cardSlideInFromBottom 0.5s ease-in-out forwards;
   }
 
-  .dialog-content {
+  .card-slide-out {
+    animation: cardSlideOutToBottom 0.5s ease-in-out forwards;
+  }
+
+  @keyframes cardSlideInFromBottom {
+    from {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes cardSlideOutToBottom {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dialog-card {
+    width: 95%;
+    max-width: none;
     padding: 32px 24px;
     gap: 20px;
   }
@@ -269,7 +361,7 @@ dialog {
 }
 
 @media (max-width: 500px) {
-  .dialog-content {
+  .dialog-card {
     padding: 24px 16px;
   }
 
