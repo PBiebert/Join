@@ -1,5 +1,5 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { collection, doc, Firestore, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { collection, deleteDoc, doc, Firestore, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { SingleTask } from '../interfaces/single-task';
 
 @Injectable({
@@ -8,6 +8,8 @@ import { SingleTask } from '../interfaces/single-task';
 export class TasksService implements OnDestroy {
   tasksDB: Firestore = inject(Firestore);
   tasks: SingleTask[] = [];
+  /** Die aktuell im Dialog angezeigte Task (null = Dialog geschlossen). */
+  activeTask: SingleTask | null = null;
   unsubTasks;
 
   constructor() {
@@ -35,7 +37,19 @@ export class TasksService implements OnDestroy {
       arr.forEach((element) => {
         this.tasks.push(this.setTaskObject(element.data(), element.id));
       });
+      this.refreshActiveTask();
     });
+  }
+
+  /**
+   * Aktualisiert die activeTask mit den neuesten Daten aus Firebase.
+   * Wird nach jedem onSnapshot aufgerufen, damit der Dialog
+   * immer aktuelle Daten zeigt (z.B. nach Subtask-Toggle).
+   */
+  private refreshActiveTask(): void {
+    if (!this.activeTask?.id) return;
+    const updated = this.tasks.find((t) => t.id === this.activeTask!.id);
+    this.activeTask = updated || null;
   }
 
   getTasksRef() {
@@ -90,6 +104,53 @@ export class TasksService implements OnDestroy {
     if (!task.id) return;
     const taskRef = this.getSingleTaskRef(task.id);
     await updateDoc(taskRef, { status: newStatus, order: index });
+  }
+
+  /* ================================================================
+   * Dialog-Steuerung
+   * ================================================================ */
+
+  /**
+   * Öffnet den Task-Detail-Dialog für eine bestimmte Task.
+   * @param taskId - Die ID der anzuzeigenden Task
+   */
+  openTaskDialog(taskId: string): void {
+    this.activeTask = this.tasks.find((t) => t.id === taskId) || null;
+  }
+
+  /**
+   * Schließt den Task-Detail-Dialog.
+   * Setzt activeTask auf null – das @if im Template blendet den Dialog aus.
+   */
+  closeTaskDialog(): void {
+    this.activeTask = null;
+  }
+
+  /**
+   * Löscht eine Task endgültig aus Firebase.
+   * @param taskId - Die ID der zu löschenden Task
+   */
+  async deleteTask(taskId: string): Promise<void> {
+    const taskRef = this.getSingleTaskRef(taskId);
+    await deleteDoc(taskRef);
+  }
+
+  /**
+   * Aktualisiert den completed-Status eines Subtasks.
+   * Liest die aktuelle Subtask-Liste, ändert den Ziel-Subtask,
+   * und schreibt die gesamte Liste zurück nach Firebase.
+   * @param taskId - Die ID der übergeordneten Task
+   * @param subtaskId - Die ID des Subtasks
+   * @param completed - Der neue Status (true/false)
+   */
+  async updateSubtaskStatus(taskId: string, subtaskId: string, completed: boolean): Promise<void> {
+    const task = this.tasks.find((t) => t.id === taskId);
+    if (!task?.subtasks) return;
+    const updatedSubtasks = task.subtasks.map((st) =>
+      st.id === subtaskId ? { ...st, completed } : st,
+    );
+    const taskRef = this.getSingleTaskRef(taskId);
+    await updateDoc(taskRef, { subtasks: updatedSubtasks });
   }
 
   ngOnDestroy() {
