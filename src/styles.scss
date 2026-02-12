@@ -365,3 +365,8 @@ dialog {
     opacity: 0;
   }
 }
+
+/* CDK Drag & Drop: Platzhalter-Inhalt global verstecken */
+.cdk-drag-placeholder * {
+  visibility: hidden;
+}

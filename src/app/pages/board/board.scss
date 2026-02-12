@@ -199,10 +199,11 @@ gap: 2rem;
   min-height: 100px;
 }
 
-/* Task-Karten: Grab-Cursor für Drag-Feedback */
+/* Task-Karten: Grab-Cursor und sanfte Transitions */
 app-single-task-card {
   display: block;
   cursor: grab;
+  transition: transform 200ms ease, opacity 200ms ease;
 }
 
 /* ================================================================
@@ -210,7 +211,9 @@ app-single-task-card {
  * Diese Klassen werden automatisch von CDK gesetzt.
  * ================================================================ */
 
-/* Platzhalter: Zeigt an, wo die Karte landen wird */
+/* Platzhalter: Leere Box zeigt an, wo die Karte landen wird.
+ * visibility: hidden auf allen Kindern versteckt den Karteninhalt,
+ * aber die Box selbst (Rahmen + Hintergrund) bleibt sichtbar. */
 .cdk-drag-placeholder {
   border: 2px dashed var(--color-light-blue);
   border-radius: 24px;
@@ -218,23 +221,30 @@ app-single-task-card {
   min-height: 80px;
 }
 
-/* Vorschau: Die Karte, die am Cursor klebt während des Ziehens */
+/* Vorschau: Die Karte am Cursor während des Ziehens.
+ * rotate statt transform, weil CDK inline transform: translate3d()
+ * für die Positionierung setzt – rotate wirkt unabhängig davon. */
 .cdk-drag-preview {
   border-radius: 24px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   opacity: 0.9;
-  transform: rotate(5deg);
+  rotate: 5deg;
   cursor: grabbing;
 }
 
-/* Animation: Karte gleitet sanft an ihre neue Position */
+/* Animation: Karte gleitet sanft an ihre neue Position nach dem Drop */
 .cdk-drag-animating {
-  transition: transform 250ms ease;
+  transition: transform 200ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Andere Karten rutschen sanft zur Seite während des Ziehens */
+.cdk-drop-list-dragging .cdk-drag-placeholder ~ * {
+  transition: transform 200ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* Drop-Zone Highlight: Spalte wird hervorgehoben beim Darüberziehen */
 .cdk-drop-list-dragging .cdk-drag-placeholder ~ * {
-  transition: transform 250ms ease;
+  transition: transform 200ms ease;
 }
 
 /* Responsive */
