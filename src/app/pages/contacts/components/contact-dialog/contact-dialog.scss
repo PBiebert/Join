@@ -17,7 +17,7 @@
   background-color: var(--color-medium-blue);
   min-width: 40%;
   height: 100%;
-  padding-left: 2rem;
+  padding: 0 2rem;
 }
 
 .dialog-logo {
@@ -108,8 +108,8 @@ input {
   outline: none;
   border: none;
   background: none;
-  flex-grow: 1;
-  font-size: clamp(1rem, 1.2vw + 0.75rem, 1.25rem);
+  font-size: 20px;
+  min-width: 0;
 }
 
 .inputs-container {
@@ -305,17 +305,13 @@ input {
   .inputs-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    // width: 100%;
     gap: 1.5rem;
     overflow-y: auto;
     flex-grow: 1;
     padding: 0;
     max-height: 100%;
     min-height: 0;
-  }
-
-  .inputs {
-    width: 100%;
   }
 
   .btns-container {
@@ -335,9 +331,6 @@ input {
 }
 
 @media (max-width: 768px) {
-  .icons {
-    padding-right: 4px;
-  }
   .snackbar {
     bottom: 20px;
     right: auto;
@@ -377,9 +370,5 @@ input {
   .snackbar {
     min-width: 260px;
     max-width: calc(100vw - 32px);
-  }
-
-  .inputs {
-    padding: 0.4rem;
   }
 }

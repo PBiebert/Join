@@ -1,5 +1,8 @@
 <div class="wrapper">
-  <button class="btn-primary contacts-list__desktop-btn" (click)="contactsService.openAddContactDialog()">
+  <button
+    class="btn-primary contacts-list__desktop-btn"
+    (click)="contactsService.openAddContactDialog()"
+  >
     Add new contact
     <span
       ><svg
@@ -33,7 +36,7 @@
     @for (group of contactsService.getContactGroups(); track $index) {
       <div class="contact-group">
         <div class="head-line">
-          <h4>{{ group }}</h4>
+          <h3>{{ group }}</h3>
         </div>
         <span class="underline"></span>
         <!-- Kontakte kommen zentral aus dem Service -->
@@ -48,7 +51,7 @@
                 {{ contactsService.getInitials(contact.name) }}
               </div>
               <div class="data">
-                <p>{{ contact.name }}</p>
+                <h3>{{ contact.name }}</h3>
                 <a class="email" href="mailto:{{ contact.email }}">{{ contact.email }}</a>
               </div>
             </div>

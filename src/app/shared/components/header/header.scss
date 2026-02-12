@@ -66,11 +66,9 @@
   }
 }
 
-
 .profile-wrapper {
   position: relative;
 }
-
 
 /* Profile Button */
 .profile {
@@ -123,9 +121,9 @@
     cursor: pointer;
 
     &:hover {
-     background-color: var(--color-nav-hover);
+      background-color: var(--color-nav-hover);
     }
-    
+
     &--help {
       display: none;
     }
@@ -138,9 +136,7 @@
 //   100% { transform: translateX(0); }
 // }
 
-
-@media (max-width: 936px) {
-
+@media (max-width: 1024px) {
   app-contacts-list {
     width: clamp(280px, 30vw, 456px);
   }
@@ -149,21 +145,19 @@
     flex: 1;
     min-width: 280px;
   }
-  .header-container{
+  .header-container {
     padding: 16px 24px 16px 50px;
-  }    
+  }
 }
 
-
 @media (max-width: 767px) {
-
-.dropdown {
-  right: -5px;
-  gap: 8px;
-  padding: 16px 20px;
-  font-size: 1rem;
-  top: auto;
-  border-radius: 16px 0 16px 16px;
+  .dropdown {
+    right: -5px;
+    gap: 8px;
+    padding: 16px 20px;
+    font-size: 1rem;
+    top: auto;
+    border-radius: 16px 0 16px 16px;
   }
   .header-container {
     padding: 16px 20px;
@@ -179,7 +173,7 @@
   }
 
   .dropdown__link {
-     padding: 10px 12px;
+    padding: 10px 12px;
   }
 
   .dropdown__link--help {

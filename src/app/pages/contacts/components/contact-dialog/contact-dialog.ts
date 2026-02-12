@@ -65,7 +65,7 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
   isPhoneValid(): boolean {
     const phone = this.addNewSingleContact.phone.trim();
     if (!phone) return true;
-    const phoneRegex = /^\+?\d+$/;
+    const phoneRegex = /^(?:\+\d{1,3}|00\d{1,3})?0?\d{2,5}[\/\s]?\d{5,10}$/;
     return phoneRegex.test(phone);
   }
 

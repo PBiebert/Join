@@ -83,15 +83,15 @@ html {
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 4rem); // 32px - 64px
+  font-size: 61px;
 }
 
 h2 {
-  font-size: clamp(1.75rem, 4vw, 2.5rem); // 28px - 40px
+  font-size: 32px;
 }
 
 h3 {
-  font-size: clamp(1.5rem, 3.5vw, 2rem); // 24px - 32px
+  font-size: 20px;
 }
 
 h4 {
@@ -99,7 +99,7 @@ h4 {
 }
 
 p {
-  font-size: clamp(1.25rem, 1.5vw, 1.75rem); // 16px - 20px
+  font-size: 16px; // 16px - 20px
   line-height: 1.4;
 }
 
@@ -135,11 +135,11 @@ ul {
   border-radius: 0.5rem;
   padding: 1rem;
   transition: var(--transition-fast);
-  font-size: clamp(1.313rem, 0.441vw + 0.971rem, 1.5rem);
+  font-size: 20px;
 
-  @media (max-width: 1240px) {
-    font-size: clamp(1rem, 0.543vw + 0.891rem, 1.313rem);
-  }
+  // @media (max-width: 1240px) {
+  //   font-size: clamp(1rem, 0.543vw + 0.891rem, 1.313rem);
+  // }
 
   @media (max-width: 768px) {
     padding: 0.75rem;
@@ -169,11 +169,11 @@ ul {
   border-radius: 0.5rem;
   padding: 1rem;
   transition: var(--transition-fast);
-  font-size: clamp(1.313rem, 0.441vw + 0.971rem, 1.5rem);
+  font-size: 20px;
 
-  @media (max-width: 1240px) {
-    font-size: clamp(1rem, 0.543vw + 0.891rem, 1.313rem);
-  }
+  // @media (max-width: 1240px) {
+  //   font-size: clamp(1rem, 0.543vw + 0.891rem, 1.313rem);
+  // }
 
   @media (max-width: 768px) {
     padding: 0.75rem;
@@ -280,8 +280,9 @@ dialog {
   border: none;
   border-radius: 30px;
   height: 70%;
+  max-height: 594px;
   width: 90%;
-  max-height: 95vh;
+  max-width: 1200px;
   overflow: hidden;
 
   &::backdrop {
@@ -290,6 +291,7 @@ dialog {
 
   @media (max-width: 1024px) {
     height: 95%;
+    max-height: 800px;
     width: 55%;
     max-width: 600px;
   }
@@ -300,6 +302,7 @@ dialog {
 
   @media (max-width: 500px) {
     width: 90%;
+    max-height: 650px;
   }
 }
 
