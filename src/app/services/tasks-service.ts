@@ -25,6 +25,7 @@ export class TasksService implements OnDestroy {
       assigned: obj.assigned || [],
       category: obj.category || 'User Story',
       subtasks: obj.subtasks || [],
+      order: obj.order ?? 0,
     };
   }
 
@@ -60,6 +61,35 @@ export class TasksService implements OnDestroy {
   async updateTaskStatus(taskId: string, newStatus: string): Promise<void> {
     const taskRef = this.getSingleTaskRef(taskId);
     await updateDoc(taskRef, { status: newStatus });
+  }
+
+  /**
+   * Aktualisiert Status und Position mehrerer Tasks gleichzeitig.
+   * Wird nach Drag & Drop aufgerufen, um die neue Reihenfolge zu speichern.
+   * Jeder Task bekommt seinen Index als order-Wert (0, 1, 2, ...).
+   * @param tasks - Die Tasks in ihrer neuen Reihenfolge
+   * @param newStatus - Der Spalten-Status für alle Tasks in dieser Liste
+   */
+  async updateTaskPositions(tasks: SingleTask[], newStatus: string): Promise<void> {
+    const updates = tasks.map((task, index) => this.updateSinglePosition(task, index, newStatus));
+    await Promise.all(updates);
+  }
+
+  /**
+   * Aktualisiert Status und Position einer einzelnen Task.
+   * Wird intern von updateTaskPositions() aufgerufen.
+   * @param task - Die zu aktualisierende Task
+   * @param index - Die neue Position (0 = ganz oben)
+   * @param newStatus - Der Spalten-Status
+   */
+  private async updateSinglePosition(
+    task: SingleTask,
+    index: number,
+    newStatus: string,
+  ): Promise<void> {
+    if (!task.id) return;
+    const taskRef = this.getSingleTaskRef(task.id);
+    await updateDoc(taskRef, { status: newStatus, order: index });
   }
 
   ngOnDestroy() {

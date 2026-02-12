@@ -8,4 +8,5 @@ export interface SingleTask {
   assigned?: string[];
   category: 'User Story' | 'Technical Task';
   subtasks?: string[];
+  order?: number;
 }
