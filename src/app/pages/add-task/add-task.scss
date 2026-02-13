@@ -16,7 +16,7 @@
   height: 100%;
   position: relative;
   display: flex;
-  background-color: #F6F7F8;
+  background-color: #f6f7f8;
 }
 
 app-header {
@@ -28,6 +28,11 @@ app-nav {
   width: 232px;
   height: 100%;
   flex-shrink: 0;
+}
+
+app-header.d-none,
+app-nav.d-none {
+  display: none;
 }
 
 // From here my scss code
@@ -57,7 +62,7 @@ h1 {
   font-size: 16px;
   line-height: 120%;
   letter-spacing: 0%;
-  color: #FF8190;
+  color: #ff8190;
 }
 
 form {
@@ -120,19 +125,17 @@ textarea {
   white-space: nowrap;
 }
 
-
 p {
   font-family: Inter;
   font-weight: 400;
   font-size: 16px;
   line-height: 120%;
-
 }
 
 .line {
   width: 1px;
   height: 424px;
-  background-color: #D1D1D1;
+  background-color: #d1d1d1;
   align-self: center;
 }
 
@@ -165,7 +168,7 @@ p {
   width: 136px;
   height: 56px;
   padding: 10px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1px solid var(--color-light-grey);
   border-radius: 10px;
   transition: var(--transition-fast);
@@ -194,7 +197,7 @@ p {
 .urgent {
   width: 20px;
   height: 14.51px;
-  background-image: url("/assets/icons/urgent.svg");
+  background-image: url('/assets/icons/urgent.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -203,14 +206,14 @@ p {
 .medium {
   width: 20px;
   height: 7.45px;
-  background-color: #FFA800;
-  mask: url("/assets/icons/medium.svg") no-repeat center;
+  background-color: #ffa800;
+  mask: url('/assets/icons/medium.svg') no-repeat center;
 }
 
 .low {
   width: 20px;
   height: 14.51px;
-  background-image: url("/assets/icons/low.svg");
+  background-image: url('/assets/icons/low.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -274,7 +277,7 @@ p {
     content: '';
     width: 7.21px;
     height: 4.6px;
-    background-image: url("/assets/icons/categories_arrow_drop_down.svg");
+    background-image: url('/assets/icons/categories_arrow_drop_down.svg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -368,10 +371,8 @@ p {
   margin-left: 2px;
 }
 
-
 .subtask-title {
   margin-top: 32px;
-
 }
 
 .create-clear-btns-container {
@@ -405,7 +406,7 @@ p {
     height: 40px;
     box-sizing: border-box;
 
-    &:focus+.input-icons {
+    &:focus + .input-icons {
       opacity: 1;
       pointer-events: auto;
     }
@@ -437,13 +438,11 @@ p {
   .input-line {
     height: 24px;
     width: 1px;
-    background-color: #D1D1D1;
+    background-color: #d1d1d1;
   }
 }
 
-
 @media (max-width: 768px) {
-
   :host {
     flex-direction: column;
   }
