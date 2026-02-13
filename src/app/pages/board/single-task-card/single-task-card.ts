@@ -1,6 +1,17 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactsService } from '../../../services/contacts-service';
+import { SingleTask } from '../../../interfaces/single-task';
+
+/**
+ * Typ für die angezeigten User in der Karte (max 3).
+ */
+interface DisplayedUser {
+  id: string;
+  name: string;
+  initials: string;
+  color: string;
+}
 
 /**
  * SingleTaskCard – Zeigt eine einzelne Task als Karte im Board an.
@@ -17,10 +28,10 @@ import { ContactsService } from '../../../services/contacts-service';
 })
 export class SingleTaskCard {
   /** Zugriff auf den ContactsService für Initialen und Farben. */
-  contactsService = inject(ContactsService);
+  private readonly contactsService = inject(ContactsService);
 
   /** Die Task-Daten von der Board-Komponente. */
-  @Input() task: any;
+  @Input() task!: SingleTask;
 
   /** Event beim Klick auf die Karte – gibt die Task-ID weiter. */
   @Output() taskClicked = new EventEmitter<string>();
@@ -30,7 +41,9 @@ export class SingleTaskCard {
    * 'User Story' → blau, 'Technical Task' → grün.
    */
   get badgeClass(): string {
-    return this.task.category === 'User Story' ? 'badge-user-story' : 'badge-technical-task';
+    return this.task.category === 'User Story' 
+      ? 'badge-user-story' 
+      : 'badge-technical-task';
   }
 
   /**
@@ -38,20 +51,20 @@ export class SingleTaskCard {
    * @returns Prozentwert zwischen 0 und 100
    */
   get progressPercentage(): number {
-    if (!this.task.subtasks || this.task.subtasks.length === 0) return 0;
-    const completed = this.task.subtasks.filter((st: any) => st.completed).length;
+    if (!this.task?.subtasks || this.task.subtasks.length === 0) return 0;
+    const completed = this.task.subtasks.filter(st => st.completed).length;
     return (completed / this.task.subtasks.length) * 100;
   }
 
   /** Zählt die erledigten Subtasks für die Anzeige "2/5 Subtasks". */
   get completedSubtasks(): number {
     if (!this.task.subtasks) return 0;
-    return this.task.subtasks.filter((st: any) => st.completed).length;
+    return this.task.subtasks.filter(st => st.completed).length;
   }
 
   /** Pfad zum passenden Priority-Icon (Urgent/Medium/Low). */
   get priorityIcon(): string {
-    const icons: { [key: string]: string } = {
+    const icons: Record<string, string> = {
       Urgent: 'assets/icons/prio-urgent.svg',
       Medium: 'assets/icons/prio-medium.svg',
       Low: 'assets/icons/prio-low.svg',
@@ -64,22 +77,24 @@ export class SingleTaskCard {
    * Nutzt ContactsService.getInitials() und getIconColorClass().
    * Gibt maximal 3 User-Objekte zurück.
    */
-  get displayedUsers(): { id: string; initials: string; color: string; name: string }[] {
-    const ids: string[] = this.task.assigned || [];
+  get displayedUsers(): DisplayedUser[] {
+    if (!this.task) return [];
+    const ids = this.task.assigned || [];
     if (ids.length === 0) return [];
     return ids.slice(0, 3).map((id) => this.resolveContact(id));
   }
 
   /** Anzahl der User über 3 hinaus – wird als "+X" Badge angezeigt. */
   get remainingUsersCount(): number {
-    const ids: string[] = this.task.assigned || [];
-    return ids.length > 3 ? ids.length - 3 : 0;
+    const ids = this.task.assigned || [];
+    return Math.max(0, ids.length - 3);
   }
 
   /** Tooltip mit allen zugewiesenen Kontaktnamen (kommagetrennt). */
   get allUsersTooltip(): string {
-    const ids: string[] = this.task.assigned || [];
-    return ids.map((id) => this.resolveContact(id).name).join(', ');
+    if (!this.task) return '';
+    const ids = this.task.assigned || [];
+    return ids.map(id => this.resolveContact(id).name).join(', ');
   }
 
   /**
@@ -88,8 +103,9 @@ export class SingleTaskCard {
    * @param contactId - Die Firebase-ID des Kontakts
    * @returns Objekt mit id, name, initials und color
    */
-  private resolveContact(contactId: string) {
-    const contact = this.contactsService.contacts.find((c) => c.id === contactId);
+  private resolveContact(contactId: string) : DisplayedUser {
+    const contact = this.contactsService.contacts.find(c => c.id === contactId);
+    
     if (contact) {
       return {
         id: contact.id || contactId,
@@ -98,11 +114,18 @@ export class SingleTaskCard {
         color: this.contactsService.getIconColorClass(contact),
       };
     }
-    return { id: contactId, name: 'Unknown', initials: '??', color: 'icon-1' };
+    return { 
+      id: contactId, 
+      name: 'Unknown User', 
+      initials: '??', 
+      color: 'icon-1' 
+    };
   }
 
   /** Gibt die Task-ID per Event an das Board weiter. */
   onCardClick(): void {
+     if (this.task?.id) {
     this.taskClicked.emit(this.task.id);
+    }
   }
 }
