@@ -18,9 +18,15 @@
                   <input type="text" placeholder="Find Task" (input)="onSearch($event)" />
                   <img src="assets/icons/search.svg" alt="Search" />
                 </div>
-                <button class="btn-primary" (click)="tasksService.openAddTaskDialog()">
-                  Add task <span>+</span>
-                </button>
+                @if (!tasksService.smallView) {
+                  <button class="btn-primary" (click)="tasksService.openAddTaskDialog()">
+                    Add task <span>+</span>
+                  </button>
+                } @else {
+                  <button class="btn-primary" [routerLink]="['/add-task']">
+                    Add task <span>+</span>
+                  </button>
+                }
               </div>
             </div>
 
@@ -30,9 +36,15 @@
               <div class="board-column">
                 <div class="column-header">
                   <h2>To do</h2>
-                  <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
-                    <img src="assets/icons/plus.svg" alt="Add Task" />
-                  </button>
+                  @if (!tasksService.smallView) {
+                    <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                      <img src="assets/icons/plus.svg" alt="Add Task" />
+                    </button>
+                  } @else {
+                    <button class="add-task-btn" [routerLink]="['/add-task']">
+                      <img src="assets/icons/plus.svg" alt="Add Task" />
+                    </button>
+                  }
                 </div>
 
                 <div
@@ -62,9 +74,15 @@
               <div class="board-column">
                 <div class="column-header">
                   <h2>In progress</h2>
-                  <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
-                    <img src="assets/icons/plus.svg" alt="Add Task" />
-                  </button>
+                  @if (!tasksService.smallView) {
+                    <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                      <img src="assets/icons/plus.svg" alt="Add Task" />
+                    </button>
+                  } @else {
+                    <button class="add-task-btn" [routerLink]="['/add-task']">
+                      <img src="assets/icons/plus.svg" alt="Add Task" />
+                    </button>
+                  }
                 </div>
 
                 <div
@@ -94,9 +112,15 @@
               <div class="board-column">
                 <div class="column-header">
                   <h2>Await feedback</h2>
-                  <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
-                    <img src="assets/icons/plus.svg" alt="Add Task" />
-                  </button>
+                  @if (!tasksService.smallView) {
+                    <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                      <img src="assets/icons/plus.svg" alt="Add Task" />
+                    </button>
+                  } @else {
+                    <button class="add-task-btn" [routerLink]="['/add-task']">
+                      <img src="assets/icons/plus.svg" alt="Add Task" />
+                    </button>
+                  }
                 </div>
 
                 <div
@@ -126,9 +150,15 @@
               <div class="board-column">
                 <div class="column-header">
                   <h2>Done</h2>
-                  <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
-                    <img src="assets/icons/plus.svg" alt="Add Task" />
-                  </button>
+                  @if (!tasksService.smallView) {
+                    <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                      <img src="assets/icons/plus.svg" alt="Add Task" />
+                    </button>
+                  } @else {
+                    <button class="add-task-btn" [routerLink]="['/add-task']">
+                      <img src="assets/icons/plus.svg" alt="Add Task" />
+                    </button>
+                  }
                 </div>
 
                 <div

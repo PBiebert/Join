@@ -9,16 +9,20 @@ import {
 } from '@angular/fire/firestore';
 import { SingleTask } from '../interfaces/single-task';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksService implements OnDestroy {
   tasksDB: Firestore = inject(Firestore);
+  breakpointObserver = inject(BreakpointObserver);
+
   tasks: SingleTask[] = [];
   /** Die aktuell im Dialog angezeigte Task (null = Dialog geschlossen). */
   activeTask: SingleTask | null = null;
   unsubTasks;
+  smallView: boolean = false;
 
   private openAddTaskDialogSubject = new BehaviorSubject<boolean>(false);
   openAddTaskDialog$: Observable<boolean> = this.openAddTaskDialogSubject.asObservable();
@@ -26,6 +30,14 @@ export class TasksService implements OnDestroy {
 
   constructor() {
     this.unsubTasks = this.subTasksArr();
+    this.initBreakpointObserver();
+  }
+
+  private initBreakpointObserver(): void {
+    this.breakpointObserver.observe(['(max-width:900px)']).subscribe((result) => {
+      this.smallView = result.matches;
+      this.openAddTaskDialogSubject.next(this.addTaskDialogIsOpen);
+    });
   }
 
   setTaskObject(obj: any, id: string): SingleTask {

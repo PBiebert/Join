@@ -15,6 +15,7 @@ import { Nav } from '../../shared/components/nav/nav';
 import { TasksService } from '../../services/tasks-service';
 import { SingleTask } from '../../interfaces/single-task';
 import { AddTaskDialog } from './add-task-dialog/add-task-dialog';
+import { RouterLink } from '@angular/router';
 
 /**
  * Board – Kanban-Board mit 4 Spalten, Drag & Drop und Task-Detail-Dialog.
@@ -35,6 +36,7 @@ import { AddTaskDialog } from './add-task-dialog/add-task-dialog';
     CdkDropListGroup,
     CdkDropList,
     CdkDrag,
+    RouterLink,
   ],
   templateUrl: './board.html',
   styleUrl: './board.scss',

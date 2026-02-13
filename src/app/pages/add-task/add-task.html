@@ -1,11 +1,15 @@
-<app-nav [ngClass]="{ 'd-none': tasksService.addTaskDialogIsOpen }"></app-nav>
+<app-nav
+  [ngClass]="{ 'd-none': tasksService.addTaskDialogIsOpen && !tasksService.smallView }"
+></app-nav>
 
 <div
   class="wrapper"
   (click)="$event.stopPropagation()"
-  [ngClass]="{ 'dialog-mode': tasksService.addTaskDialogIsOpen }"
+  [ngClass]="{ 'dialog-mode': tasksService.addTaskDialogIsOpen && !tasksService.smallView }"
 >
-  <app-header [ngClass]="{ 'd-none': tasksService.addTaskDialogIsOpen }"></app-header>
+  <app-header
+    [ngClass]="{ 'd-none': tasksService.addTaskDialogIsOpen && !tasksService.smallView }"
+  ></app-header>
 
   <div class="contacts-wrapper">
     <!-- LEFT SIDE -->

@@ -24,7 +24,7 @@ export class AddTaskDialog implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.taskSub = this.tasksService.openAddTaskDialog$.subscribe((open) => {
-      if (open) {
+      if (open && !this.tasksService.smallView) {
         this.openDialog();
       } else {
         this.closeDialog();
