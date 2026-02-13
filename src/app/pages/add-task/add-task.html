@@ -9,7 +9,7 @@
     <section class="form-container">
       <h1>Add Task</h1>
 
-      <form>
+      <form #taskForm="ngForm" (ngSubmit)="onSubmit()">
 
         <!-- TITLE -->
         <div class="input-fields">
@@ -21,8 +21,13 @@
             id="title"
             name="title"
             placeholder="Enter a title"
+            [(ngModel)]="taskData.title"
+            #title="ngModel"
             required
           />
+          @if (title.invalid && title.touched) {
+            <small class="error-message">Title is required</small>
+          }
         </div>
 
         <!-- DESCRIPTION -->
@@ -32,6 +37,7 @@
             id="description"
             name="description"
             placeholder="Enter a description"
+            [(ngModel)]="taskData.description"
           ></textarea>
         </div>
 
@@ -45,8 +51,13 @@
             id="due-date"
             name="due_date"
             [min]="minDate"
+            [(ngModel)]="taskData.dueDate"
+            #dueDate="ngModel"
             required
           />
+          @if (dueDate.invalid && dueDate.touched) {
+            <small class="error-message">Due date is required</small>
+          }
         </div>
 
       </form>
@@ -67,17 +78,32 @@
           <p class="priority-title">Priority</p>
 
           <div class="priority-btns">
-            <button type="button" class="priorty-level-btns btn-urgent">
+            <button 
+              type="button" 
+              class="priorty-level-btns btn-urgent"
+              [class.active]="taskData.priority === 'Urgent'"
+              (click)="setPriority('Urgent')"
+            >
               <div class="icons urgent"></div>
               <span class="btn-txt">Urgent</span>
             </button>
 
-            <button type="button" class="priorty-level-btns btn-medium">
+            <button 
+              type="button" 
+              class="priorty-level-btns btn-medium"
+              [class.active]="taskData.priority === 'Medium'"
+              (click)="setPriority('Medium')"
+            >
               <div class="icons medium"></div>
               <span class="btn-txt">Medium</span>
             </button>
 
-            <button type="button" class="priorty-level-btns btn-low">
+            <button 
+              type="button" 
+              class="priorty-level-btns btn-low"
+              [class.active]="taskData.priority === 'Low'"
+              (click)="setPriority('Low')"
+            >
               <div class="icons low"></div>
               <span class="btn-txt">Low</span>
             </button>
@@ -104,9 +130,13 @@
                 @for (option of options; track option) {
                   <div
                     class="assign-option"
-                    (click)="selectOption(option); $event.stopPropagation()"
+                    [class.selected]="isAssigned(option)"
+                    (click)="toggleAssigned(option); $event.stopPropagation()"
                   >
                     {{ option }}
+                    @if (isAssigned(option)) {
+                      <span class="checkmark">✓</span>
+                    }
                   </div>
                 }
               </div>
@@ -136,6 +166,7 @@
                 @for (option of categoryOptions; track option) {
                   <div
                     class="category-option"
+                    [class.selected]="selectedCategory === option"
                     (click)="selectCategory(option); $event.stopPropagation()"
                   >
                     {{ option }}
@@ -144,6 +175,9 @@
               </div>
             }
           </div>
+          @if (categoryError) {
+            <small class="error-message">Category is required</small>
+          }
         </div>
 
         <!-- SUBTASK -->
@@ -158,6 +192,8 @@
               id="subTask"
               name="subTask"
               placeholder="Add new Subtask"
+              [(ngModel)]="newSubtaskTitle"
+              (keyup.enter)="addSubtask()"
             />
 
             <div class="input-icons">
@@ -165,26 +201,40 @@
                 src="/assets/icons/small_cancle_icon.svg"
                 alt="Cancel"
                 class="icon"
+                (click)="clearSubtaskInput()"
               />
               <div class="input-line"></div>
               <img
                 src="/assets/icons/small_approv_icon.svg"
                 alt="Approve"
                 class="icon"
+                (click)="addSubtask()"
               />
             </div>
           </div>
         </div>
 
+        <!-- SUBTASK LIST -->
+        @if (taskData.subtasks && taskData.subtasks.length > 0) {
+          <div class="subtask-list">
+            @for (subtask of taskData.subtasks; track subtask.id; let i = $index) {
+              <div class="subtask-item">
+                <span>{{ subtask.title }}</span>
+                <button type="button" class="remove-subtask" (click)="removeSubtask(i)">✕</button>
+              </div>
+            }
+          </div>
+        }
+
       </div>
 
       <!-- BUTTONS -->
       <div class="create-clear-btns-container">
-        <button type="button" class="btn-outline">
+        <button type="button" class="btn-outline" (click)="clearForm()">
           <span class="btn-txt">Clear &#x2715;</span>
         </button>
 
-        <button type="submit" class="btn-primary">
+        <button type="submit" class="btn-primary" [disabled]="!isFormValid()" (click)="onSubmit()">
           <span class="btn-txt">Add task &#10003;</span>
         </button>
       </div>
