@@ -1,7 +1,11 @@
-<app-nav [ngClass]="{ 'd-none': tasksService.openAddTaskDialog$ }"></app-nav>
+<app-nav [ngClass]="{ 'd-none': tasksService.addTaskDialogIsOpen }"></app-nav>
 
-<div class="wrapper" (click)="$event.stopPropagation()">
-  <app-header [ngClass]="{ 'd-none': tasksService.openAddTaskDialog$ }"></app-header>
+<div
+  class="wrapper"
+  (click)="$event.stopPropagation()"
+  [ngClass]="{ 'dialog-mode': tasksService.addTaskDialogIsOpen }"
+>
+  <app-header [ngClass]="{ 'd-none': tasksService.addTaskDialogIsOpen }"></app-header>
 
   <div class="contacts-wrapper">
     <!-- LEFT SIDE -->

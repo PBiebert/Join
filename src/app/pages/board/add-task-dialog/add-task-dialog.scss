@@ -1,3 +1,29 @@
-* {
-  outline: 1px solid red;
+dialog {
+  height: 90%;
+  max-height: 764px;
+  width: 90%;
+
+  @media (max-width: 1024px) {
+    height: 90%;
+    max-height: unset;
+    width: 95%;
+    max-width: unset;
+  }
+
+  @media (max-width: 880px) {
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  @media (max-width: 768px) {
+    height: 100%;
+    width: 100%;
+  }
+
+  @media (max-width: 500px) {
+    height: 100%;
+    width: 100%;
+    max-height: unset;
+  }
 }
