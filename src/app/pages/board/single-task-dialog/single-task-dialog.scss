@@ -73,8 +73,9 @@
  * ================================================================ */
 .dialog-header {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: -15px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
 .close-btn {
@@ -120,7 +121,7 @@
  * Task Title & Description
  * ================================================================ */
 .task-title {
-  font-size: 47px;
+  font-size: 61px;
   font-weight: 700;
   color: var(--color-dark-blue);
   margin: 0;
@@ -147,7 +148,7 @@
 }
 
 .info-label {
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--color-dark-blue);
 }
@@ -330,15 +331,15 @@
   }
 
   .task-title {
-    font-size: 32px;
+    font-size: 36px;
   }
 
   .task-description {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .info-label {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .info-value {
@@ -350,9 +351,9 @@
   }
 
   .avatar-large {
-    width: 36px;
-    height: 36px;
-    font-size: 12px;
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
   }
 
   .dialog-footer {
@@ -365,7 +366,7 @@
     padding: 24px 16px;
   }
 
-  .task-title {
-    font-size: 28px;
-  }
+  // .task-title {
+  //   font-size: 28px;
+  // }
 }
