@@ -11,6 +11,11 @@
 
       <!-- Header: Close Button -->
       <div class="dialog-header">
+        <!-- Category Badge -->
+        <span class="task-badge" [ngClass]="badgeClass">
+          {{ task.category }}
+        </span>
+
         <button class="close-btn" (click)="closeDialog()" aria-label="Close Dialog">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M18 6L6 18M6 6L18 18" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
@@ -18,10 +23,7 @@
         </button>
       </div>
 
-      <!-- Category Badge -->
-      <span class="task-badge" [ngClass]="badgeClass">
-        {{ task.category }}
-      </span>
+      
 
       <!-- Task Title -->
       <h1 class="task-title">{{ task.title }}</h1>
