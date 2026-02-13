@@ -1,28 +1,18 @@
-<app-nav></app-nav>
+<app-nav [ngClass]="{ 'd-none': tasksService.openAddTaskDialog$ }"></app-nav>
 
-<div class="wrapper">
-  <app-header></app-header>
+<div class="wrapper" (click)="$event.stopPropagation()">
+  <app-header [ngClass]="{ 'd-none': tasksService.openAddTaskDialog$ }"></app-header>
 
   <div class="contacts-wrapper">
-
     <!-- LEFT SIDE -->
     <section class="form-container">
       <h1>Add Task</h1>
 
       <form>
-
         <!-- TITLE -->
         <div class="input-fields">
-          <label for="title">
-            Title <span class="required">*</span>
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            placeholder="Enter a title"
-            required
-          />
+          <label for="title"> Title <span class="required">*</span> </label>
+          <input type="text" id="title" name="title" placeholder="Enter a title" required />
         </div>
 
         <!-- DESCRIPTION -->
@@ -37,23 +27,12 @@
 
         <!-- DUE DATE -->
         <div class="input-fields">
-          <label for="due-date">
-            Due date <span class="required">*</span>
-          </label>
-          <input
-            type="date"
-            id="due-date"
-            name="due_date"
-            [min]="minDate"
-            required
-          />
+          <label for="due-date"> Due date <span class="required">*</span> </label>
+          <input type="date" id="due-date" name="due_date" [min]="minDate" required />
         </div>
-
       </form>
 
-      <p>
-        <span class="required">*</span> This field is required
-      </p>
+      <p><span class="required">*</span> This field is required</p>
     </section>
 
     <div class="line"></div>
@@ -61,7 +40,6 @@
     <!-- RIGHT SIDE -->
     <section class="task-details-container">
       <div class="form-subtask">
-
         <!-- PRIORITY -->
         <div class="btns-container">
           <p class="priority-title">Priority</p>
@@ -88,12 +66,7 @@
         <div class="assign-container">
           <label class="assigned-to-title">Assigned to</label>
 
-          <div
-            class="assign"
-            tabindex="0"
-            (click)="toggleDropdown()"
-            (blur)="closeDropdown()"
-          >
+          <div class="assign" tabindex="0" (click)="toggleDropdown()" (blur)="closeDropdown()">
             <div class="assign-selected">
               {{ selectedOption }}
               <div class="categories-icon"></div>
@@ -116,9 +89,7 @@
 
         <!-- CATEGORY -->
         <div class="category-container">
-          <label class="category-title">
-            Category <span class="required">*</span>
-          </label>
+          <label class="category-title"> Category <span class="required">*</span> </label>
 
           <div
             class="category-dropdown"
@@ -148,34 +119,18 @@
 
         <!-- SUBTASK -->
         <div class="input-fields">
-          <label for="subTask" class="subtask-title">
-            Subtask
-          </label>
+          <label for="subTask" class="subtask-title"> Subtask </label>
 
           <div class="input-wrapper">
-            <input
-              type="text"
-              id="subTask"
-              name="subTask"
-              placeholder="Add new Subtask"
-            />
+            <input type="text" id="subTask" name="subTask" placeholder="Add new Subtask" />
 
             <div class="input-icons">
-              <img
-                src="/assets/icons/small_cancle_icon.svg"
-                alt="Cancel"
-                class="icon"
-              />
+              <img src="/assets/icons/small_cancle_icon.svg" alt="Cancel" class="icon" />
               <div class="input-line"></div>
-              <img
-                src="/assets/icons/small_approv_icon.svg"
-                alt="Approve"
-                class="icon"
-              />
+              <img src="/assets/icons/small_approv_icon.svg" alt="Approve" class="icon" />
             </div>
           </div>
         </div>
-
       </div>
 
       <!-- BUTTONS -->
@@ -188,8 +143,6 @@
           <span class="btn-txt">Add task &#10003;</span>
         </button>
       </div>
-
     </section>
-
   </div>
 </div>
