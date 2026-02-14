@@ -76,6 +76,7 @@ form {
   flex-direction: column;
   justify-content: space-between;
   gap: 4px;
+  position: relative;
 
   input:focus,
   textarea:focus {
@@ -111,22 +112,19 @@ textarea {
   border-color: #ff3d00 !important;
 }
 
-.error-text {
+.error-message {
   color: #ff3d00;
   font-size: 13px;
   position: absolute;
-  top: calc(100% + 4px);
-  left: 8px;
-  white-space: nowrap;
+  bottom: -20px;
+  left: 0;
 }
-
 
 p {
   font-family: Inter;
   font-weight: 400;
   font-size: 16px;
   line-height: 120%;
-
 }
 
 .line {
@@ -165,57 +163,79 @@ p {
   width: 136px;
   height: 56px;
   padding: 10px;
-  background-color: #FFFFFF;
+
+  background-color: #fff;
   border: 1px solid var(--color-light-grey);
   border-radius: 10px;
+  color: #000;
   transition: var(--transition-fast);
 
   &:hover {
     cursor: pointer;
     box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.3);
   }
+
+  &.active {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  &.btn-urgent.active {
+    background-color: #FF3D00;
+    border-color: #FF3D00;
+  }
+
+  &.btn-medium.active {
+    background-color: #FFA800;
+    border-color: #FFA800;
+  }
+
+  &.btn-low.active {
+    background-color: #7AE229;
+    border-color: #7AE229;
+  }
 }
+
 
 .btn-txt {
   font-family: Inter;
   font-weight: 400;
-  font-style: Regular;
   font-size: 20px;
   line-height: 120%;
-  letter-spacing: 0%;
 }
 
 .icons {
-  background-position: center;
+  width: 20px;
+  height: 20px;
   background-repeat: no-repeat;
+  background-position: center;
   background-size: contain;
 }
 
 .urgent {
-  width: 20px;
-  height: 14.51px;
   background-image: url("/assets/icons/urgent.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  filter: brightness(0) saturate(100%) invert(22%) sepia(97%) saturate(3744%) hue-rotate(0deg) brightness(1.1);
 }
 
 .medium {
-  width: 20px;
-  height: 7.45px;
-  background-color: #FFA800;
-  mask: url("/assets/icons/medium.svg") no-repeat center;
+  background-image: url("/assets/icons/medium.svg");
+  filter: brightness(0) saturate(100%) invert(66%) sepia(95%) saturate(500%) hue-rotate(0deg);
 }
 
 .low {
-  width: 20px;
-  height: 14.51px;
   background-image: url("/assets/icons/low.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  filter: brightness(0) saturate(100%) invert(76%) sepia(75%) saturate(500%) hue-rotate(40deg);
 }
 
+// Active state for all icons
+.active {
+  .icons,
+  .urgent,
+  .medium,
+  .low {
+    filter: brightness(0) invert(1);
+  }
+}
 .assigned-to-title {
   margin-top: 32px;
 }
@@ -311,6 +331,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
 }
 
 .category-dropdown {
@@ -368,10 +389,8 @@ p {
   margin-left: 2px;
 }
 
-
 .subtask-title {
   margin-top: 32px;
-
 }
 
 .create-clear-btns-container {
@@ -441,9 +460,7 @@ p {
   }
 }
 
-
 @media (max-width: 768px) {
-
   :host {
     flex-direction: column;
   }
