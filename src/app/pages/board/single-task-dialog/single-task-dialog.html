@@ -63,7 +63,7 @@
 
       <!-- Subtasks Section -->
       @if (task.subtasks && task.subtasks.length > 0) {
-        <div class="info-section">
+        <div class="info-section-subtasks">
           <span class="info-label">Subtasks</span>
           <div class="subtasks-list">
             @for (subtask of task.subtasks; track subtask.id) {
