@@ -10,17 +10,18 @@ import {
 import { Subscription } from 'rxjs';
 import { TasksService } from '../../../services/tasks-service';
 import { AddTask } from '../../add-task/add-task';
+import { SetDialogAnimation } from '../../../shared/directives/set-dialog-animation';
 
 @Component({
   selector: 'app-add-task-dialog',
-  imports: [AddTask],
+  imports: [AddTask, SetDialogAnimation],
   templateUrl: './add-task-dialog.html',
   styleUrl: './add-task-dialog.scss',
 })
 export class AddTaskDialog implements AfterViewInit, OnDestroy {
   tasksService = inject(TasksService);
   private taskSub!: Subscription;
-  @ViewChild('dialog') addTaskDialog!: ElementRef;
+  @ViewChild(SetDialogAnimation) dialogAnimation!: SetDialogAnimation;
 
   ngAfterViewInit(): void {
     this.taskSub = this.tasksService.openAddTaskDialog$.subscribe((open) => {
@@ -37,10 +38,10 @@ export class AddTaskDialog implements AfterViewInit, OnDestroy {
   }
 
   openDialog() {
-    this.addTaskDialog.nativeElement.showModal();
+    this.dialogAnimation?.openDialogWithAnimation();
   }
 
   closeDialog() {
-    this.addTaskDialog.nativeElement.close();
+    this.dialogAnimation?.closeDialogWithAnimation();
   }
 }

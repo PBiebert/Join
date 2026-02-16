@@ -10,3 +10,23 @@ dialog {
     max-width: unset;
   }
 }
+
+.close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 32px;
+  height: 32px;
+  background-image: url('../../../../../public/assets/icons/Close.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: var(--transition-fast);
+  cursor: pointer;
+  z-index: 1;
+
+  &:hover {
+    background-color: rgba(209, 209, 209, 0.5);
+    border-radius: 50%;
+  }
+}
