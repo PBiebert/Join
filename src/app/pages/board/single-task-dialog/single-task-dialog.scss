@@ -102,7 +102,7 @@
   display: inline-block;
   padding: 4px 25px;
   border-radius: 8px;
-  font-size: 16px;
+  // font-size: 16px;
   font-weight: 400;
   width: fit-content;
   color: white;
@@ -111,6 +111,7 @@
 
 .badge-user-story {
   background-color: var(--category-user-story);
+  margin: 8px 0;
 }
 
 .badge-technical-task {
@@ -143,13 +144,19 @@
  * ================================================================ */
 .info-section {
   display: flex;
-  flex-direction: column;
+  // align-items: center;
   gap: 12px;
 }
 
+.info-section-assigned {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  }
+
 .info-label {
   font-size: 20px;
-  font-weight: 700;
+  // font-weight: 700;
   color: var(--color-dark-blue);
 }
 
@@ -161,7 +168,7 @@
 
 .priority-container {
   display: flex;
-  align-items: center;
+  // align-items: center;
   gap: 12px;
 }
 
@@ -183,6 +190,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  margin-left: 15px;
 }
 
 .avatar-large {
@@ -252,40 +260,79 @@
  * ================================================================ */
 .dialog-footer {
   display: flex;
-  gap: 16px;
-  margin-top: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0;
   padding-top: 25px;
-  border-top: 1px solid #e0e0e0;
 }
 
 .btn-delete,
 .btn-edit {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
-  padding: 12px 16px;
+  padding: 12px 10px;
   border-radius: 8px;
   font-size: 16px;
-  font-weight: 400;
   cursor: pointer;
-  transition: var(--transition-fast);
   border: none;
-  background: none;
+  background: transparent;
   color: var(--color-medium-blue);
+  transition: all 0.2s ease-in-out;
+  position: relative;
 
-  svg {
-    flex-shrink: 0;
+  width: auto; 
+  text-align: right;
+  
+  &:hover {
+    color: var(--color-light-blue);
+    font-weight: 700;
   }
+ }
 
-  &:hover:not(:disabled) {
-    background: #f0f0f0;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.btn-delete:hover {
+  color: var(--color-light-blue);
+  font-weight: 700;
+  /* Sağa sabit kalması için transform yerine padding ile sola doğru genişletiyoruz */
+  padding-left: 20px; 
+  
+  svg path {
+    stroke: var(--color-light-blue);
   }
 }
+
+/* --- EDIT BUTONU --- */
+.btn-edit:hover {
+  color: var(--color-light-blue);
+  font-weight: 700;
+  background: white;
+  z-index: 10;
+  
+  /* Sola doğru genişleyerek çizgiyi (divider) yutmasını sağlar */
+  padding-left: 30px; 
+  /* Negatif margin, butonun sağ kenarını yerinde tutarken solunu divider'ın üzerine çeker */
+  margin-left: -20px; 
+
+  svg path {
+    stroke: var(--color-light-blue);
+  }
+}
+/* --- DIVIDER --- */
+.button-divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--color-light-grey);
+  margin: 0 8px;
+  flex-shrink: 0;
+  transition: opacity 0.1s;
+}
+
+/* Edit hover olunca divider'ı tamamen gizle */
+.dialog-footer:has(.btn-edit:hover) .button-divider {
+  opacity: 0;
+}
+
 
 /* ================================================================
  * Responsive Design

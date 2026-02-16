@@ -48,7 +48,7 @@
 
       <!-- Assigned To Section -->
       @if (assignedUsers.length > 0) {
-        <div class="info-section">
+        <div class="info-section-assigned">
           <span class="info-label">Assigned To:</span>
           <div class="assigned-list">
             @for (user of assignedUsers; track user.id) {
@@ -92,6 +92,9 @@
           </svg>
           Delete
         </button>
+
+        <!-- ✅ Divider -->
+      <div class="button-divider"></div>
 
         <button class="btn-edit" disabled>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

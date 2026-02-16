@@ -6,6 +6,7 @@ import {
   Firestore,
   onSnapshot,
   updateDoc,
+  addDoc,
 } from '@angular/fire/firestore';
 import { SingleTask } from '../interfaces/single-task';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -189,5 +190,32 @@ export class TasksService implements OnDestroy {
   closeAddTaskDialog() {
     this.openAddTaskDialogSubject.next(false);
     this.addTaskDialogIsOpen = false;
+  }
+
+  /**
+   * Erstellt eine neue Task in Firebase
+   * @param task - Die zu speichernde Task (ohne ID)
+   * @returns Promise mit der erstellten Dokument-Referenz
+   */
+  async addTask(task: SingleTask): Promise<any> {
+    try {
+      // ID entfernen (wird von Firebase generiert)
+      const { id, ...taskData } = task;
+
+      // Neue Task ans Ende der 'To do' Spalte
+      const todoTasks = this.tasks.filter((t) => t.status === 'To do');
+      const newTask = {
+        ...taskData,
+        order: todoTasks.length, // Länge = nächster freier Index
+        status: 'To do',
+      };
+
+      const docRef = await addDoc(this.getTasksRef(), newTask);
+      console.log('Task added:', docRef.id);
+      return docRef;
+    } catch (error) {
+      console.error('Error adding task:', error);
+      throw error;
+    }
   }
 }
