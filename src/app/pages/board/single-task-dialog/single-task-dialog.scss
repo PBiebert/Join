@@ -34,6 +34,10 @@
   border-radius: 30px;
 }
 
+.dialog-card-edit-mode {
+  padding: 1rem;
+}
+
 /* ================================================================
  * Animationen – Eigene Klassen, damit sie nicht mit den
  * globalen .slide-in/.slide-out aus styles.scss kollidieren.
@@ -76,6 +80,11 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+}
+
+.dialog-header-edit-mode {
+  justify-content: end;
+  margin-bottom: 0;
 }
 
 .close-btn {
@@ -152,7 +161,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  }
+}
 
 .info-label {
   font-size: 20px;
@@ -282,21 +291,21 @@
   transition: all 0.2s ease-in-out;
   position: relative;
 
-  width: auto; 
+  width: auto;
   text-align: right;
-  
+
   &:hover {
     color: var(--color-light-blue);
     font-weight: 700;
   }
- }
+}
 
 .btn-delete:hover {
   color: var(--color-light-blue);
   font-weight: 700;
   /* Sağa sabit kalması için transform yerine padding ile sola doğru genişletiyoruz */
-  padding-left: 20px; 
-  
+  padding-left: 20px;
+
   svg path {
     stroke: var(--color-light-blue);
   }
@@ -308,11 +317,11 @@
   font-weight: 700;
   background: white;
   z-index: 10;
-  
+
   /* Sola doğru genişleyerek çizgiyi (divider) yutmasını sağlar */
-  padding-left: 30px; 
+  padding-left: 30px;
   /* Negatif margin, butonun sağ kenarını yerinde tutarken solunu divider'ın üzerine çeker */
-  margin-left: -20px; 
+  margin-left: -20px;
 
   svg path {
     stroke: var(--color-light-blue);
@@ -332,7 +341,6 @@
 .dialog-footer:has(.btn-edit:hover) .button-divider {
   opacity: 0;
 }
-
 
 /* ================================================================
  * Responsive Design

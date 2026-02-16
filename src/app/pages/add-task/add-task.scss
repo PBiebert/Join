@@ -530,3 +530,78 @@ app-nav.d-none {
     }
   }
 }
+
+.edit-mode {
+  .d-none {
+    display: none;
+  }
+
+  form {
+    height: 100%;
+    width: 100%;
+  }
+
+  .input-fields {
+    width: 100%;
+  }
+
+  input,
+  textarea {
+    border: 1px solid var(--color-light-grey);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .contacts-wrapper {
+    background-color: transparent;
+    flex-direction: column;
+    min-height: 600px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    overflow-y: scroll;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .form-container,
+  .task-details-container {
+    padding: 0;
+
+    h1 {
+      display: none;
+    }
+  }
+
+  .form-subtask {
+    width: 100%;
+  }
+  .priority-title {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .priority-btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .assign,
+  .category-dropdown {
+    width: 100%;
+  }
+
+  .create-clear-btns-container {
+    display: none;
+  }
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+}

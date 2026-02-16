@@ -24,6 +24,7 @@ export class TasksService implements OnDestroy {
   activeTask: SingleTask | null = null;
   unsubTasks;
   smallView: boolean = false;
+  editMode = false;
 
   private openAddTaskDialogSubject = new BehaviorSubject<boolean>(false);
   openAddTaskDialog$: Observable<boolean> = this.openAddTaskDialogSubject.asObservable();
@@ -217,5 +218,9 @@ export class TasksService implements OnDestroy {
       console.error('Error adding task:', error);
       throw error;
     }
+  }
+
+  updateTask() {
+    this.editMode = false;
   }
 }

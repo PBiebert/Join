@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { TasksService } from '../../../services/tasks-service';
+import { AddTask } from '../../add-task/add-task';
 
 /**
  * SingleTaskDialog - Zeigt alle Details einer Task in einem großen Dialog.
@@ -10,7 +11,7 @@ import { TasksService } from '../../../services/tasks-service';
  */
 @Component({
   selector: 'app-single-task-dialog',
-  imports: [CommonModule],
+  imports: [CommonModule, AddTask, NgClass],
   templateUrl: './single-task-dialog.html',
   styleUrl: './single-task-dialog.scss',
 })
@@ -119,5 +120,10 @@ export class SingleTaskDialog {
    */
   onDialogContentClick(event: Event): void {
     event.stopPropagation();
+  }
+
+  startEditMode() {
+    this.tasksService.editMode = true;
+    console.log('offen');
   }
 }

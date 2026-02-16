@@ -1,14 +1,23 @@
 <app-nav
-  [ngClass]="{ 'd-none': tasksService.addTaskDialogIsOpen && !tasksService.smallView }"
+  [ngClass]="{
+    'd-none':
+      (tasksService.addTaskDialogIsOpen && !tasksService.smallView) || tasksService.editMode,
+  }"
 ></app-nav>
 
 <div
   class="wrapper"
   (click)="$event.stopPropagation()"
-  [ngClass]="{ 'dialog-mode': tasksService.addTaskDialogIsOpen && !tasksService.smallView }"
+  [ngClass]="{
+    'dialog-mode': tasksService.addTaskDialogIsOpen && !tasksService.smallView,
+    'edit-mode': tasksService.editMode,
+  }"
 >
   <app-header
-    [ngClass]="{ 'd-none': tasksService.addTaskDialogIsOpen && !tasksService.smallView }"
+    [ngClass]="{
+      'd-none':
+        (tasksService.addTaskDialogIsOpen && !tasksService.smallView) || tasksService.editMode,
+    }"
   ></app-header>
 
   <div class="contacts-wrapper">
@@ -63,7 +72,9 @@
         </div>
       </form>
 
-      <p><span class="required">*</span> This field is required</p>
+      <p [ngClass]="{ 'd-none': tasksService.editMode }">
+        <span class="required">*</span> This field is required
+      </p>
     </section>
 
     <div class="line"></div>
@@ -228,4 +239,12 @@
       </div>
     </section>
   </div>
+
+  @if (tasksService.editMode) {
+    <div class="dialog-footer">
+      <button class="btn-primary" (click)="tasksService.updateTask()">
+        <span class="btn-txt">Ok &#10003;</span>
+      </button>
+    </div>
+  }
 </div>
