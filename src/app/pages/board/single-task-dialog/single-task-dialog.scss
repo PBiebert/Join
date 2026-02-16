@@ -144,7 +144,7 @@
  * ================================================================ */
 .info-section {
   display: flex;
-  // align-items: center;
+  flex-direction: column;
   gap: 12px;
 }
 
@@ -220,32 +220,43 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: fit-content;
 }
 
 .subtask-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  cursor: pointer;
-  padding: 8px;
+  padding:8px;
   border-radius: 8px;
   transition: var(--transition-fast);
+  margin-left: 10px;
+  position: relative;
 
   &:hover {
     background: #f0f0f0;
   }
 }
 
-.subtask-checkbox {
+
+.custom-checkbox {
   width: 18px;
   height: 18px;
-  cursor: pointer;
   flex-shrink: 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 }
 
 .subtask-title {
   font-size: 16px;
-  font-weight: 400;
   color: var(--color-medium-blue);
   transition: var(--transition-fast);
 
@@ -412,8 +423,4 @@
   .dialog-card {
     padding: 24px 16px;
   }
-
-  // .task-title {
-  //   font-size: 28px;
-  // }
 }
