@@ -18,6 +18,7 @@ export class AddTask {
 
   // Date only for today and future
   minDate: string = new Date().toISOString().split('T')[0];
+  statusCondition:string = 'To Do';
 
   // ------------------- ORIGINAL CODE (DEIN BESTEHENDER) -------------------
   // Assign Dropdown
@@ -55,7 +56,7 @@ export class AddTask {
 
   // Task Data Object
   taskData: Partial<SingleTask> = {
-    status: 'To do',
+    status: this.statusCondition,
     title: '',
     description: '',
     dueDate: '',
