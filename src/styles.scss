@@ -137,6 +137,7 @@ ul {
   padding: 1rem;
   transition: var(--transition-fast);
   font-size: 20px;
+  cursor: pointer;
 
   @media (max-width: 768px) {
     padding: 0.75rem;
@@ -167,6 +168,7 @@ ul {
   padding: 1rem;
   transition: var(--transition-fast);
   font-size: 20px;
+  cursor: pointer;
 
   @media (max-width: 768px) {
     padding: 0.75rem;

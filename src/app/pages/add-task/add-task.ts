@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Nav } from '../../shared/components/nav/nav';
 import { Header } from '../../shared/components/header/header';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { TasksService } from '../../services/tasks-service';
 import { SingleTask } from '../../interfaces/single-task';
 
@@ -14,11 +14,13 @@ import { SingleTask } from '../../interfaces/single-task';
   styleUrl: './add-task.scss',
 })
 export class AddTask {
+  @ViewChild('taskForm') taskForm!: NgForm; // Referenz zum Formular hinzugefügt
+
   tasksService = inject(TasksService);
 
   // Date only for today and future
   minDate: string = new Date().toISOString().split('T')[0];
-  statusCondition:string = 'To Do';
+  statusCondition: string = 'To Do';
 
   // ------------------- ORIGINAL CODE (DEIN BESTEHENDER) -------------------
   // Assign Dropdown
@@ -170,9 +172,8 @@ export class AddTask {
   }
 
   clearForm() {
-    // Reset form data
     this.taskData = {
-      status: 'To do',
+      status: 'To Do',
       title: '',
       description: '',
       dueDate: '',
@@ -183,10 +184,21 @@ export class AddTask {
       order: 0,
     };
 
-    // Reset dropdowns
+    // Reset dropdowns und UI-Zustände
     this.selectedOption = 'Select contacts to assign';
     this.selectedCategory = 'Select category';
     this.newSubtaskTitle = '';
     this.categoryError = false;
+
+    // Reset form validation states
+    if (this.taskForm) {
+      this.taskForm.resetForm();
+    }
+
+    // Schließe alle offenen Dropdowns
+    this.isOpen = false;
+    this.isCategoryOpen = false;
+
+    console.log('Form cleared - all inputs reset');
   }
 }
