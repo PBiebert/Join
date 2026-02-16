@@ -2,7 +2,7 @@
 .task-card {
   background: #FFFFFF;
   border-radius: 24px;
-  padding: 18px;
+  padding: 16px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: var(--transition-fast);
@@ -27,49 +27,33 @@
   display: inline-block;
   padding: 4px 25px;
   border-radius: 8px;
-  font-size: 16px;
-  font-weight: 400;
   width: fit-content;
   color: white;
 }
 
 .badge-user-story {
   background-color: var(--category-user-story);
+  margin-bottom: 14px;
 }
 
 .badge-technical-task {
   background-color: var(--category-technical-task);
+   margin-bottom: 14px;
 }
 
 // Task Title
 .task-title {
   font-size: 16px;
-  font-weight: 700;
   color: var(--color-medium-blue);
-  margin: 0;
-  display: -webkit-box;
-  // -webkit-line-clamp: 2;
-  // -webkit-box-orient: vertical;
-  overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.4;
-  word-break: break-word;  //Lange Wörter umbrechen
   hyphens: auto; //Automatische Silbentrennung
 }
 
 // Task Description
 .task-description {
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--color-medium-blue);
-  margin: 0;
-  display: -webkit-box;
-  // -webkit-line-clamp: 2;
-  // -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: var(--color-light-grey);
   line-height: 1.2;
-  word-break: break-word;  // Lange Wörter umbrechen
   hyphens: auto; // Automatische Silbentrennung
 }
 
@@ -78,7 +62,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: 4px;
+  margin: 14px 0;
 }
 
 .progress-bar {
@@ -97,9 +81,6 @@
 }
 
 .progress-text {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--color-medium-blue);
   white-space: nowrap;
 }
 
@@ -118,14 +99,12 @@
 }
 
 .avatar {
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 400;
   color: white;
   border: 2px solid white;
   margin-left: -8px;
@@ -137,15 +116,16 @@
 
 // Avatar Counter (+X Badge)
 .avatar-counter {
-  background-color: var(--color-medium-blue);
-  font-weight: 400;
+  background-color: var(--color-light-grey);
+  color: var(--color-medium-blue);
   cursor: help;
+  border: 2px solid white;
 }
 
 // Priority Icon
 .priority-icon {
-  width: 24px;
-  height: 24px;
+  width: 17px;
+  height: 12px;
   flex-shrink: 0;
 }
 
@@ -162,7 +142,6 @@
   }
 
   .task-badge {
-    font-size: 14px;
     padding: 3px 20px;
   }
 }
@@ -172,21 +151,7 @@
     max-width: 100%;
     min-width: 280px;
   }
-
-  .task-title {
-    font-size: 15px;
-  }
-
-  .task-description {
-    font-size: 14px;
-  }
-
-  .avatar {
-    width: 30px;
-    height: 30px;
-    font-size: 11px;
-  }
-
+  
   .priority-icon {
     width: 20px;
     height: 20px;
