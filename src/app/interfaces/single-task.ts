@@ -1,6 +1,6 @@
 export interface SingleTask {
   id?: string;
-  status: 'To do' | 'In progress' | 'Await feedback' | 'Done';
+  status: string | 'To do' | 'In progress' | 'Await feedback' | 'Done';
   title: string;
   description?: string;
   dueDate: string;
