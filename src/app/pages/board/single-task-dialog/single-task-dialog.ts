@@ -121,9 +121,4 @@ export class SingleTaskDialog {
   onDialogContentClick(event: Event): void {
     event.stopPropagation();
   }
-
-  startEditMode() {
-    this.tasksService.editMode = true;
-    console.log('offen');
-  }
 }

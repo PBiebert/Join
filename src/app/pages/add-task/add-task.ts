@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, inject, OnDestroy } from '@angular/core';
 import { Nav } from '../../shared/components/nav/nav';
 import { Header } from '../../shared/components/header/header';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TasksService } from '../../services/tasks-service';
 import { SingleTask } from '../../interfaces/single-task';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-task',
@@ -13,18 +14,32 @@ import { SingleTask } from '../../interfaces/single-task';
   templateUrl: './add-task.html',
   styleUrl: './add-task.scss',
 })
-export class AddTask {
+export class AddTask implements AfterViewInit, OnDestroy {
   tasksService = inject(TasksService);
+  private subEditMode!: Subscription;
 
   // Date only for today and future
   minDate: string = new Date().toISOString().split('T')[0];
-  statusCondition:string = 'To Do';
+  statusCondition: string = 'To Do';
 
   // ------------------- ORIGINAL CODE (DEIN BESTEHENDER) -------------------
   // Assign Dropdown
   isOpen = false;
   selectedOption: string = 'Select contacts to assign';
   options: string[] = ['Option_1', 'Option_2', 'Option_3'];
+
+  ngAfterViewInit(): void {
+    this.subEditMode = this.tasksService.taskEditMode$.subscribe((editMode) => {
+      if (editMode) {
+        this.setCurrentTaskData(this.tasksService.currentTask);
+        console.log(this.tasksService.currentTask);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subEditMode.unsubscribe();
+  }
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
@@ -158,7 +173,6 @@ export class AddTask {
     if (!this.isFormValid()) {
       return;
     }
-
     try {
       await this.tasksService.addTask(this.taskData as SingleTask);
       this.clearForm();
@@ -188,5 +202,36 @@ export class AddTask {
     this.selectedCategory = 'Select category';
     this.newSubtaskTitle = '';
     this.categoryError = false;
+  }
+
+  setCurrentTaskData(currenTask: SingleTask) {
+    this.taskData = {
+      id: currenTask.id,
+      status: currenTask.status,
+      title: currenTask.title,
+      description: currenTask.description,
+      dueDate: currenTask.dueDate,
+      priority: currenTask.priority,
+      assigned: currenTask.assigned,
+      category: currenTask.category,
+      subtasks: currenTask.subtasks,
+      order: currenTask.order,
+    };
+    this.selectedCategory = currenTask.category;
+  }
+
+  getFullTask(): SingleTask {
+    return {
+      id: this.taskData.id ?? '',
+      status: this.taskData.status ?? 'To Do',
+      title: this.taskData.title ?? '',
+      description: this.taskData.description ?? '',
+      dueDate: this.taskData.dueDate ?? '',
+      priority: this.taskData.priority ?? 'Medium',
+      assigned: this.taskData.assigned ?? [],
+      category: this.taskData.category ?? 'User Story',
+      subtasks: this.taskData.subtasks ?? [],
+      order: this.taskData.order ?? 0,
+    };
   }
 }

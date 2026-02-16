@@ -242,7 +242,7 @@
 
   @if (tasksService.editMode) {
     <div class="dialog-footer">
-      <button class="btn-primary" (click)="tasksService.updateTask()">
+      <button class="btn-primary" (click)="tasksService.exidEditMode(getFullTask())">
         <span class="btn-txt">Ok &#10003;</span>
       </button>
     </div>

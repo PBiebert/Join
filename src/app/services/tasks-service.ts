@@ -24,11 +24,15 @@ export class TasksService implements OnDestroy {
   activeTask: SingleTask | null = null;
   unsubTasks;
   smallView: boolean = false;
-  editMode = false;
+  currentTask!: SingleTask;
 
   private openAddTaskDialogSubject = new BehaviorSubject<boolean>(false);
   openAddTaskDialog$: Observable<boolean> = this.openAddTaskDialogSubject.asObservable();
   addTaskDialogIsOpen: boolean = false;
+
+  private taskEditModeSubject = new BehaviorSubject<boolean>(false);
+  taskEditMode$: Observable<boolean> = this.taskEditModeSubject.asObservable();
+  editMode = false;
 
   constructor() {
     this.unsubTasks = this.subTasksArr();
@@ -193,6 +197,53 @@ export class TasksService implements OnDestroy {
     this.addTaskDialogIsOpen = false;
   }
 
+  startEditMode() {
+    this.taskEditModeSubject.next(true);
+    this.editMode = true;
+  }
+
+  exidEditMode(task: SingleTask) {
+    this.taskEditModeSubject.next(false);
+    this.editMode = false;
+    this.updateTask(task);
+  }
+
+  async updateTask(task: SingleTask) {
+    if (task.id) {
+      try {
+        let docRef = this.getSingleTaskRef(task.id);
+        await updateDoc(docRef, this.getCleanJson(task));
+      } catch (error) {
+        console.log(error);
+      }
+      this.currentTask = task;
+    }
+
+    // if (note.id) {
+    //   try {
+    //     let docRef = this.getSingleDocRef(this.getColIdFromNote(note), note.id);
+    //     await updateDoc(docRef, this.getCleanJson(note));
+    //   } catch (error) {
+    //     console.log('Error during updateNote: ', error);
+    //   }
+    // }
+  }
+
+  getCleanJson(obj: SingleTask) {
+    return {
+      id: obj.id,
+      status: obj.status || 'To do',
+      title: obj.title,
+      description: obj.description || '',
+      dueDate: obj.dueDate,
+      priority: obj.priority || 'Medium',
+      assigned: obj.assigned || [],
+      category: obj.category || 'User Story',
+      subtasks: obj.subtasks || [],
+      order: obj.order ?? 0,
+    };
+  }
+
   /**
    * Erstellt eine neue Task in Firebase
    * @param task - Die zu speichernde Task (ohne ID)
@@ -218,9 +269,5 @@ export class TasksService implements OnDestroy {
       console.error('Error adding task:', error);
       throw error;
     }
-  }
-
-  updateTask() {
-    this.editMode = false;
   }
 }
