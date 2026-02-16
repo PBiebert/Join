@@ -11,16 +11,18 @@ import { ContactsService } from '../../../../services/contacts-service';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { SetDialogAnimation } from '../../../../shared/directives/set-dialog-animation';
 
 @Component({
   selector: 'app-contact-dialog',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SetDialogAnimation],
   templateUrl: './contact-dialog.html',
   styleUrl: './contact-dialog.scss',
 })
 export class ContactDialog implements AfterViewInit, OnDestroy {
   contactsService = inject(ContactsService);
   @ViewChild('dialogRef') dialogRef!: ElementRef;
+  @ViewChild(SetDialogAnimation) dialogAnimationDirective!: SetDialogAnimation;
   private dialogSub!: Subscription;
   isClosing = false;
 
@@ -195,23 +197,15 @@ export class ContactDialog implements AfterViewInit, OnDestroy {
   }
 
   openDialogWithAnimation() {
-    this.isClosing = false;
-    this.dialogRef.nativeElement.classList.remove('slide-out');
-    this.dialogRef.nativeElement.classList.add('slide-in');
-    this.dialogRef.nativeElement.showModal();
+    this.dialogAnimationDirective.openDialogWithAnimation();
   }
 
   closeDialogWithAnimation() {
-    this.isClosing = true;
-    this.dialogRef.nativeElement.classList.remove('slide-in');
-    this.dialogRef.nativeElement.classList.add('slide-out');
+    this.dialogAnimationDirective.closeDialogWithAnimation();
 
     setTimeout(() => {
-      this.dialogRef.nativeElement.close();
-      this.isClosing = false;
-      this.dialogRef.nativeElement.classList.remove('slide-out');
       this.contactsService.isEditMode = false;
-    }, 500); // Dauer muss mit CSS übereinstimmen
+    }, 500);
   }
 
   /**

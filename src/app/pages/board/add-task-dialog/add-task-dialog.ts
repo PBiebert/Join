@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TasksService } from '../../../services/tasks-service';
 import { AddTask } from '../../add-task/add-task';
@@ -21,7 +13,7 @@ import { SetDialogAnimation } from '../../../shared/directives/set-dialog-animat
 export class AddTaskDialog implements AfterViewInit, OnDestroy {
   tasksService = inject(TasksService);
   private taskSub!: Subscription;
-  @ViewChild(SetDialogAnimation) dialogAnimation!: SetDialogAnimation;
+  @ViewChild(SetDialogAnimation) dialogAnimationDirective!: SetDialogAnimation;
 
   ngAfterViewInit(): void {
     this.taskSub = this.tasksService.openAddTaskDialog$.subscribe((open) => {
@@ -38,10 +30,10 @@ export class AddTaskDialog implements AfterViewInit, OnDestroy {
   }
 
   openDialog() {
-    this.dialogAnimation?.openDialogWithAnimation();
+    this.dialogAnimationDirective?.openDialogWithAnimation();
   }
 
   closeDialog() {
-    this.dialogAnimation?.closeDialogWithAnimation();
+    this.dialogAnimationDirective?.closeDialogWithAnimation();
   }
 }
