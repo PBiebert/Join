@@ -63,7 +63,10 @@ export class AddTask implements AfterViewInit, OnDestroy {
   }
 
   selectCategory(option: string) {
-    this.selectedCategory = option;
+    if (option === 'Technical Task' || option === 'User Story') {
+      this.selectedCategory = option;
+      this.taskData.category = option;
+    }
     this.isCategoryOpen = false;
   }
 
