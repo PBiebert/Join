@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TasksService } from '../../../services/tasks-service';
 
@@ -14,7 +14,7 @@ import { TasksService } from '../../../services/tasks-service';
   templateUrl: './single-task-dialog.html',
   styleUrl: './single-task-dialog.scss',
 })
-export class SingleTaskDialog {
+export class SingleTaskDialog implements OnInit {
   tasksService = inject(TasksService);
 
   /** Steuert die Slide-Out-Animation beim Schließen. */
@@ -120,4 +120,10 @@ export class SingleTaskDialog {
   onDialogContentClick(event: Event): void {
     event.stopPropagation();
   }
+
+  ngOnInit() {
+  console.log('🔍 Dialog opened!');
+  console.log('🔍 Active Task:', this.task);
+  console.log('🔍 Subtasks:', this.task?.subtasks);
+}
 }

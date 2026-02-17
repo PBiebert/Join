@@ -24,7 +24,7 @@
 .dialog-card {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 20px;
   padding: 48px;
   overflow-y: auto;
   max-width: 525px;
@@ -143,8 +143,9 @@
  * Info Sections (Due Date, Priority, Assigned To)
  * ================================================================ */
 .info-section {
-  display: flex;
-  // align-items: center;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
   gap: 12px;
 }
 
@@ -154,9 +155,14 @@
   gap: 10px;
   }
 
+  .info-section-subtasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .info-label {
   font-size: 20px;
-  // font-weight: 700;
   color: var(--color-dark-blue);
 }
 
@@ -168,7 +174,7 @@
 
 .priority-container {
   display: flex;
-  // align-items: center;
+  align-items: center;
   gap: 12px;
 }
 
@@ -183,7 +189,29 @@
 .assigned-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 12px 16px;
+  background-color: #d1d1d124;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); 
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    
+    &:hover {
+      background: rgba(0,0,0,0.3);
+    }
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 
 .assigned-user {
@@ -220,32 +248,42 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: fit-content;
 }
 
 .subtask-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  cursor: pointer;
-  padding: 8px;
+  padding:8px;
   border-radius: 8px;
   transition: var(--transition-fast);
+  margin-left: 10px;
+  position: relative;
 
   &:hover {
     background: #f0f0f0;
   }
 }
 
-.subtask-checkbox {
+
+.custom-checkbox {
   width: 18px;
   height: 18px;
-  cursor: pointer;
   flex-shrink: 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 }
 
 .subtask-title {
-  font-size: 16px;
-  font-weight: 400;
   color: var(--color-medium-blue);
   transition: var(--transition-fast);
 
@@ -272,7 +310,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
-  padding: 12px 10px;
+  padding: 12px 11px;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
@@ -294,7 +332,6 @@
 .btn-delete:hover {
   color: var(--color-light-blue);
   font-weight: 700;
-  /* Sağa sabit kalması için transform yerine padding ile sola doğru genişletiyoruz */
   padding-left: 20px; 
   
   svg path {
@@ -305,13 +342,9 @@
 /* --- EDIT BUTONU --- */
 .btn-edit:hover {
   color: var(--color-light-blue);
-  font-weight: 700;
   background: white;
   z-index: 10;
-  
-  /* Sola doğru genişleyerek çizgiyi (divider) yutmasını sağlar */
   padding-left: 30px; 
-  /* Negatif margin, butonun sağ kenarını yerinde tutarken solunu divider'ın üzerine çeker */
   margin-left: -20px; 
 
   svg path {
@@ -412,8 +445,4 @@
   .dialog-card {
     padding: 24px 16px;
   }
-
-  // .task-title {
-  //   font-size: 28px;
-  // }
 }
