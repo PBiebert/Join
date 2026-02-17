@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, inject, OnDestroy, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { Nav } from '../../shared/components/nav/nav';
 import { Header } from '../../shared/components/header/header';
 import { CommonModule } from '@angular/common';
@@ -29,6 +36,8 @@ export class AddTask implements AfterViewInit, OnDestroy {
   isOpen = false;
   selectedOption: string = 'Select contacts to assign';
   options: string[] = ['Option_1', 'Option_2', 'Option_3'];
+
+  constructor(private ChangeDetectorRef: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.subEditMode = this.tasksService.taskEditMode$.subscribe((editMode) => {
@@ -182,7 +191,10 @@ export class AddTask implements AfterViewInit, OnDestroy {
     }
     try {
       await this.tasksService.addTask(this.taskData as SingleTask);
+      // ! clearForm: verantwortlich für den error
       this.clearForm();
+      // Stößt die manuelle Aktualisierung der Angular-Change-Detection an, um Template-gebundene Werte sofort zu aktualisieren
+      this.ChangeDetectorRef.detectChanges();
       // Optional: Navigate to board or show success message
       console.log('Task added successfully!');
     } catch (error) {
