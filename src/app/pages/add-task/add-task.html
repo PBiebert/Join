@@ -248,7 +248,6 @@
             class="btn-primary"
             [disabled]="!isFormValid()"
             (click)="onSubmit(); tasksService.closeAddTaskDialog()"
-            [routerLink]="['/board']"
           >
             <span class="btn-txt">Add task ✓</span>
           </button>
@@ -258,7 +257,6 @@
             class="btn-primary"
             [disabled]="!isFormValid()"
             (click)="onSubmit()"
-            [routerLink]="['/board']"
           >
             <span class="btn-txt">Add task ✓</span>
           </button>

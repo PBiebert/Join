@@ -15,12 +15,11 @@ import { ContactsService } from '../../services/contacts-service';
 import { SingleTask } from '../../interfaces/single-task';
 import { SingleContact } from '../../interfaces/single-contact';
 import { Subscription } from 'rxjs';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [Nav, Header, CommonModule, FormsModule, RouterLink],
+  imports: [Nav, Header, CommonModule, FormsModule],
   templateUrl: './add-task.html',
   styleUrl: './add-task.scss',
 })
@@ -253,6 +252,8 @@ export class AddTask implements AfterViewInit, OnDestroy {
       // Stößt die manuelle Aktualisierung der Angular-Change-Detection an, um Template-gebundene Werte sofort zu aktualisieren
       this.ChangeDetectorRef.detectChanges();
       // Optional: Navigate to board or show success message
+
+      this.tasksService.openTaskSuccessDialog();
       console.log('Task added successfully!');
     } catch (error) {
       console.error('Error adding task:', error);
