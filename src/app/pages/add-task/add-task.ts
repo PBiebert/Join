@@ -4,12 +4,12 @@ import {
   Component,
   inject,
   OnDestroy,
-  OnInit,
+  ViewChild,
 } from '@angular/core';
 import { Nav } from '../../shared/components/nav/nav';
 import { Header } from '../../shared/components/header/header';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { TasksService } from '../../services/tasks-service';
 import { ContactsService } from '../../services/contacts-service';
 import { SingleTask } from '../../interfaces/single-task';
@@ -57,10 +57,6 @@ export class AddTask implements AfterViewInit, OnDestroy {
         this.clearForm();
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subEditMode.unsubscribe();
   }
 
   toggleDropdown() {
@@ -147,28 +143,6 @@ export class AddTask implements AfterViewInit, OnDestroy {
       console.error('Error loading contacts:', error);
       this.loadingContacts = false;
     }
-  }
-
-  // Dropdown Toggles
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
-
-  closeDropdown() {
-    this.isOpen = false;
-  }
-
-  toggleCategoryDropdown() {
-    this.isCategoryOpen = !this.isCategoryOpen;
-  }
-
-  selectCategory(option: string) {
-    this.selectedCategory = option;
-    this.isCategoryOpen = false;
-  }
-
-  closeCategoryDropdown() {
-    this.isCategoryOpen = false;
   }
 
   // Assigned Contacts Handling
