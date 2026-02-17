@@ -5,6 +5,38 @@
   height: 100%;
 }
 
+
+
+.assign-option{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+
+
+.contact-option{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+}
+
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-font-bright);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;

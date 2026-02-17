@@ -141,9 +141,9 @@
                       (click)="toggleAssigned(contact); $event.stopPropagation()"
                     >
                       <div class="contact-option">
-                        <span class="contact-initials" [ngClass]="getContactColorClass(contact)">
+                        <div class="icon" [ngClass]="getContactColorClass(contact)" >
                           {{ getInitials(contact.name) }}
-                        </span>
+                        </div>
                         <span class="contact-name">{{ contact.name }}</span>
                       </div>
                       @if (isAssigned(contact)) {
