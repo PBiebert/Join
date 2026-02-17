@@ -7,6 +7,7 @@ import {
   deleteDoc,
   updateDoc,
   addDoc,
+  getDocs,
 } from '@angular/fire/firestore';
 import { SingleContact } from '../interfaces/single-contact';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -37,6 +38,16 @@ export class ContactsService implements OnDestroy {
    * Observable für den Dialog-Status.
    */
   openDialog$: Observable<boolean> = this.openDialogSubject.asObservable();
+
+  /**
+   * NEU: BehaviorSubject für Echtzeit-Kontakte (für AddTask Komponente)
+   */
+  private contactsSubject = new BehaviorSubject<SingleContact[]>([]);
+  
+  /**
+   * NEU: Observable für Echtzeit-Kontakte (für AddTask Komponente)
+   */
+  contacts$ = this.contactsSubject.asObservable();
 
   constructor() {
     this.unsubContacts = this.subContactsList();
@@ -77,7 +88,34 @@ export class ContactsService implements OnDestroy {
       });
       this.updateContactGroups();
       this.refreshActivContact();
+      
+      // NEU: Aktualisiere auch das contactsSubject
+      this.contactsSubject.next(this.contacts);
     });
+  }
+
+  /**
+   * NEU: Lädt Kontakte einmalig von Firebase (für AddTask Komponente)
+   * @returns Promise mit den geladenen Kontakten
+   */
+  async loadContacts(): Promise<SingleContact[]> {
+    try {
+      const querySnapshot = await getDocs(this.getNotesRef());
+      const loadedContacts: SingleContact[] = [];
+      
+      querySnapshot.forEach((doc) => {
+        loadedContacts.push(this.setContactObject(doc.data(), doc.id));
+      });
+      
+      this.contacts = loadedContacts;
+      this.updateContactGroups();
+      this.contactsSubject.next(this.contacts);
+      
+      return loadedContacts;
+    } catch (error) {
+      console.error('Error loading contacts:', error);
+      return [];
+    }
   }
 
   /**
