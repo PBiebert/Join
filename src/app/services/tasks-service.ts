@@ -35,6 +35,10 @@ export class TasksService implements OnDestroy {
   taskEditMode$: Observable<boolean> = this.taskEditModeSubject.asObservable();
   editMode = false;
 
+  private taskSuccessDialogActiveSubject = new BehaviorSubject<boolean>(false);
+  successDialogOpen$: Observable<boolean> = this.taskSuccessDialogActiveSubject.asObservable();
+  taskSuccessDialogActive: boolean = false;
+
   constructor() {
     this.unsubTasks = this.subTasksArr();
     this.initBreakpointObserver();
@@ -271,5 +275,14 @@ export class TasksService implements OnDestroy {
 
   resetStatus() {
     this.currentStatus = 'To do';
+  }
+
+  openTaskSuccessDialog() {
+    this.taskSuccessDialogActiveSubject.next(true);
+    this.taskSuccessDialogActive = true;
+    setTimeout(() => {
+      this.taskSuccessDialogActiveSubject.next(false);
+      this.taskSuccessDialogActive = false;
+    }, 3000);
   }
 }

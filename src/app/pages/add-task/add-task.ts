@@ -252,6 +252,8 @@ export class AddTask implements AfterViewInit, OnDestroy {
       // Stößt die manuelle Aktualisierung der Angular-Change-Detection an, um Template-gebundene Werte sofort zu aktualisieren
       this.ChangeDetectorRef.detectChanges();
       // Optional: Navigate to board or show success message
+
+      this.tasksService.openTaskSuccessDialog();
       console.log('Task added successfully!');
     } catch (error) {
       console.error('Error adding task:', error);
