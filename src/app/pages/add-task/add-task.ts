@@ -22,7 +22,7 @@ export class AddTask implements AfterViewInit, OnDestroy {
 
   // Date only for today and future
   minDate: string = new Date().toISOString().split('T')[0];
-  statusCondition: string = 'To Do';
+  statusCondition: string = this.tasksService.currentStatus;
 
   // ------------------- ORIGINAL CODE (DEIN BESTEHENDER) -------------------
   // Assign Dropdown
@@ -188,8 +188,9 @@ export class AddTask implements AfterViewInit, OnDestroy {
   }
 
   clearForm() {
+    this.tasksService.resetStatus();
     this.taskData = {
-      status: 'To Do',
+      status: this.statusCondition,
       title: '',
       description: '',
       dueDate: '',

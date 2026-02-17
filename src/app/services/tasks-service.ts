@@ -25,6 +25,7 @@ export class TasksService implements OnDestroy {
   unsubTasks;
   smallView: boolean = false;
   currentTask!: SingleTask;
+  currentStatus: string = 'To Do';
 
   private openAddTaskDialogSubject = new BehaviorSubject<boolean>(false);
   openAddTaskDialog$: Observable<boolean> = this.openAddTaskDialogSubject.asObservable();
@@ -187,9 +188,10 @@ export class TasksService implements OnDestroy {
     if (this.unsubTasks) this.unsubTasks();
   }
 
-  openAddTaskDialog() {
+  openAddTaskDialog(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
     this.openAddTaskDialogSubject.next(true);
     this.addTaskDialogIsOpen = true;
+    this.setStatus(status);
   }
 
   closeAddTaskDialog() {
@@ -250,15 +252,24 @@ export class TasksService implements OnDestroy {
       const newTask = {
         ...taskData,
         order: todoTasks.length, // Länge = nächster freier Index
-        status: 'To do',
+        status: this.currentStatus,
       };
 
       const docRef = await addDoc(this.getTasksRef(), newTask);
       console.log('Task added:', docRef.id);
+      this.resetStatus();
       return docRef;
     } catch (error) {
       console.error('Error adding task:', error);
       throw error;
     }
+  }
+
+  setStatus(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
+    this.currentStatus = status;
+  }
+
+  resetStatus() {
+    this.currentStatus = 'To do';
   }
 }

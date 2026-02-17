@@ -19,7 +19,7 @@
                   <img src="assets/icons/search.svg" alt="Search" />
                 </div>
                 @if (!tasksService.smallView) {
-                  <button class="btn-primary" (click)="tasksService.openAddTaskDialog()">
+                  <button class="btn-primary" (click)="tasksService.openAddTaskDialog('To do')">
                     Add task <span>+</span>
                   </button>
                 } @else {
@@ -37,7 +37,7 @@
                 <div class="column-header">
                   <h2>To do</h2>
                   @if (!tasksService.smallView) {
-                    <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                    <button class="add-task-btn" (click)="tasksService.openAddTaskDialog('To do')">
                       <img src="assets/icons/plus.svg" alt="Add Task" />
                     </button>
                   } @else {
@@ -75,7 +75,10 @@
                 <div class="column-header">
                   <h2>In progress</h2>
                   @if (!tasksService.smallView) {
-                    <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                    <button
+                      class="add-task-btn"
+                      (click)="tasksService.openAddTaskDialog('In progress')"
+                    >
                       <img src="assets/icons/plus.svg" alt="Add Task" />
                     </button>
                   } @else {
@@ -113,7 +116,10 @@
                 <div class="column-header">
                   <h2>Await feedback</h2>
                   @if (!tasksService.smallView) {
-                    <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                    <button
+                      class="add-task-btn"
+                      (click)="tasksService.openAddTaskDialog('Await feedback')"
+                    >
                       <img src="assets/icons/plus.svg" alt="Add Task" />
                     </button>
                   } @else {
@@ -151,7 +157,7 @@
                 <div class="column-header">
                   <h2>Done</h2>
                   @if (!tasksService.smallView) {
-                    <button class="add-task-btn" (click)="tasksService.openAddTaskDialog()">
+                    <button class="add-task-btn" (click)="tasksService.openAddTaskDialog('Done')">
                       <img src="assets/icons/plus.svg" alt="Add Task" />
                     </button>
                   } @else {
