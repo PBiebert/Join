@@ -218,15 +218,6 @@ export class TasksService implements OnDestroy {
       }
       this.currentTask = task;
     }
-
-    // if (note.id) {
-    //   try {
-    //     let docRef = this.getSingleDocRef(this.getColIdFromNote(note), note.id);
-    //     await updateDoc(docRef, this.getCleanJson(note));
-    //   } catch (error) {
-    //     console.log('Error during updateNote: ', error);
-    //   }
-    // }
   }
 
   getCleanJson(obj: SingleTask) {

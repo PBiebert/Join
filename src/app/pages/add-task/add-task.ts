@@ -35,6 +35,8 @@ export class AddTask implements AfterViewInit, OnDestroy {
       if (editMode) {
         this.setCurrentTaskData(this.tasksService.currentTask);
         console.log(this.tasksService.currentTask);
+      } else {
+        this.clearForm();
       }
     });
   }
