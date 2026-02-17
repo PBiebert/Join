@@ -15,11 +15,12 @@ import { ContactsService } from '../../services/contacts-service';
 import { SingleTask } from '../../interfaces/single-task';
 import { SingleContact } from '../../interfaces/single-contact';
 import { Subscription } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [Nav, Header, CommonModule, FormsModule],
+  imports: [Nav, Header, CommonModule, FormsModule, RouterLink],
   templateUrl: './add-task.html',
   styleUrl: './add-task.scss',
 })

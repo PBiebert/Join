@@ -242,9 +242,27 @@
           <span class="btn-txt">Clear ✕</span>
         </button>
 
-        <button type="submit" class="btn-primary" [disabled]="!isFormValid()" (click)="onSubmit()">
-          <span class="btn-txt">Add task ✓</span>
-        </button>
+        @if (tasksService.addTaskDialogIsOpen) {
+          <button
+            type="submit"
+            class="btn-primary"
+            [disabled]="!isFormValid()"
+            (click)="onSubmit(); tasksService.closeAddTaskDialog()"
+            [routerLink]="['/board']"
+          >
+            <span class="btn-txt">Add task ✓</span>
+          </button>
+        } @else {
+          <button
+            type="submit"
+            class="btn-primary"
+            [disabled]="!isFormValid()"
+            (click)="onSubmit()"
+            [routerLink]="['/board']"
+          >
+            <span class="btn-txt">Add task ✓</span>
+          </button>
+        }
       </div>
     </section>
   </div>
