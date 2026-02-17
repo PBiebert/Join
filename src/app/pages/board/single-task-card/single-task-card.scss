@@ -55,6 +55,12 @@
   color: var(--color-light-grey);
   line-height: 1.2;
   hyphens: auto; // Automatische Silbentrennung
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 // Progress Bar Container
