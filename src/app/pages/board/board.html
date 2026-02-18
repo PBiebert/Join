@@ -57,6 +57,7 @@
                   @for (task of todoTasks; track task.id) {
                     <app-single-task-card
                       cdkDrag
+                      [cdkDragStartDelay]="isMobile ? 500 : 0"
                       [cdkDragData]="task"
                       [task]="task"
                       (taskClicked)="openTaskDialog($event)"
@@ -98,6 +99,7 @@
                   @for (task of inProgressTasks; track task.id) {
                     <app-single-task-card
                       cdkDrag
+                      [cdkDragStartDelay]="isMobile ? 500 : 0"
                       [cdkDragData]="task"
                       [task]="task"
                       (taskClicked)="openTaskDialog($event)"
@@ -139,6 +141,7 @@
                   @for (task of awaitFeedbackTasks; track task.id) {
                     <app-single-task-card
                       cdkDrag
+                      [cdkDragStartDelay]="isMobile ? 500 : 0"
                       [cdkDragData]="task"
                       [task]="task"
                       (taskClicked)="openTaskDialog($event)"
@@ -177,6 +180,7 @@
                   @for (task of doneTasks; track task.id) {
                     <app-single-task-card
                       cdkDrag
+                      [cdkDragStartDelay]="isMobile ? 500 : 0"
                       [cdkDragData]="task"
                       [task]="task"
                       (taskClicked)="openTaskDialog($event)"

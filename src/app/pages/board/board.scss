@@ -401,8 +401,6 @@ app-nav {
 
 
 @media (max-width: 900px) { 
- 
-
   .board-header {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -467,20 +465,23 @@ app-nav {
 
   .column-content {
     padding: 12px 0;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar { 
+      display: none; 
+    }  
+    scrollbar-width: none; 
   }
 
-  app-single-task-card {
-    pointer-events: auto;  // Touch olaylarını al
+  app-single-task-card,
+  .task-card {
+    touch-action: pan-x pan-y;
   }
   
-  .task-card {
-    cursor: default !important;      // Grab cursor kaldır
-    user-select: none;
-    -webkit-user-drag: none;
-  }
   
   /* CDK drag disabled */
   .cdk-drag {
-    cursor: default !important;
+    touch-action: pan-x !important;
   }
 }
