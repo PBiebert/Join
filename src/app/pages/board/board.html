@@ -20,7 +20,7 @@
                 </div>
                 @if (!tasksService.smallView) {
                   <button class="btn-primary" (click)="tasksService.openAddTaskDialog('To do')">
-                    Add task <span>+</span>
+                    Add task <img src="assets/icons/plus-pure.svg" alt="Add Icon" class="plus-pure">
                   </button>
                 } @else {
                   <button class="btn-primary" [routerLink]="['/add-task']">

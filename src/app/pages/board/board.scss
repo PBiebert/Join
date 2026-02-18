@@ -53,7 +53,6 @@ app-nav {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 5rem 2rem;
   gap: 2rem;
   overflow-y: auto;
 }
@@ -65,6 +64,7 @@ app-nav {
   width: 100%;
   max-width: 1208px;
   gap: 2rem;
+  padding: 80px 40px;
 }
 
 /* ================================================================
@@ -91,11 +91,17 @@ app-nav {
   padding-right: 25px;
 
   .btn-primary {
-    height: 40px;
+    width: 100%;
+    max-width: 160px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
+  }
+  .plus-pure {
+    width: 18px;
+    height: 18px;
   }
 
   span {
@@ -109,12 +115,13 @@ app-nav {
   position: relative;
 
   input {
-    width: 250px;
-    height: 41px;
+    width: 100%;
+    max-width: 310px;
+    height: 48px;
     padding: 0.75rem 3rem 0.75rem 1rem;
     border: 1px solid var(--color-light-grey);
     border-radius: 10px;
-    font-size: 1rem;
+    font-size: 20px;
     transition: var(--transition-fast);
 
     &:focus {
@@ -132,8 +139,8 @@ app-nav {
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    width: 26px;
-    height: 26px;
+    width: 34px;
+    height: 34px;
     pointer-events: none;
   }
 }
@@ -143,27 +150,29 @@ app-nav {
  * ================================================================ */
 .board-columns {
   display: flex;
-  gap: 0.25rem;
+  gap: 10px;
   height: 100%;
 }
 
 .board-column {
   flex: 1;
-  min-width: 250px;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 8px;
 }
 
 .column-header {
+  width: 100%;
+  max-width: 244px;
+  height: 24px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  gap: 65px;
+  gap: 8px;
+  padding-bottom: 15px;
 
   h2 {
-    font-size: 1.3125rem;
-    font-weight: 700;
+    font-size: 20px;
     color: var(--color-dark-blue);
   }
 }
@@ -200,9 +209,6 @@ app-nav {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 0.5rem;
-  border-radius: 10px;
-  min-height: 200px;
 }
 
 /* Leerer Zustand einer Spalte */
@@ -210,13 +216,14 @@ app-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
   border: 2px dashed var(--color-light-grey);
   border-radius: 10px;
   color: var(--color-light-grey);
-  font-size: 1rem;
   text-align: center;
-  min-height: 100px;
+  height: 48px;
+  width: 100%;
+  max-width: 246px;
+  background-color: #d1d1d14a;
 }
 
 /* ================================================================
@@ -224,29 +231,21 @@ app-nav {
  * Diese Klassen werden automatisch von CDK gesetzt.
  * ================================================================ */
 
-/* Task-Karten: Grab-Cursor und sanfte Transitions */
-app-single-task-card {
-  display: block;
-  cursor: grab;
-  transition: transform 200ms ease, opacity 200ms ease;
-}
-
 /* Platzhalter: Leere Box zeigt an, wo die Karte landen wird */
 .cdk-drag-placeholder {
-  border: 2px dashed var(--color-light-blue);
+  border: 2px dashed var(--color-light-grey);
   border-radius: 24px;
-  background: rgba(41, 171, 226, 0.08);
-  min-height: 80px;
+  width: 252px;
 }
 
 /* Vorschau: Die Karte am Cursor – rotate statt transform,
  * weil CDK inline transform: translate3d() setzt */
 .cdk-drag-preview {
   border-radius: 24px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  opacity: 0.9;
+  box-shadow: 0.2px 1px 1px rgba(0, 0, 0, 0.1);
   rotate: 5deg;
   cursor: grabbing;
+   opacity: 0.9;
 }
 
 /* Animation: Karte gleitet sanft an ihre neue Position */
@@ -262,70 +261,226 @@ app-single-task-card {
 /* ================================================================
  * Responsive Design
  * ================================================================ */
-@media (max-width: 1024px) {
-  .board-header h1 {
-    font-size: 3rem;
+
+  @media (min-width: 1441px) {
+    .board-column app-single-task-card,
+  app-single-task-card .task-card {
+    width: 252px;
+    max-width: none;
   }
 
-  .search-box input {
-    width: 200px;
+  .board-columns {
+    gap: 0.25rem;
+  }
+
+  .column-content {
+    gap: 1rem;
+  }
+
+  .column-header {
+    width: 244px;
+    max-width: none;
+    gap: 30px;
+  }
+
+  .empty-state {
+    width: 246px;
+    max-width: none;
+  }
+  }
+
+ @media (max-width: 1440px) and (min-width: 1025px) {  
+
+  .column-header {
+    max-width: 100%;
   }
 }
 
-@media (max-width: 850px) {
-  .board__outer {
-    flex-direction: column;
+
+@media (max-width: 1024px) {
+
+  h1 {
+    font-size: 47px;
+  }
+
+  .board-inner {
+    padding: 60px 30px;
+  }
+
+  /* Board Inner - weniger Padding */
+  .board-inner {
+    padding: 40px 20px;
+  }
+
+  /* Header - Elemente untereinander bei sehr kleinen Screens */
+  .board-header {
+    gap: 1rem;
+  }
+
+  /* Add Task Button - nur Plus Icon, 40x40px */
+  .board-actions {
+    padding-right: 0;
+    
+    .btn-primary {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      gap: 0;
+      border-radius: 10px;
+      font-size: 0;
+      
+      
+      .plus-pure {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+   .board-columns {
+    flex-direction: column;   // Sütunlar alt alta
+    gap: 2rem;
+    height: auto;
+  }
+
+  .board-column {
+    width: 100%;
+  }
+
+  /* Column Header */
+  .column-header {
+    width: 396px;
+    gap: 0;
+
+    h2 {
+      font-size: 27px;
+    }
+  }
+
+     /* Column Content - Yatay Scroll (card'lar yan yana) */
+  .column-content {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: visible;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    
+    /* Custom Scrollbar */
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-light-grey);
+      border-radius: 10px;
+      
+      &:hover {
+        background: #999;
+      }
+    }
+  }
+
+  /* Empty State */
+  .empty-state {
+    width: 392px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+ 
+  /* CDK Drag Placeholder - mobile width */
+  .cdk-drag-placeholder {
+    width: 252px;
+    flex-shrink: 0;
+  }
+}
+
+
+@media (max-width: 900px) { 
+ 
+
+  .board-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .board-header h1 {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .board-actions {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    justify-content: flex-start;
+    padding-right: 0;
+    
+ 
+    .search-box {
+      width: 100%;
+      padding-top: 5px;
+
+      input {
+        width: 100%;
+        max-width: 100%;   
+      }
+    }
+
+   .btn-primary {
+      position: absolute;
+      top: 138px;
+      right: 40px;
+    }
   }
 }
 
 @media (max-width: 768px) {
   app-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
     height: 80px;
-    order: 2;
-  }
-
-  .board-wrapper {
-    order: 1;
+     z-index: 100; 
   }
 
   .board-content {
-    padding: 1.5rem 1rem;
+    padding-bottom: 80px;
   }
 
-  .board-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-
-    h1 {
-      font-size: 2.5rem;
+  .column-header {
+    width: 100%; 
+    max-width: none;
+    
+    h2 {
+      flex: 1;
+      padding-top: 20px;
     }
   }
 
-  .board-actions {
-    width: 100%;
-    flex-direction: column;
-    gap: 1rem;
-
-    .search-box {
-      width: 100%;
-
-      input {
-        width: 100%;
-      }
-    }
-
-    .btn-primary {
-      width: 100%;
-    }
+  .column-content {
+    padding: 12px 0;
   }
 
-  .board-columns {
-    flex-direction: column;
+  app-single-task-card {
+    pointer-events: auto;  // Touch olaylarını al
   }
-
-  .board-column {
-    min-width: 100%;
+  
+  .task-card {
+    cursor: default !important;      // Grab cursor kaldır
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  
+  /* CDK drag disabled */
+  .cdk-drag {
+    cursor: default !important;
   }
 }
