@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  inject,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Nav } from '../../shared/components/nav/nav';
 import { Header } from '../../shared/components/header/header';
 import { CommonModule } from '@angular/common';
@@ -23,7 +16,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './add-task.html',
   styleUrl: './add-task.scss',
 })
-export class AddTask implements AfterViewInit, OnDestroy {
+export class AddTask implements OnInit, OnDestroy {
   @ViewChild('taskForm') taskForm!: NgForm; // Referenz zum Formular hinzugefügt
 
   tasksService = inject(TasksService);
@@ -46,19 +39,6 @@ export class AddTask implements AfterViewInit, OnDestroy {
   selectedOption: string = 'Select contacts to assign';
   options: string[] = ['Option_1', 'Option_2', 'Option_3'];
 
-  constructor(private ChangeDetectorRef: ChangeDetectorRef) {}
-
-  ngAfterViewInit(): void {
-    this.subEditMode = this.tasksService.taskEditMode$.subscribe((editMode) => {
-      if (editMode) {
-        this.setCurrentTaskData(this.tasksService.currentTask);
-        console.log(this.tasksService.currentTask);
-      } else {
-        this.clearForm();
-      }
-    });
-  }
-
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
@@ -80,6 +60,7 @@ export class AddTask implements AfterViewInit, OnDestroy {
     if (option === 'Technical Task' || option === 'User Story') {
       this.selectedCategory = option;
       this.taskData.category = option;
+      this.categoryError = false;
     }
     this.isCategoryOpen = false;
   }
@@ -111,6 +92,14 @@ export class AddTask implements AfterViewInit, OnDestroy {
 
   async ngOnInit() {
     await this.loadContacts();
+
+    this.subEditMode = this.tasksService.taskEditMode$.subscribe((editMode) => {
+      if (editMode) {
+        this.setCurrentTaskData(this.tasksService.currentTask);
+      } else {
+        this.clearForm();
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -118,6 +107,7 @@ export class AddTask implements AfterViewInit, OnDestroy {
     if (this.contactsSubscription) {
       this.contactsSubscription.unsubscribe();
     }
+    this.subEditMode.unsubscribe();
   }
 
   async loadContacts() {
@@ -229,16 +219,17 @@ export class AddTask implements AfterViewInit, OnDestroy {
 
   // Form Handling
   isFormValid(): boolean {
-    // Check category separately since it's not in the ngForm
-    if (this.selectedCategory === 'Select category') {
-      this.categoryError = true;
-      return false;
-    }
-
-    return !!(this.taskData.title && this.taskData.title.trim() && this.taskData.dueDate);
+    return (
+      this.selectedCategory !== 'Select category' &&
+      !!(this.taskData.title && this.taskData.title.trim()) &&
+      !!this.taskData.dueDate
+    );
   }
 
   async onSubmit() {
+    if (this.selectedCategory === 'Select category') {
+      this.categoryError = true;
+    }
     if (!this.isFormValid()) {
       return;
     }
@@ -247,14 +238,10 @@ export class AddTask implements AfterViewInit, OnDestroy {
       this.taskData.category = this.selectedCategory as 'User Story' | 'Technical Task';
 
       await this.tasksService.addTask(this.taskData as SingleTask);
-      // ! clearForm: verantwortlich für den error
       this.clearForm();
-      // Stößt die manuelle Aktualisierung der Angular-Change-Detection an, um Template-gebundene Werte sofort zu aktualisieren
-      this.ChangeDetectorRef.detectChanges();
       // Optional: Navigate to board or show success message
 
       this.tasksService.openTaskSuccessDialog();
-      console.log('Task added successfully!');
     } catch (error) {
       console.error('Error adding task:', error);
     }
@@ -262,18 +249,16 @@ export class AddTask implements AfterViewInit, OnDestroy {
 
   clearForm() {
     this.tasksService.resetStatus();
-    this.taskData = {
-      status: this.statusCondition,
-      title: '',
-      description: '',
-      dueDate: '',
-      priority: 'Medium',
-      assigned: [],
-      category: 'User Story',
-      subtasks: [],
-      order: 0,
-    };
-
+    this.tasksService.resetStatus();
+    this.taskData.status = this.statusCondition;
+    this.taskData.title = '';
+    this.taskData.description = '';
+    this.taskData.dueDate = '';
+    this.taskData.priority = 'Medium';
+    this.taskData.assigned = [];
+    this.taskData.category = 'User Story';
+    this.taskData.subtasks = [];
+    this.taskData.order = 0;
     // Reset dropdowns
     this.selectedOption = 'Select contacts to assign';
     this.selectedCategory = 'Select category';
@@ -288,8 +273,6 @@ export class AddTask implements AfterViewInit, OnDestroy {
     // Schließe alle offenen Dropdowns
     this.isOpen = false;
     this.isCategoryOpen = false;
-
-    console.log('Form cleared - all inputs reset');
   }
 
   setCurrentTaskData(currenTask: SingleTask) {
