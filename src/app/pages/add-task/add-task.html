@@ -1,24 +1,16 @@
-<app-nav
-  [ngClass]="{
+<app-nav [ngClass]="{
     'd-none':
       (tasksService.addTaskDialogIsOpen && !tasksService.smallView) || tasksService.editMode,
-  }"
-></app-nav>
+  }"></app-nav>
 
-<div
-  class="wrapper"
-  (click)="$event.stopPropagation()"
-  [ngClass]="{
+<div class="wrapper" (click)="$event.stopPropagation()" [ngClass]="{
     'dialog-mode': tasksService.addTaskDialogIsOpen && !tasksService.smallView,
     'edit-mode': tasksService.editMode,
-  }"
->
-  <app-header
-    [ngClass]="{
+  }">
+  <app-header [ngClass]="{
       'd-none':
         (tasksService.addTaskDialogIsOpen && !tasksService.smallView) || tasksService.editMode,
-    }"
-  ></app-header>
+    }"></app-header>
 
   <div class="contacts-wrapper">
     <!-- LEFT SIDE -->
@@ -29,45 +21,27 @@
         <!-- TITLE -->
         <div class="input-fields">
           <label for="title"> Title <span class="required">*</span> </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            placeholder="Enter a title"
-            [(ngModel)]="taskData.title"
-            #title="ngModel"
-            required
-          />
+          <input type="text" id="title" name="title" placeholder="Enter a title" [(ngModel)]="taskData.title"
+            #title="ngModel" required />
           @if (title.invalid && title.touched) {
-            <small class="error-message">This field is required</small>
+          <small class="error-message">This field is required</small>
           }
         </div>
 
         <!-- DESCRIPTION -->
         <div class="input-fields">
           <label for="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            placeholder="Enter a description"
-            [(ngModel)]="taskData.description"
-          ></textarea>
+          <textarea id="description" name="description" placeholder="Enter a description"
+            [(ngModel)]="taskData.description"></textarea>
         </div>
 
         <!-- DUE DATE -->
         <div class="input-fields">
           <label for="due-date"> Due date <span class="required">*</span> </label>
-          <input
-            type="date"
-            id="due-date"
-            name="due_date"
-            [min]="minDate"
-            [(ngModel)]="taskData.dueDate"
-            #dueDate="ngModel"
-            required
-          />
+          <input type="date" id="due-date" name="due_date" [min]="minDate" [(ngModel)]="taskData.dueDate"
+            #dueDate="ngModel" required />
           @if (dueDate.invalid && dueDate.touched) {
-            <small class="error-message">This field is required</small>
+          <small class="error-message">This field is required</small>
           }
         </div>
       </form>
@@ -87,32 +61,20 @@
           <p class="priority-title">Priority</p>
 
           <div class="priority-btns">
-            <button
-              type="button"
-              class="priorty-level-btns btn-urgent"
-              [class.active]="taskData.priority === 'Urgent'"
-              (click)="setPriority('Urgent')"
-            >
+            <button type="button" class="priorty-level-btns btn-urgent" [class.active]="taskData.priority === 'Urgent'"
+              (click)="setPriority('Urgent')">
               <div class="icons urgent"></div>
               <span class="btn-txt">Urgent</span>
             </button>
 
-            <button
-              type="button"
-              class="priorty-level-btns btn-medium"
-              [class.active]="taskData.priority === 'Medium'"
-              (click)="setPriority('Medium')"
-            >
+            <button type="button" class="priorty-level-btns btn-medium" [class.active]="taskData.priority === 'Medium'"
+              (click)="setPriority('Medium')">
               <div class="icons medium"></div>
               <span class="btn-txt">Medium</span>
             </button>
 
-            <button
-              type="button"
-              class="priorty-level-btns btn-low"
-              [class.active]="taskData.priority === 'Low'"
-              (click)="setPriority('Low')"
-            >
+            <button type="button" class="priorty-level-btns btn-low" [class.active]="taskData.priority === 'Low'"
+              (click)="setPriority('Low')">
               <div class="icons low"></div>
               <span class="btn-txt">Low</span>
             </button>
@@ -130,29 +92,30 @@
             </div>
 
             @if (isOpen) {
-              <div class="assign-options">
-                @if (loadingContacts) {
-                  <div class="loading-indicator">Loading contacts...</div>
-                } @else {
-                  @for (contact of contacts; track contact.id) {
-                    <div
-                      class="assign-option"
-                      [class.selected]="isAssigned(contact)"
-                      (click)="toggleAssigned(contact); $event.stopPropagation()"
-                    >
-                      <div class="contact-option">
-                        <div class="icon" [ngClass]="getContactColorClass(contact)" >
-                          {{ getInitials(contact.name) }}
-                        </div>
-                        <span class="contact-name">{{ contact.name }}</span>
-                      </div>
-                      @if (isAssigned(contact)) {
-                        <span class="checkmark">✓</span>
-                      }
-                    </div>
+            <div class="assign-options">
+              @if (loadingContacts) {
+              <div class="loading-indicator">Loading contacts...</div>
+              } @else {
+              @for (contact of contacts; track contact.id) {
+              <!-- KORRIGIERT: Checkbox mit fixer Position -->
+              <div class="assign-option" [class.selected]="isAssigned(contact)"
+                (click)="toggleAssigned(contact); $event.stopPropagation()">
+                <div class="contact-option">
+                  <div class="icon" [ngClass]="getContactColorClass(contact)">
+                    {{ getInitials(contact.name) }}
+                  </div>
+                  <span class="contact-name">{{ contact.name }}</span>
+                </div>
+                <div class="checkbox-wrapper">
+                  <div class="checkmark-box"></div>
+                  @if (isAssigned(contact)) {
+                  <span class="checkmark">✓</span>
                   }
-                }
+                </div>
               </div>
+              }
+              }
+            </div>
             }
           </div>
         </div>
@@ -161,33 +124,26 @@
         <div class="category-container">
           <label class="category-title"> Category <span class="required">*</span> </label>
 
-          <div
-            class="category-dropdown"
-            tabindex="0"
-            (click)="toggleCategoryDropdown()"
-            (blur)="closeCategoryDropdown()"
-          >
+          <div class="category-dropdown" tabindex="0" (click)="toggleCategoryDropdown()"
+            (blur)="closeCategoryDropdown()">
             <div class="category-selected">
               {{ selectedCategory }}
               <div class="categories-icon"></div>
             </div>
 
             @if (isCategoryOpen) {
-              <div class="category-options">
-                @for (option of categoryOptions; track option) {
-                  <div
-                    class="category-option"
-                    [class.selected]="selectedCategory === option"
-                    (click)="selectCategory(option); $event.stopPropagation()"
-                  >
-                    {{ option }}
-                  </div>
-                }
+            <div class="category-options">
+              @for (option of categoryOptions; track option) {
+              <div class="category-option" [class.selected]="selectedCategory === option"
+                (click)="selectCategory(option); $event.stopPropagation()">
+                {{ option }}
               </div>
+              }
+            </div>
             }
           </div>
           @if (categoryError) {
-            <small class="error-message">Category is required</small>
+          <small class="error-message">Category is required</small>
           }
         </div>
 
@@ -196,43 +152,27 @@
           <label for="subTask" class="subtask-title"> Subtask </label>
 
           <div class="input-wrapper">
-            <input
-              type="text"
-              id="subTask"
-              name="subTask"
-              placeholder="Add new Subtask"
-              [(ngModel)]="newSubtaskTitle"
-              (keyup.enter)="addSubtask()"
-            />
+            <input type="text" id="subTask" name="subTask" placeholder="Add new Subtask" [(ngModel)]="newSubtaskTitle"
+              (keyup.enter)="addSubtask()" />
 
             <div class="input-icons">
-              <img
-                src="/assets/icons/small_cancle_icon.svg"
-                alt="Cancel"
-                class="icon"
-                (click)="clearSubtaskInput()"
-              />
+              <img src="/assets/icons/small_cancle_icon.svg" alt="Cancel" class="icon" (click)="clearSubtaskInput()" />
               <div class="input-line"></div>
-              <img
-                src="/assets/icons/small_approv_icon.svg"
-                alt="Approve"
-                class="icon"
-                (click)="addSubtask()"
-              />
+              <img src="/assets/icons/small_approv_icon.svg" alt="Approve" class="icon" (click)="addSubtask()" />
             </div>
           </div>
         </div>
 
         <!-- SUBTASK LIST -->
         @if (taskData.subtasks && taskData.subtasks.length > 0) {
-          <div class="subtask-list">
-            @for (subtask of taskData.subtasks; track subtask.id; let i = $index) {
-              <div class="subtask-item">
-                <span>{{ subtask.title }}</span>
-                <button type="button" class="remove-subtask" (click)="removeSubtask(i)">✕</button>
-              </div>
-            }
+        <div class="subtask-list">
+          @for (subtask of taskData.subtasks; track subtask.id; let i = $index) {
+          <div class="subtask-item">
+            <span>{{ subtask.title }}</span>
+            <button type="button" class="remove-subtask" (click)="removeSubtask(i)">✕</button>
           </div>
+          }
+        </div>
         }
       </div>
 
@@ -243,33 +183,24 @@
         </button>
 
         @if (tasksService.addTaskDialogIsOpen) {
-          <button
-            type="submit"
-            class="btn-primary"
-            [disabled]="!isFormValid()"
-            (click)="onSubmit(); tasksService.closeAddTaskDialog()"
-          >
-            <span class="btn-txt">Add task ✓</span>
-          </button>
+        <button type="submit" class="btn-primary" [disabled]="!isFormValid()"
+          (click)="onSubmit(); tasksService.closeAddTaskDialog()">
+          <span class="btn-txt">Add task ✓</span>
+        </button>
         } @else {
-          <button
-            type="submit"
-            class="btn-primary"
-            [disabled]="!isFormValid()"
-            (click)="onSubmit()"
-          >
-            <span class="btn-txt">Add task ✓</span>
-          </button>
+        <button type="submit" class="btn-primary" [disabled]="!isFormValid()" (click)="onSubmit()">
+          <span class="btn-txt">Add task ✓</span>
+        </button>
         }
       </div>
     </section>
   </div>
 
   @if (tasksService.editMode) {
-    <div class="dialog-footer">
-      <button class="btn-primary" (click)="tasksService.exidEditMode(getFullTask())">
-        <span class="btn-txt">Ok &#10003;</span>
-      </button>
-    </div>
+  <div class="dialog-footer">
+    <button class="btn-primary" (click)="tasksService.exidEditMode(getFullTask())">
+      <span class="btn-txt">Ok &#10003;</span>
+    </button>
+  </div>
   }
 </div>
