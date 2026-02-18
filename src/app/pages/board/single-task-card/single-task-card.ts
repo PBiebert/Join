@@ -126,7 +126,6 @@ export class SingleTaskCard {
     if (this.task?.id) {
       this.taskClicked.emit(this.task.id);
       this.tasksService.currentTask = this.task;
-      console.log(this.task);
     }
   }
 }

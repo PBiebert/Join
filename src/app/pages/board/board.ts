@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BreakpointObserver } from '@angular/cdk/layout';
+
 import {
   CdkDrag,
   CdkDragDrop,
@@ -44,9 +46,20 @@ import { RouterLink } from '@angular/router';
 export class Board {
   /** Zugriff auf den zentralen TasksService (Firebase-Daten). */
   tasksService = inject(TasksService);
+  private breakpointObserver = inject(BreakpointObserver);
 
   /** Suchbegriff für die Task-Filterung. */
   searchTerm = '';
+  isMobile = false;
+
+
+  constructor() {
+    this.breakpointObserver
+      .observe(['(max-width: 768px)'])
+      .subscribe(result => {
+        this.isMobile = result.matches;
+      });
+  }
 
   /**
    * Filtert Tasks nach Status, sortiert nach order-Feld.
