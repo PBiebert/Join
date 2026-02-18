@@ -210,8 +210,6 @@ export class AddTask implements OnInit, OnDestroy {
   clearSubtaskInput() {
     console.log('clearSubtaskInput called'); // Debug-Log
     this.newSubtaskTitle = '';
-    // Manuelle Change Detection um sicherzustellen, dass das UI aktualisiert wird
-    this.ChangeDetectorRef.detectChanges();
   }
 
   // Helper to generate unique IDs for subtasks
@@ -278,7 +276,6 @@ export class AddTask implements OnInit, OnDestroy {
     
     // Reset validation flags
     this.categoryError = false;
-    this.formSubmitted = false;
 
     // Reset form validation states
     if (this.taskForm) {
