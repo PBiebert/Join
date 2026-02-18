@@ -46,6 +46,9 @@ export class AddTask implements AfterViewInit, OnDestroy {
   selectedOption: string = 'Select contacts to assign';
   options: string[] = ['Option_1', 'Option_2', 'Option_3'];
 
+  // Neue Property für Form-Submit-Status
+  formSubmitted: boolean = false;
+
   constructor(private ChangeDetectorRef: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
@@ -118,6 +121,9 @@ export class AddTask implements AfterViewInit, OnDestroy {
     if (this.contactsSubscription) {
       this.contactsSubscription.unsubscribe();
     }
+    if (this.subEditMode) {
+      this.subEditMode.unsubscribe();
+    }
   }
 
   async loadContacts() {
@@ -186,8 +192,10 @@ export class AddTask implements AfterViewInit, OnDestroy {
     this.taskData.priority = priority;
   }
 
-  // Subtask Handling
+  // Subtask Handling - KORRIGIERT
   addSubtask() {
+    console.log('addSubtask called with value:', this.newSubtaskTitle); // Debug-Log
+    
     if (this.newSubtaskTitle && this.newSubtaskTitle.trim()) {
       if (!this.taskData.subtasks) {
         this.taskData.subtasks = [];
@@ -199,7 +207,12 @@ export class AddTask implements AfterViewInit, OnDestroy {
         completed: false,
       });
 
-      this.newSubtaskTitle = '';
+      // Subtask clear machen nach dem Hinzufügen
+      this.clearSubtaskInput();
+      
+      console.log('Subtask added, current subtasks:', this.taskData.subtasks); // Debug-Log
+    } else {
+      console.log('No subtask title to add'); // Debug-Log
     }
   }
 
@@ -209,8 +222,12 @@ export class AddTask implements AfterViewInit, OnDestroy {
     }
   }
 
+  // Subtask Input clear - KORRIGIERT
   clearSubtaskInput() {
+    console.log('clearSubtaskInput called'); // Debug-Log
     this.newSubtaskTitle = '';
+    // Manuelle Change Detection um sicherzustellen, dass das UI aktualisiert wird
+    this.ChangeDetectorRef.detectChanges();
   }
 
   // Helper to generate unique IDs for subtasks
@@ -231,17 +248,29 @@ export class AddTask implements AfterViewInit, OnDestroy {
   isFormValid(): boolean {
     // Check category separately since it's not in the ngForm
     if (this.selectedCategory === 'Select category') {
-      this.categoryError = true;
       return false;
     }
-
     return !!(this.taskData.title && this.taskData.title.trim() && this.taskData.dueDate);
   }
 
   async onSubmit() {
-    if (!this.isFormValid()) {
+    // Setze formSubmitted auf true, um Fehler anzuzeigen
+    this.formSubmitted = true;
+    
+    // Prüfe alle required fields
+    const titleValid = this.taskData.title && this.taskData.title.trim();
+    const dueDateValid = this.taskData.dueDate;
+    const categoryValid = this.selectedCategory !== 'Select category';
+    
+    // Setze categoryError separat
+    this.categoryError = !categoryValid;
+    
+    // Wenn eines der required fields fehlt, brich ab
+    if (!titleValid || !dueDateValid || !categoryValid) {
+      console.log('Validation failed - required fields missing');
       return;
     }
+
     try {
       // Setze die Kategorie basierend auf der Auswahl
       this.taskData.category = this.selectedCategory as 'User Story' | 'Technical Task';
@@ -278,7 +307,10 @@ export class AddTask implements AfterViewInit, OnDestroy {
     this.selectedOption = 'Select contacts to assign';
     this.selectedCategory = 'Select category';
     this.newSubtaskTitle = '';
+    
+    // Reset validation flags
     this.categoryError = false;
+    this.formSubmitted = false;
 
     // Reset form validation states
     if (this.taskForm) {

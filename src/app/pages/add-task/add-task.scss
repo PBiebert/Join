@@ -132,7 +132,7 @@ app-nav {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 32px;
-  padding: 64px 32px 64px 128px;
+  padding: 32px 32px 64px 128px;
 }
 
 h1 {
@@ -230,7 +230,7 @@ p {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 64px 64px 64px 32px;
 }
 
@@ -457,7 +457,7 @@ p {
 
 .category-options {
   position: absolute;
-  top: 80%;
+  top: 110%;
   left: 0;
   width: 100%;
   background: white;
@@ -465,6 +465,10 @@ p {
   display: flex;
   flex-direction: column;
   z-index: 100;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.35);
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .category-option {
@@ -483,6 +487,34 @@ p {
 
 .subtask-title {
   margin-top: 32px;
+}
+
+.subtask-list{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 440px;
+  max-height: 68px;
+  min-width: 68px;
+  padding: 10px;
+  
+  border-radius: 10px;
+  overflow-y: scroll;
+  background-color: rgba(209, 209, 209, 0.3);
+
+}
+
+.subtask-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+
+    &:hover{
+       background-color: rgba(209, 209, 209, 0.35);
+      
+    }
 }
 
 .create-clear-btns-container {
@@ -505,6 +537,7 @@ p {
   transition: var(--transition-fast);
 }
 
+// KORRIGIERTE .input-wrapper Section - Icons sind immer sichtbar und klickbar
 .input-wrapper {
   position: relative;
   display: inline-block;
@@ -512,14 +545,9 @@ p {
 
   input {
     width: 100%;
-    padding-right: 50px;
+    padding-right: 70px; // Mehr Platz für die Icons
     height: 40px;
     box-sizing: border-box;
-
-    &:focus + .input-icons {
-      opacity: 1;
-      pointer-events: auto;
-    }
   }
 
   .input-icons {
@@ -528,9 +556,9 @@ p {
     top: 50%;
     transform: translateY(-50%);
     display: flex;
-    gap: 8px;
-    opacity: 0;
-    pointer-events: none;
+    gap: 4px;
+    align-items: center;
+    pointer-events: none; // Container ist nicht klickbar
 
     .icon {
       width: 24px;
@@ -538,17 +566,32 @@ p {
       border-radius: 50%;
       cursor: pointer;
       transition: background-color 0.2s;
+      pointer-events: auto; // Icons sind klickbar!
+      opacity: 1; // Immer sichtbar
+      z-index: 10;
 
       &:hover {
         background-color: rgba(209, 209, 209, 0.3);
       }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+
+    .input-line {
+      height: 24px;
+      width: 1px;
+      background-color: #d1d1d1;
+      pointer-events: none; // Linie nicht klickbar
     }
   }
 
-  .input-line {
-    height: 24px;
-    width: 1px;
-    background-color: #d1d1d1;
+  // Optional: Icons hervorheben wenn Input fokussiert ist
+  input:focus + .input-icons {
+    .icon {
+      opacity: 1;
+    }
   }
 }
 
