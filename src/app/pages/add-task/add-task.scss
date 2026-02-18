@@ -5,26 +5,89 @@
   height: 100%;
 }
 
+.checkbox-wrapper {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  flex-shrink: 0;
+}
 
+.checkmark-box {
+  width: 16px;
+  height: 16px;
+  background-image: url('/assets/icons/checkmark.svg');
+  background-position: center center;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
-.assign-option{
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2a9d8f;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.assign-option {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 8px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   border-radius: 6px;
 }
 
+.assign-option:not(.selected):hover {
+  background-color: var(--color-light-grey);
+}
 
+.assign-option.selected {
+  background-color: var(--color-dark-blue);
+  color: #f6f7f8;
 
-.contact-option{
+  .checkmark {
+    color: #fff;
+  }
+
+  .checkmark-box {
+    filter: brightness(0) invert(1);
+  }
+}
+
+.assign-option.selected:hover {
+  background-color: var(--color-dark-blue);
+  cursor: pointer;
+
+  .contact-name {
+    color: #f6f7f8;
+  }
+
+  .checkmark {
+    color: #fff;
+  }
+
+  .checkmark-box {
+    filter: brightness(0) invert(1);
+  }
+}
+
+.contact-option {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 16px;
 }
-
 
 .icon {
   display: flex;
@@ -63,7 +126,6 @@ app-nav {
 }
 
 // From here my scss code
-
 .form-container {
   display: flex;
   flex-direction: column;
@@ -97,7 +159,6 @@ form {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-
   width: 440px;
   height: 376px;
   gap: 32px;
@@ -127,7 +188,6 @@ textarea {
   border: 1px solid var(--color-light-grey);
   border-radius: 10px;
   padding: 10px;
-
   width: 440px;
 
   &::placeholder {
@@ -191,11 +251,9 @@ p {
   justify-content: center;
   align-items: center;
   gap: 8px;
-
   width: 136px;
   height: 56px;
   padding: 10px;
-
   background-color: #fff;
   border: 1px solid var(--color-light-grey);
   border-radius: 10px;
@@ -268,6 +326,7 @@ p {
     filter: brightness(0) invert(1);
   }
 }
+
 .assigned-to-title {
   margin-top: 32px;
 }
@@ -300,13 +359,11 @@ p {
   border-color: var(--color-light-blue);
 }
 
-
 .assign-selected {
   font-family: Inter;
   font-weight: 400;
   font-size: 20px;
   line-height: 120%;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -317,7 +374,6 @@ p {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -352,9 +408,6 @@ p {
   z-index: 100;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.35);
   overflow-y: auto;
-}
-
-.assign-options{
   padding: 10px;
   border-radius: 10px;
 }
@@ -396,7 +449,6 @@ p {
   font-weight: 400;
   font-size: 20px;
   line-height: 120%;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -513,7 +565,6 @@ p {
 }
 
 // Dialog Modus
-
 app-header.d-none,
 app-nav.d-none {
   display: none;
