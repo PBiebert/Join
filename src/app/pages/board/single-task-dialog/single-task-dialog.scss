@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 48px;
+  padding: 48px 40px;
   overflow-y: auto;
   max-width: 525px;
   width: 90%;
@@ -79,7 +79,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
 }
 
 .dialog-header-edit-mode {
@@ -256,7 +255,6 @@
 .subtasks-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   width: fit-content;
 }
 
@@ -285,8 +283,8 @@
   transition: var(--transition-fast);
 
   img {
-    width: 100%;
-    height: 100%;
+    width: 12px;
+    height: 12px;
     object-fit: contain;
   }
 }
