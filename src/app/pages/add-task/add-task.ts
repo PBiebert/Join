@@ -247,6 +247,17 @@ export class AddTask implements OnInit, OnDestroy {
     }
   }
 
+  // NEUE METHODE für Version 1
+  onBlurSubtaskEdit() {
+    // Kleine Verzögerung, damit der Click auf die Icons noch registriert wird
+    setTimeout(() => {
+      // Prüfen ob wir noch im Edit-Modus sind (nicht durch Icon-Click abgebrochen)
+      if (this.editingSubtaskIndex !== null) {
+        this.saveSubtaskEdit();
+      }
+    }, 200);
+  }
+
   cancelSubtaskEdit() {
     this.editingSubtaskIndex = null;
     this.editingSubtaskTitle = '';

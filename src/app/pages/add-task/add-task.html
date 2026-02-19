@@ -169,11 +169,14 @@
           @for (subtask of taskData.subtasks; track subtask.id; let i = $index) {
           <div class="subtask-item">
             @if (editingSubtaskIndex === i) {
-            <!-- Edit Mode -->
+            <!-- Edit Mode - Version 1: Mit onBlurSubtaskEdit() -->
             <div class="subtask-edit-container">
-              <input type="text" [(ngModel)]="editingSubtaskTitle" (keyup.enter)="saveSubtaskEdit()"
-                (blur)="saveSubtaskEdit()" #editInput class="subtask-edit-input"
-                [ngModelOptions]="{standalone: true}" />
+              <input type="text" [(ngModel)]="editingSubtaskTitle" 
+                     (keyup.enter)="saveSubtaskEdit()"
+                     (blur)="onBlurSubtaskEdit()" 
+                     #editInput 
+                     class="subtask-edit-input"
+                     [ngModelOptions]="{standalone: true}" />
               <div class="subtask-icons">
                 <div (click)="saveSubtaskEdit(); $event.stopPropagation()">
                   <img src="/assets/icons/small_approv_icon.svg" alt="Save" class="icon" />
