@@ -500,7 +500,7 @@ p {
   border-radius: 10px;
   overflow-y: scroll;
   outline-width: 1px;
-  outline-color: var(--color-dark-blue);
+  outline-color: var(--color-light-grey);
   outline-style: solid;
 }
 
@@ -811,7 +811,6 @@ app-nav.d-none {
 .subtask-edit-input {
   width: 100%;
   border-radius: 4px;
-  font-family: Inter;
   font-size: 16px;
   outline: none;
 }

@@ -136,7 +136,6 @@ export class AddTask implements OnInit, OnDestroy {
         },
       );
     } catch (error) {
-      console.error('Error loading contacts:', error);
       this.loadingContacts = false;
     }
   }
@@ -183,9 +182,7 @@ export class AddTask implements OnInit, OnDestroy {
   }
 
   // Subtask Handling - KORRIGIERT
-  addSubtask() {
-    console.log('addSubtask called with value:', this.newSubtaskTitle); // Debug-Log
-    
+  addSubtask() {    
     if (this.newSubtaskTitle && this.newSubtaskTitle.trim()) {
       if (!this.taskData.subtasks) {
         this.taskData.subtasks = [];
@@ -199,10 +196,6 @@ export class AddTask implements OnInit, OnDestroy {
 
       // Subtask clear machen nach dem Hinzufügen
       this.clearSubtaskInput();
-      
-      console.log('Subtask added, current subtasks:', this.taskData.subtasks); // Debug-Log
-    } else {
-      console.log('No subtask title to add'); // Debug-Log
     }
   }
 
@@ -266,7 +259,6 @@ export class AddTask implements OnInit, OnDestroy {
 
   // Subtask Input clear - KORRIGIERT
   clearSubtaskInput() {
-    console.log('clearSubtaskInput called'); // Debug-Log
     this.newSubtaskTitle = '';
   }
 
