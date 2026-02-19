@@ -485,6 +485,20 @@
 @media (max-width: 500px) {
   .dialog-card {
     padding: 10px;
+    gap: 4px;
+  }
+  .assigned-list {
+    max-height: 100px;
+    padding: 8px;
+  }
+
+  .assigned-user {
+  padding: 0;
+  }
+
+  .subtasks-list {
+    max-height: 70px;
+    padding: 4px;
   }
 }
 
