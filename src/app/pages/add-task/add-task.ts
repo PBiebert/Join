@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Nav } from '../../shared/components/nav/nav';
 import { Header } from '../../shared/components/header/header';
 import { CommonModule } from '@angular/common';
@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class AddTask implements OnInit, OnDestroy {
   @ViewChild('taskForm') taskForm!: NgForm; // Referenz zum Formular hinzugefügt
+  @ViewChild('editInput') editInput!: ElementRef; // Referenz für Edit-Input
 
   tasksService = inject(TasksService);
   private subEditMode!: Subscription;
@@ -89,6 +90,11 @@ export class AddTask implements OnInit, OnDestroy {
 
   // Subtask handling
   newSubtaskTitle: string = '';
+
+  // Subtask Edit handling - NEU HINZUGEFÜGT
+  editingSubtaskIndex: number | null = null;
+  editingSubtaskTitle: string = '';
+  originalSubtaskTitle: string = '';
 
   async ngOnInit() {
     await this.loadContacts();
@@ -204,6 +210,47 @@ export class AddTask implements OnInit, OnDestroy {
     if (this.taskData.subtasks) {
       this.taskData.subtasks.splice(index, 1);
     }
+    
+    // Wenn der gelöschte Subtask gerade im Edit-Modus war, Edit-Modus beenden
+    if (this.editingSubtaskIndex === index) {
+      this.cancelSubtaskEdit();
+    }
+  }
+
+  // Subtask Edit Methods - NEU HINZUGEFÜGT
+  startEditingSubtask(index: number, currentTitle: string) {
+    this.editingSubtaskIndex = index;
+    this.editingSubtaskTitle = currentTitle;
+    this.originalSubtaskTitle = currentTitle;
+    
+    // Fokussiere das Input-Feld nach einem kurzen Delay
+    setTimeout(() => {
+      if (this.editInput) {
+        this.editInput.nativeElement.focus();
+      }
+    });
+  }
+
+  saveSubtaskEdit() {
+    if (this.editingSubtaskIndex !== null && 
+        this.taskData.subtasks && 
+        this.editingSubtaskTitle.trim()) {
+      
+      // Speichere den bearbeiteten Titel
+      this.taskData.subtasks[this.editingSubtaskIndex].title = this.editingSubtaskTitle.trim();
+      
+      // Beende den Edit-Modus
+      this.cancelSubtaskEdit();
+    } else if (this.editingSubtaskIndex !== null && !this.editingSubtaskTitle.trim()) {
+      // Wenn der Titel leer ist, breche ab und behalte den Originaltitel
+      this.cancelSubtaskEdit();
+    }
+  }
+
+  cancelSubtaskEdit() {
+    this.editingSubtaskIndex = null;
+    this.editingSubtaskTitle = '';
+    this.originalSubtaskTitle = '';
   }
 
   // Subtask Input clear - KORRIGIERT
@@ -285,6 +332,9 @@ export class AddTask implements OnInit, OnDestroy {
     // Schließe alle offenen Dropdowns
     this.isOpen = false;
     this.isCategoryOpen = false;
+
+    // Reset edit mode - NEU HINZUGEFÜGT
+    this.cancelSubtaskEdit();
   }
 
   setCurrentTaskData(currenTask: SingleTask) {
