@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
@@ -43,7 +43,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './board.html',
   styleUrl: './board.scss',
 })
-export class Board {
+export class Board implements OnDestroy {
   /** Zugriff auf den zentralen TasksService (Firebase-Daten). */
   tasksService = inject(TasksService);
   private breakpointObserver = inject(BreakpointObserver);
@@ -59,8 +59,12 @@ export class Board {
       .subscribe(result => {
         this.isMobile = result.matches;
       });
+      document.body.classList.add('board-page');
   }
-
+  ngOnDestroy(): void {
+    document.body.classList.remove('board-page');
+  }
+  
   /**
    * Filtert Tasks nach Status, sortiert nach order-Feld.
    * Wendet optional den Suchbegriff an.
