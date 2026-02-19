@@ -376,13 +376,6 @@
  * Responsive Design
  * ================================================================ */
 @media (max-width: 1024px) {
-  .card-slide-in {
-    animation: cardSlideInFromBottom 0.5s ease-in-out forwards;
-  }
-
-  .card-slide-out {
-    animation: cardSlideOutToBottom 0.5s ease-in-out forwards;
-  }
 
   @keyframes cardSlideInFromBottom {
     from {
@@ -439,10 +432,6 @@
     width: 42px;
     height: 42px;
     font-size: 16px;
-  }
-
-  .dialog-footer {
-    flex-direction: column;
   }
 }
 
