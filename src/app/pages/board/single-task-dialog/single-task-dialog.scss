@@ -487,3 +487,10 @@
     padding: 10px;
   }
 }
+
+@media (max-width: 333px) {
+  .task-title {
+    text-align: center;
+  }
+}
+
