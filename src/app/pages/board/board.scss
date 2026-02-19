@@ -287,18 +287,18 @@ app-nav {
 
 @media (max-width: 1024px) {
 
-  .board-mobile-nav app-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    z-index: 100;
-  }
+  // .board-mobile-nav app-nav {
+  //   position: fixed;
+  //   bottom: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 80px;
+  //   z-index: 100;
+  // }
 
-  .board-mobile-nav .board-content {
-    padding-bottom: 80px;
-  }
+  // .board-mobile-nav .board-content {
+  //   padding-bottom: 80px;
+  // }
 
   app-nav {
     position: fixed;
@@ -334,18 +334,22 @@ app-nav {
     scrollbar-width: none; 
   }
 
-  app-single-task-card,
-  .task-card {
+  app-single-task-card {
     touch-action: pan-x pan-y;
   }
-  
   
   /* CDK drag disabled */
   .cdk-drag {
     touch-action: pan-x !important;
   }
+}
 
-  //'''''''''''''''''''''''''''''''''''''''''''
+
+/* ============================================
+   900px - 320px: Header Grid + Plus Button
+   ============================================ */
+  @media (max-width: 900px) {
+
   .board-header {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -376,9 +380,21 @@ app-nav {
       }
     }
 
-   .btn-primary {
-      position: relative;
-      top: -80px;
+    .btn-primary {
+      position: absolute;
+      top: 193px;
+      right: 40px;
+      width: 40px;
+      height: 40px;
+      font-size: 0;
+      padding: 0;
+      gap: 0;
+      border-radius: 10px;
+      
+      .plus-pure {
+        width: 24px;
+        height: 24px;
+      }
     }
 
     /* Angular component barrier'ı aş */
@@ -415,93 +431,5 @@ app-nav {
     padding-bottom: 80px;
   }
   }
-  // //________________________________________
-  //   h1 {
-  //   font-size: 47px;
-  // }
-
-  // .board-inner {
-  //   padding: 40px 20px;
-  // }
-
-  // .board-header {
-  //   gap: 1rem;
-  // }
-
-  // .board-actions {
-  //   padding-right: 0;
-    
-  //   .btn-primary {
-  //     width: 40px;
-  //     height: 40px;
-  //     padding: 0;
-  //     gap: 0;
-  //     border-radius: 10px;
-  //     font-size: 0;
-       
-  //     .plus-pure {
-  //       width: 24px;
-  //       height: 24px;
-  //     }
-  //   }
-  // }
-
-  //  .board-columns {
-  //   flex-direction: column;
-  //   gap: 2rem;
-  //   height: auto;
-  // }
-
-  // .board-column {
-  //   width: 100%;
-  // }
-
-  // .column-header {
-  //   width: 396px;
-  //   gap: 0;
-
-  //   h2 {
-  //     font-size: 27px;
-  //   }
-  // }
-
-   
-  // .column-content {
-  //   flex-direction: row;
-  //   overflow-x: auto;
-  //   overflow-y: visible;
-  //   max-width: 100%;
-  //   padding: 0.5rem 0;
-
-  //   &::-webkit-scrollbar {
-  //     height: 6px;
-  //   }
-    
-  //   &::-webkit-scrollbar-track {
-  //     background: #f1f1f1;
-  //     border-radius: 10px;
-  //   }
-    
-  //   &::-webkit-scrollbar-thumb {
-  //     background: var(--color-light-grey);
-  //     border-radius: 10px;
-      
-  //     &:hover {
-  //       background: #999;
-  //     }
-  //   }
-  // }
-
-  // /* Empty State */
-  // .empty-state {
-  //   width: 392px;
-  //   height: 48px;
-  //   flex-shrink: 0;
-  // }
- 
-  // /* CDK Drag Placeholder - mobile width */
-  // .cdk-drag-placeholder {
-  //   width: 252px;
-  //   flex-shrink: 0;
-  // }
 }
+
