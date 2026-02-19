@@ -45,9 +45,13 @@ export class TasksService implements OnDestroy {
   }
 
   private initBreakpointObserver(): void {
-    this.breakpointObserver.observe(['(max-width:900px)']).subscribe((result) => {
+    this.breakpointObserver.observe(['(max-width:850px)']).subscribe((result) => {
       this.smallView = result.matches;
-      this.openAddTaskDialogSubject.next(this.addTaskDialogIsOpen);
+      if (this.addTaskDialogIsOpen) {
+        this.openAddTaskDialogSubject.next(true);
+      } else {
+        // this.openAddTaskDialogSubject.next(false);
+      }
     });
   }
 
