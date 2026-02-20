@@ -161,11 +161,9 @@
                   <h2>Done</h2>
                   @if (!tasksService.smallView) {
                     <button class="add-task-btn" (click)="tasksService.openAddTaskDialog('Done')">
-                      <img src="assets/icons/plus.svg" alt="Add Task" />
                     </button>
                   } @else {
                     <button class="add-task-btn" [routerLink]="['/add-task']">
-                      <img src="assets/icons/plus.svg" alt="Add Task" />
                     </button>
                   }
                 </div>
