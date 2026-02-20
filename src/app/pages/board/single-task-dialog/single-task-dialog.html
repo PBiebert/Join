@@ -9,6 +9,7 @@
       [class.card-slide-out]="isClosing"
       (click)="onDialogContentClick($event)"
     >
+      <div class="dialog-card-inner">
       @if (!tasksService.editMode) {
         <!-- Header: Close Button -->
         <div class="dialog-header">
@@ -128,6 +129,7 @@
         </div>
         <app-add-task></app-add-task>
       }
+      </div>
     </div>
   </div>
 }

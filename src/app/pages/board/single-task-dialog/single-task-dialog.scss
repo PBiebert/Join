@@ -20,25 +20,34 @@
  * Dialog-Karte – Die weiße Box mit dem eigentlichen Inhalt.
  * ================================================================ */
 .dialog-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 30px 40px 10px 40px;
-  overflow-y: auto;
   max-width: 525px;
   width: 90%;
   max-height: 95vh;
   background: white;
   border-radius: 30px;
+  padding: 20px 0;
+}
 
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+.dialog-card-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 40px 10px 40px;
+  overflow-y: auto;
+  max-height: calc(95vh - 20px);
 
   &::-webkit-scrollbar {
     width: 6px;
   }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
   &::-webkit-scrollbar-track {
     background: transparent;
+    margin-top: 10px;
+    margin-bottom: 25px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -486,9 +495,14 @@
 
 @media (max-width: 500px) {
   .dialog-card {
+    padding: 10px 0;
+  }
+
+  .dialog-card-inner {
     padding: 10px;
     gap: 4px;
   }
+
   .assigned-list {
     max-height: 100px;
     padding: 8px;
