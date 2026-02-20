@@ -64,7 +64,7 @@ app-nav {
   width: 100%;
   max-width: 1208px;
   gap: 2rem;
-  padding: 80px 32px;
+  padding: 80px 16px;
 }
 
 /* ================================================================
@@ -203,8 +203,8 @@ app-nav {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  overflow-y: auto; //NICHT SICHER, OB WIR DAS BRAUCHEN
-  max-height: 70vh;  //NICHT SICHER, OB WIR DAS BRAUCHEN
+  // overflow-y: auto; //NICHT SICHER, OB WIR DAS BRAUCHEN
+  // max-height: 70vh;  //NICHT SICHER, OB WIR DAS BRAUCHEN
 }
 
 /* Leerer Zustand einer Spalte */

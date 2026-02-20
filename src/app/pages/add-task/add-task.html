@@ -1,23 +1,31 @@
-<app-nav [ngClass]="{
+<app-nav
+  [ngClass]="{
     'd-none': (tasksService.addTaskDialogIsOpen && !tasksService.smallView) || tasksService.editMode,
     'nav-add-task-context': true
-  }"></app-nav>
+  }"
+></app-nav>
 
-<div class="wrapper" (click)="$event.stopPropagation()" [ngClass]="{
+<div
+  class="wrapper"
+  (click)="$event.stopPropagation()"
+  [ngClass]="{
     'dialog-mode': tasksService.addTaskDialogIsOpen && !tasksService.smallView,
     'edit-mode': tasksService.editMode,
-  }">
-  <app-header [ngClass]="{
+  }"
+>
+  <app-header
+    [ngClass]="{
       'd-none':
         (tasksService.addTaskDialogIsOpen && !tasksService.smallView) || tasksService.editMode,
-    }"></app-header>
+    }"
+   ></app-header>
 
   <div class="contacts-wrapper add-Task-Container">
 
       <!-- LEFT SIDE -->
       <section class="form-container">
         <h1>Add Task</h1>
-
+ 
         <form #taskForm="ngForm" (ngSubmit)="onSubmit()">
           <!-- TITLE -->
           <div class="input-fields">
@@ -229,10 +237,10 @@
   </div>
 
   @if (tasksService.editMode) {
-  <div class="dialog-footer">
-    <button class="btn-primary" (click)="tasksService.exidEditMode(getFullTask())">
-      <span class="btn-txt">Ok &#10003;</span>
-    </button>
-  </div>
+    <div class="dialog-footer">
+      <button class="btn-primary" (click)="tasksService.exidEditMode(getFullTask())">
+        <span class="btn-txt">Ok &#10003;</span>
+      </button>
+    </div>
   }
 </div>

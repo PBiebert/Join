@@ -182,7 +182,7 @@ export class AddTask implements OnInit, OnDestroy {
   }
 
   // Subtask Handling - KORRIGIERT
-  addSubtask() {    
+  addSubtask() {
     if (this.newSubtaskTitle && this.newSubtaskTitle.trim()) {
       if (!this.taskData.subtasks) {
         this.taskData.subtasks = [];
@@ -203,7 +203,7 @@ export class AddTask implements OnInit, OnDestroy {
     if (this.taskData.subtasks) {
       this.taskData.subtasks.splice(index, 1);
     }
-    
+
     // Wenn der gelöschte Subtask gerade im Edit-Modus war, Edit-Modus beenden
     if (this.editingSubtaskIndex === index) {
       this.cancelSubtaskEdit();
@@ -215,7 +215,7 @@ export class AddTask implements OnInit, OnDestroy {
     this.editingSubtaskIndex = index;
     this.editingSubtaskTitle = currentTitle;
     this.originalSubtaskTitle = currentTitle;
-    
+
     // Fokussiere das Input-Feld nach einem kurzen Delay
     setTimeout(() => {
       if (this.editInput) {
@@ -225,13 +225,14 @@ export class AddTask implements OnInit, OnDestroy {
   }
 
   saveSubtaskEdit() {
-    if (this.editingSubtaskIndex !== null && 
-        this.taskData.subtasks && 
-        this.editingSubtaskTitle.trim()) {
-      
+    if (
+      this.editingSubtaskIndex !== null &&
+      this.taskData.subtasks &&
+      this.editingSubtaskTitle.trim()
+    ) {
       // Speichere den bearbeiteten Titel
       this.taskData.subtasks[this.editingSubtaskIndex].title = this.editingSubtaskTitle.trim();
-      
+
       // Beende den Edit-Modus
       this.cancelSubtaskEdit();
     } else if (this.editingSubtaskIndex !== null && !this.editingSubtaskTitle.trim()) {
@@ -323,7 +324,7 @@ export class AddTask implements OnInit, OnDestroy {
     this.selectedOption = 'Select contacts to assign';
     this.selectedCategory = 'Select category';
     this.newSubtaskTitle = '';
-    
+
     // Reset validation flags
     this.categoryError = false;
 
