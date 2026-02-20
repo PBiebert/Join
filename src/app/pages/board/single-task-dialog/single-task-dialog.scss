@@ -229,6 +229,18 @@
   padding: 8px;                
   border-radius: 8px; 
   transition: var(--transition-fast);
+  
+  // &:hover {   
+  //   background: var(--color-medium-blue);
+    
+  //   .user-name {
+  //     color: white;
+  //   }
+    
+  //   .avatar-large {
+  //     border-color: white;
+  //   }
+  // }
 }
 
 .avatar-large {
