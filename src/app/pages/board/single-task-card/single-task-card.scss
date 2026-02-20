@@ -10,6 +10,7 @@
   flex-direction: column;
   gap: 12px;
   max-width: 252px;
+   min-width: 150px;
 
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
@@ -47,6 +48,13 @@
   text-overflow: ellipsis;
   line-height: 1.4;
   hyphens: auto; //Automatische Silbentrennung
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
 }
 
 // Task Description
@@ -143,7 +151,7 @@
 
 @media (max-width: 1024px) {
   .task-card {
-    max-width: 220px;
+    max-width: 252px;
   }
 
   .task-badge {
