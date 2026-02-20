@@ -40,11 +40,11 @@
   &::-webkit-scrollbar-track {
     background: transparent;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    
+
     &:hover {
       background: rgba(0, 0, 0, 0.5);
     }
@@ -53,6 +53,19 @@
 
 .dialog-card-edit-mode {
   padding: 1rem;
+  height: 95vh;
+  max-height: 95vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  app-add-task {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* ================================================================
@@ -242,8 +255,8 @@
   align-items: center;
   gap: 16px;
   margin-left: 15px;
-  padding: 8px;                
-  border-radius: 8px; 
+  padding: 8px;
+  border-radius: 8px;
   transition: var(--transition-fast);
 }
 
@@ -413,7 +426,6 @@
  * Responsive Design
  * ================================================================ */
 @media (max-width: 1024px) {
-
   @keyframes cardSlideInFromBottom {
     from {
       transform: translateY(100vh);
@@ -483,7 +495,7 @@
   }
 
   .assigned-user {
-  padding: 0;
+    padding: 0;
   }
 
   .subtasks-list {
@@ -497,4 +509,3 @@
     text-align: center;
   }
 }
-
