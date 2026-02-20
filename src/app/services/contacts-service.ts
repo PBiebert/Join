@@ -43,7 +43,7 @@ export class ContactsService implements OnDestroy {
    * NEU: BehaviorSubject für Echtzeit-Kontakte (für AddTask Komponente)
    */
   private contactsSubject = new BehaviorSubject<SingleContact[]>([]);
-  
+
   /**
    * NEU: Observable für Echtzeit-Kontakte (für AddTask Komponente)
    */
@@ -88,7 +88,7 @@ export class ContactsService implements OnDestroy {
       });
       this.updateContactGroups();
       this.refreshActivContact();
-      
+
       // NEU: Aktualisiere auch das contactsSubject
       this.contactsSubject.next(this.contacts);
     });
@@ -102,15 +102,15 @@ export class ContactsService implements OnDestroy {
     try {
       const querySnapshot = await getDocs(this.getNotesRef());
       const loadedContacts: SingleContact[] = [];
-      
+
       querySnapshot.forEach((doc) => {
         loadedContacts.push(this.setContactObject(doc.data(), doc.id));
       });
-      
+
       this.contacts = loadedContacts;
       this.updateContactGroups();
       this.contactsSubject.next(this.contacts);
-      
+
       return loadedContacts;
     } catch (error) {
       console.error('Error loading contacts:', error);

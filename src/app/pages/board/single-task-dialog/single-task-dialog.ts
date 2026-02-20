@@ -91,6 +91,9 @@ export class SingleTaskDialog {
     this.isClosing = true;
     setTimeout(() => {
       this.isClosing = false;
+      if (this.tasksService.editMode) {
+        this.tasksService.exidEditMode(this.tasksService.currentTask);
+      }
       this.tasksService.closeTaskDialog();
     }, 500);
   }
