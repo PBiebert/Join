@@ -76,7 +76,8 @@ export class Board implements OnDestroy {
       .filter((task) => {
         const matchesStatus = task.status === status;
         if (!this.searchTerm) return matchesStatus;
-        const matchesSearch = task.title.toLowerCase().includes(this.searchTerm);
+        const matchesSearch = task.title.toLowerCase().includes(this.searchTerm) ||
+        (task.description ?? '').toLowerCase().includes(this.searchTerm);
         return matchesStatus && matchesSearch;
       })
       .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
