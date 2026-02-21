@@ -1,7 +1,5 @@
 @if (task) {
-  <!-- Overlay: Dunkler Hintergrund, Klick = Dialog schließen -->
   <div class="dialog-overlay" (click)="closeDialog()">
-    <!-- Karte: stopPropagation verhindert Schließen bei Klick ins Innere -->
     <div
       class="dialog-card"
       [ngClass]="{ 'dialog-card-edit-mode': tasksService.editMode }"
@@ -9,15 +7,13 @@
       [class.card-slide-out]="isClosing"
       (click)="onDialogContentClick($event)"
     >
-      <div class="dialog-card-inner">
       @if (!tasksService.editMode) {
-        <!-- Header: Close Button -->
+
+        <!-- ✅ Header: dialog-card-inner DIŞINDA, sabit -->
         <div class="dialog-header">
-          <!-- Category Badge -->
           <span class="task-badge" [ngClass]="badgeClass">
             {{ task.category }}
           </span>
-
           <button class="close-btn" (click)="closeDialog()" aria-label="Close Dialog">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
@@ -30,88 +26,81 @@
           </button>
         </div>
 
-        <!-- Task Title -->
-        <h1 class="task-title">{{ task.title }}</h1>
+        <!-- ✅ Sadece scroll eden orta içerik -->
+        <div class="dialog-card-inner">
+          <h1 class="task-title">{{ task.title }}</h1>
+          <p class="task-description">{{ task.description }}</p>
 
-        <!-- Task Description -->
-        <p class="task-description">{{ task.description }}</p>
-
-        <!-- Due Date Section -->
-        <div class="info-section">
-          <span class="info-label">Due date:</span>
-          <span class="info-value">{{ formattedDueDate }}</span>
-        </div>
-
-        <!-- Priority Section -->
-        <div class="info-section">
-          <span class="info-label">Priority:</span>
-          <div class="priority-container">
-            <span class="info-value">{{ task.priority }}</span>
-            <img [src]="priorityIcon" [alt]="task.priority" class="priority-icon" />
+          <div class="info-section">
+            <span class="info-label">Due date:</span>
+            <span class="info-value">{{ formattedDueDate }}</span>
           </div>
-        </div>
 
-        <!-- Assigned To Section -->
-        @if (assignedUsers.length > 0) {
-          <div class="info-section-assigned">
-            <span class="info-label">Assigned To:</span>
-            <div class="assigned-list">
-              @for (user of assignedUsers; track user.id) {
-                <div class="assigned-user">
-                  <div class="avatar-large" [ngClass]="user.color">
-                    {{ user.initials }}
-                  </div>
-                  <span class="user-name">{{ user.name }}</span>
-                </div>
-              }
+          <div class="info-section">
+            <span class="info-label">Priority:</span>
+            <div class="priority-container">
+              <span class="info-value">{{ task.priority }}</span>
+              <img [src]="priorityIcon" [alt]="task.priority" class="priority-icon" />
             </div>
           </div>
-        }
 
-        <!-- Subtasks Section -->
-        @if (task.subtasks && task.subtasks.length > 0) {
-          <div class="info-section-subtasks">
-            <span class="info-label">Subtasks</span>
-            <div class="subtasks-list">
-              @for (subtask of task.subtasks; track subtask.id) {
-                <label
-                  class="subtask-item"
-                  (click)="onSubtaskToggle(subtask.id, subtask.completed)"
-                >
-                  <div class="custom-checkbox" [class.checked]="subtask.completed">
-                    @if (subtask.completed) {
-                      <img src="assets/icons/checked_checkbox.svg" alt="checked" />
-                    } @else {
-                      <img src="assets/icons/empty-checkbox.svg" alt="unchecked" />
-                    }
+          @if (assignedUsers.length > 0) {
+            <div class="info-section-assigned">
+              <span class="info-label">Assigned To:</span>
+              <div class="assigned-list">
+                @for (user of assignedUsers; track user.id) {
+                  <div class="assigned-user">
+                    <div class="avatar-large" [ngClass]="user.color">
+                      {{ user.initials }}
+                    </div>
+                    <span class="user-name">{{ user.name }}</span>
                   </div>
-                  <span class="subtask-title" [class.completed]="subtask.completed">
-                    {{ subtask.title }}
-                  </span>
-                </label>
-              }
+                }
+              </div>
             </div>
-          </div>
-        }
+          }
 
-        <!-- Footer: Delete & Edit Buttons -->
+          @if (task.subtasks && task.subtasks.length > 0) {
+            <div class="info-section-subtasks">
+              <span class="info-label">Subtasks</span>
+              <div class="subtasks-list">
+                @for (subtask of task.subtasks; track subtask.id) {
+                  <label
+                    class="subtask-item"
+                    (click)="onSubtaskToggle(subtask.id, subtask.completed)"
+                  >
+                    <div class="custom-checkbox" [class.checked]="subtask.completed">
+                      @if (subtask.completed) {
+                        <img src="assets/icons/checked_checkbox.svg" alt="checked" />
+                      } @else {
+                        <img src="assets/icons/empty-checkbox.svg" alt="unchecked" />
+                      }
+                    </div>
+                    <span class="subtask-title" [class.completed]="subtask.completed">
+                      {{ subtask.title }}
+                    </span>
+                  </label>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- ✅ Footer: dialog-card-inner DIŞINDA, sabit -->
         <div class="dialog-footer">
           <button class="btn-delete" (click)="onDeleteTask()">
             <img src="assets/icons/delete.svg" alt="Delete" width="24" height="24" />
             Delete
           </button>
-
-          <!-- Divider -->
           <div class="button-divider"></div>
-
           <button class="btn-edit" (click)="tasksService.startEditMode()">
             <img src="assets/icons/edit.svg" alt="Edit" width="24" height="24" />
             Edit
           </button>
         </div>
+
       } @else {
         <div class="dialog-header dialog-header-edit-mode">
-          <!-- BTN Anpassen -->
           <button
             class="close-btn"
             (click)="tasksService.exidEditMode(tasksService.currentTask)"
@@ -129,7 +118,6 @@
         </div>
         <app-add-task></app-add-task>
       }
-      </div>
     </div>
   </div>
 }
